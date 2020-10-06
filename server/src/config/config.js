@@ -8,7 +8,7 @@ module.exports = {
         options: {
             dialect: process.env.DIALECT || 'mysql',
             host: process.env.HOST || 'localhost',
-            storage: path.resolve(__dirname, '../../tabtracker.sqlite')
+            storage: path.resolve(__dirname, '../../my_db.sql')
         }
     }
 
