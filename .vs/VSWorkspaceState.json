@@ -1,10 +1,16 @@
 {
   "ExpandedNodes": [
     "",
+    "\\client",
     "\\client\\src",
+    "\\client\\src\\components",
+    "\\client\\src\\router",
     "\\server",
-    "\\server\\src"
+    "\\server\\src",
+    "\\server\\src\\config",
+    "\\server\\src\\controllers",
+    "\\server\\src\\models"
   ],
-  "SelectedNode": "\\server\\src\\app.js",
+  "SelectedNode": "\\server\\src\\controllers\\AuthenticationController.js",
   "PreviewInSolutionExplorer": false
 }
