@@ -45,6 +45,7 @@ export default {
         })
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
+        //push to home 
         this.$router.push({
           name: 'songs'
         })

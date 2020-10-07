@@ -10,7 +10,10 @@ module.exports = {
             host: process.env.HOST || 'localhost',
             storage: path.resolve(__dirname, '../../my_db.sql')
         }
-    }
+    }, 
+    authentication: {
+        jwtSecret: process.env.JWT_SECRET || 'secret'
+      }
 
 }
 
