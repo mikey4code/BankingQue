@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon src/app.js --exec  \"npm run lint && node\"",
     "lint": "eslint src/**/*.js",
-    "start": "nodemon src/app.js --exec  \"npm run lint && node\""
+    "lint:fix": "eslint src/**/*.js  --fix",
+    "seed": "node seed"
   },
   "keywords": [],
   "author": "",
@@ -20,10 +22,12 @@
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.4",
-    "sequelize": "^6.3.5"
+    "sequelize": "^6.3.5",
+    "sqlite3": "^5.0.0"
   },
   "devDependencies": {
     "eslint": "^7.10.0",
-    "eslint-plugin-vue": "^6.2.2"
+    "eslint-plugin-vue": "^7.0.1",
+    "sequelize-cli": "^6.2.0"
   }
 }

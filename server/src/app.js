@@ -1,10 +1,11 @@
-const express = require('express')
+const express = require("express")
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const morgan = require('morgan')
+const morgan = require('morgan') 
 const { sequelize } = require('./models')
 const config = require('./config/config')
-const { request } = require('express')
+//const { constants } = require('buffer');
+//const { request } = require('express')
 
 const app = express()
 app.use(morgan('combine'))
