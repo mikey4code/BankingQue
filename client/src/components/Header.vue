@@ -5,9 +5,9 @@
         class="home"
         tag="span"
         :to="{
-          name: 'songs'
+          name: 'dashboard'
         }">
-        BANK
+        UserTab
       </router-link>
     </v-toolbar-title>
 
@@ -16,7 +16,7 @@
         flat
         dark
         :to="{
-          name: 'songs'
+          name: 'dashboard'
         }">
         Browse
       </v-btn>
@@ -61,7 +61,7 @@ export default {
       this.$store.dispatch('setToken', null)
       this.$store.dispatch('setUser', null)
       this.$router.push({
-        name: 'hello'
+        name: 'Dashboard'
       })
     }
   }
@@ -74,5 +74,7 @@ export default {
 }
 .home:hover {
   color: #E9E;
+}.home{
+  height: 30px;
 }
 </style>

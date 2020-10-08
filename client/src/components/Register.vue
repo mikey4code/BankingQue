@@ -30,7 +30,6 @@ import AuthenticationService from '@/services/AuthenticationService'
 export default {
   data () {
     return {
-      // add more data point here
       email: '',
       password: '',
       error: null
@@ -45,9 +44,8 @@ export default {
         })
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
-        // push to home
         this.$router.push({
-          name: 'Hello'
+          name: 'Dashboard'
         })
       } catch (error) {
         this.error = error.response.data.error

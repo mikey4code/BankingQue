@@ -45,9 +45,8 @@ export default {
         })
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
-        // direct it where to go after login
         this.$router.push({
-          name: 'Hello'
+          name: 'Dashboard'
         })
       } catch (error) {
         this.error = error.response.data.error
