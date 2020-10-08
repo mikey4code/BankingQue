@@ -3,7 +3,7 @@ const AuthenticationController = require('./controllers/AuthenticationController
 const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
 //const BalanceSummaryController = require('./controllers/BalanceSummaryController')
 const NewAccountController = require('./controllers/NewAccountController')
-//const HistoriesController = require('./controllers/HistoriesController')
+const TransactionController = require('./controllers/TransactionController')
 
 //const isAuthenticated = require('./policies/isAuthenticated')
 
@@ -18,4 +18,7 @@ module.exports = (app) => {
         
         app.post('/newaccount',
             NewAccountController.post)
+
+        app.get('/viewtrans',
+            TransactionController.index)
 }

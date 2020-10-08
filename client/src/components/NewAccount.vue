@@ -58,9 +58,8 @@ export default {
         phone: null,
         dob: null
       },
-        error: null,
-        required: (values) => !!values || 'Required.'
-  
+      error: null,
+      required: (values) => !!values || 'Required.'
     }
   },
   methods: {

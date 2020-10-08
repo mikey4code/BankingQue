@@ -77,4 +77,5 @@ export default {
 }.home{
   height: 30px;
 }
+.
 </style>
