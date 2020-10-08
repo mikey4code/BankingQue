@@ -2,12 +2,10 @@ const Promise = require('bluebird')
 const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'))
 
 function hashPassword (user) {
-    const SALT_FACTOR = 8
-  
+    const SALT_FACTOR = 8  
     if (!user.changed('password')) {
       return
     }
-  
     return bcrypt
       .genSaltAsync(SALT_FACTOR)
       .then(salt => bcrypt.hashAsync(user.password, salt, null))
@@ -26,8 +24,6 @@ function hashPassword (user) {
       password: DataTypes.STRING
     }, {
       hooks: {
-        beforeCreate: hashPassword,
-        beforeUpdate: hashPassword,
         beforeSave: hashPassword
       }
     })
@@ -35,8 +31,7 @@ function hashPassword (user) {
     User.prototype.comparePassword = function (password) {
       return bcrypt.compareAsync(password, this.password)
     }
-  
     //User.associate = function (models) {}
-  
     return User
+
   }

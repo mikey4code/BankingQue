@@ -47,7 +47,7 @@ export default {
         this.$store.dispatch('setUser', response.data.user)
         // push to home
         this.$router.push({
-          name: 'songs'
+          name: 'Hello'
         })
       } catch (error) {
         this.error = error.response.data.error

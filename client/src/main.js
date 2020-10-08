@@ -11,7 +11,6 @@ import store from '@/store/store'
 import Panel from '@/components/globals/Panel'
 
 Vue.config.productionTip = false
-
 Vue.use(Vuetify)
 // Vue.use(VueYouTubeEmbed)
 
@@ -21,9 +20,10 @@ sync(store, router)
 
 /* eslint-disable no-new */
 new Vue({
+  vuetify: new Vuetify(),
   el: '#app',
   router,
   store,
-  components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  components: { App }
 })
