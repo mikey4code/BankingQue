@@ -1,0 +1,17 @@
+[{
+    "trantype": "saving",
+    "firstn": "first",
+    "lastn": "last",
+    "address": "live here",
+    "phone": "203503655",
+    "dob": "11/11/11"
+   }, 
+   {
+    "trantype": "checking",
+    "firstn": "mik",
+    "lastn": "chow",
+    "address": "live there",
+    "phone": "203504874",
+    "dob": "10/10/10"
+   }
+]

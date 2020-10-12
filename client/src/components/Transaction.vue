@@ -1,5 +1,5 @@
 <template>
-  <v-layout column>
+   <v-layout column>
     <v-flex xs6 offset-xs3>
       <panel title="Register">
         <form name="tab-tracker-form"
@@ -26,32 +26,8 @@
 </template>
 
 <script>
-import AuthenticationService from '@/services/AuthenticationService'
+// import NewAccountService from '@/services/NewAccountService'
 export default {
-  data () {
-    return {
-      email: '',
-      password: '',
-      error: null
-    }
-  },
-  methods: {
-    async register () {
-      try {
-        const response = await AuthenticationService.register({
-          email: this.email,
-          password: this.password
-        })
-        this.$store.dispatch('setToken', response.data.token)
-        this.$store.dispatch('setUser', response.data.user)
-        this.$router.push({
-          name: 'dashboard'
-        })
-      } catch (error) {
-        this.error = error.response.data.error
-      }
-    }
-  }
 }
 </script>
 

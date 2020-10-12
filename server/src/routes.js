@@ -21,4 +21,7 @@ module.exports = (app) => {
 
         app.get('/viewtrans',
             TransactionController.index)
+
+        app.post('/viewtrans',
+            TransactionController.post)
 }

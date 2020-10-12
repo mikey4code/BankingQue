@@ -1,16 +1,5 @@
 <template>
   <v-toolbar fixed class="cyan"  dark >
-    <v-toolbar-title class="mr-4">
-      <router-link
-        class="home"
-        tag="span"
-        :to="{
-          name: 'dashboard'
-        }">
-        UserTab
-      </router-link>
-    </v-toolbar-title>
-
     <v-toolbar-items>
       <v-btn
         flat
@@ -18,7 +7,17 @@
         :to="{
           name: 'dashboard'
         }">
-        Browse
+        User Tab
+      </v-btn>
+    </v-toolbar-items>
+    <v-toolbar-items>
+      <v-btn
+        flat
+        dark
+        :to="{
+          name: 'dashboard'
+        }">
+        Bank Tab
       </v-btn>
     </v-toolbar-items>
 
@@ -77,5 +76,4 @@ export default {
 }.home{
   height: 30px;
 }
-.
 </style>

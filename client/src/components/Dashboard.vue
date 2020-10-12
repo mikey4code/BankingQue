@@ -8,13 +8,13 @@
         <v-btn
           dark
           class="cyan"
-          @click="Transaction">
+          to="/transaction">
           Transaction
         </v-btn>
         <v-btn
           dark
           class="cyan"
-          @click="Transfer">
+          to="/viewtrans">
           Transfer
         </v-btn>
         <v-btn
@@ -29,14 +29,39 @@
           @click="BalanceSummary">
           Balance Summary
         </v-btn>
+        <v-btn
+          v-if="isUserLoggedIn"
+          dark
+          class="cyan"
+          @click="AddTran">
+          Add a trans
+        </v-btn>
       </panel>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-// import BalanceSummaryService from '@/services/BalanceSummaryService'
+import {mapState} from 'vuex'
+import TransactionService from '@/services/TransactionService'
 export default {
+
+  computed: {
+    ...mapState([
+      'isUserLoggedIn'
+    ])
+  },
+  methods: {
+    async AddTran () {
+      try {
+        this.bookmark = (await TransactionService.post({
+          AccountId: this.account.id
+        })).data
+      } catch (err) {
+        console.log(err)
+      }
+    }
+  }
 }
 </script>
 

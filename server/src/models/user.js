@@ -31,7 +31,8 @@ function hashPassword (user) {
     User.prototype.comparePassword = function (password) {
       return bcrypt.compareAsync(password, this.password)
     }
-    //User.associate = function (models) {}
+    
+   
     return User
 
   }

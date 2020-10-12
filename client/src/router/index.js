@@ -5,7 +5,7 @@ import Register from '@/components/Register'
 import Login from '@/components/Login'
 import BalanceSummary from '@/components/BalanceSummary'
 import NewAccount from '@/components/NewAccount'
-// import EditSong from '@/components/EditSong'
+import Transaction from '@/components/Transaction'
 // import ViewSong from '@/components/ViewSong/Index'
 
 Vue.use(Router)
@@ -36,6 +36,11 @@ export default new Router({
       path: '/balancesummary',
       name: 'balancesummary',
       component: BalanceSummary
+    },
+    {
+      path: '/transaction',
+      name: 'transaction',
+      component: Transaction
     }
   ]
 })

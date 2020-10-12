@@ -1,30 +1,45 @@
-const {Transaction, Account} = require('../models')
+const {Transac} = require('../models')
 
 module.exports = {
     async index (req, res) {
       try {
-        const userId = req.user.id
-        const {songId} = req.query
-        const where = {
-          UserId: userId
+        //const {accountId, userId} = req.query
+        const accountId = req.query.AccountId
+        // const userId = req.query
+        console.log("account",accountId)
+        
+        const transac = await Transac.findOne({
+          where: {
+          AccountId: accountId
         }
-        if (songId) {
-          where.SongId = songId
-        }
-        const transaction = await Transaction.findAll({
-          where: where,
-          include: [
-            {
-              model: Account
-            }
-          ]
-        })
-        res.send(transaction)
+      })
+      console.log("here", transac)
+      res.send(transac)
       }catch (err) {
     res.status(500).send({
-      error: 'an error has occured trying to fetch the bookmark'
+      error: 'an error has occured trying to fetch the transaction'
+      })
+    }
+  },
+  async post (req, res) {
+    try {
+      //const {accountId, userId} = req.query
+      const accountId = req.query.AccountId
+      // const userId = req.query
+      console.log("account",accountId)
+      
+      const transac = await Transac.findOne({
+        where: {
+        AccountId: accountId
+      }
+    })
+    console.log("here", transac)
+    res.send(transac)
+    }catch (err) {
+  res.status(500).send({
+    error: 'an error has occured trying to fetch the transaction'
     })
   }
-  }
+}
 
 }
