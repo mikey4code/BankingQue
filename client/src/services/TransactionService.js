@@ -2,14 +2,10 @@
 import Api from '@/services/Api'
 
 export default {
-  index (params) {
-    return Api().get('viewtrans', {
-      params: params
-    })
+  index () {
+    return Api().get('transactionreport')
   },
-  post (params) {
-    return Api().post('viewtrans', {
-      params: params
-    })
+  post (transaction) {
+    return Api().post('transaction', transaction)
   }
 }

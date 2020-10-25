@@ -2,5 +2,9 @@
     {
       "AccountId": 1,
       "UserId": 1
+    },
+    {
+      "AccountId": 2,
+      "UserId": 1
     }
   ]

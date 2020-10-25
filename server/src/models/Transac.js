@@ -1,8 +1,5 @@
-module.exports = (sequelize, DataTypes) => {
-    const Transac = sequelize.define('Transac', {
-
-        trans: DataTypes.STRING
-    })
+module.exports = (sequelize) => {
+    const Transac = sequelize.define('Transac', {})
   
     Transac.associate = function (models) {
 

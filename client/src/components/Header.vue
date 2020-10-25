@@ -1,9 +1,9 @@
 <template>
-  <v-toolbar fixed class="cyan"  dark >
+  <v-toolbar color="cyan" max-height="80">
     <v-toolbar-items>
       <v-btn
-        flat
-        dark
+        color="secondary"
+        elevation="2"
         :to="{
           name: 'dashboard'
         }">
@@ -12,10 +12,9 @@
     </v-toolbar-items>
     <v-toolbar-items>
       <v-btn
-        flat
         dark
         :to="{
-          name: 'dashboard'
+          name: 'bankdashboard'
         }">
         Bank Tab
       </v-btn>
@@ -26,7 +25,6 @@
     <v-toolbar-items>
       <v-btn
         v-if="!$store.state.isUserLoggedIn"
-        flat
         dark
         :to="{
           name: 'login'
@@ -35,7 +33,6 @@
       </v-btn>
       <v-btn
         v-if="!$store.state.isUserLoggedIn"
-        flat
         dark
         :to="{
           name: 'register'
@@ -44,7 +41,6 @@
       </v-btn>
       <v-btn
         v-if="$store.state.isUserLoggedIn"
-        flat
         dark
         @click="logout">
         Log Out

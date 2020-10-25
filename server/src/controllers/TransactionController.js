@@ -1,45 +1,27 @@
-const {Transac} = require('../models')
+const {Transaction} = require('../models')
 
 module.exports = {
-    async index (req, res) {
-      try {
-        //const {accountId, userId} = req.query
-        const accountId = req.query.AccountId
-        // const userId = req.query
-        console.log("account",accountId)
-        
-        const transac = await Transac.findOne({
-          where: {
-          AccountId: accountId
-        }
+  async index (req, res) {
+    try {
+      const transaction = await Transaction.findAll({
+        limit: 10
       })
-      console.log("here", transac)
-      res.send(transac)
-      }catch (err) {
-    res.status(500).send({
-      error: 'an error has occured trying to fetch the transaction'
+      console.log('this', transaction)
+      res.send(transaction)
+    } catch (err) {
+      res.status(500).send({
+        error: 'an error has occured trying to fetch account'
       })
     }
   },
   async post (req, res) {
-    try {
-      //const {accountId, userId} = req.query
-      const accountId = req.query.AccountId
-      // const userId = req.query
-      console.log("account",accountId)
-      
-      const transac = await Transac.findOne({
-        where: {
-        AccountId: accountId
+        try {
+          const transaction = await Transaction.create(req.body)
+          res.send(transaction)
+        } catch (err) {
+          res.status(500).send({
+            error: 'an error has occured trying to create transaction'
+          })
+        }
       }
-    })
-    console.log("here", transac)
-    res.send(transac)
-    }catch (err) {
-  res.status(500).send({
-    error: 'an error has occured trying to fetch the transaction'
-    })
-  }
-}
-
 }

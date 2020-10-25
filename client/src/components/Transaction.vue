@@ -1,39 +1,40 @@
 <template>
-   <v-layout column>
-    <v-flex xs6 offset-xs3>
-      <panel title="Transaction">
+  <v-layout>
+    <v-flex offset-md2 blue>
+      <panel title="New Account">
         <form name="tab-tracker-form"
               autocomplete="off">
-          <v-text-field label="Transaction type"
-                        v-model="email"></v-text-field>
+          <v-text-field label="Transaction Type"
+              required
+              :rules="[required]"
+              v-model="transaction.trantype"></v-text-field>
           <br>
           <v-text-field label="First Name"
-                        type="password"
-                        v-model="password"
-                        autocomplete="new-password"></v-text-field>
-          <br>
-          <v-text-field label="Last Name"
-                        type="password"
-                        v-model="password"
-                        autocomplete="new-password"></v-text-field>
-                        <br>
-          <v-text-field label="Phone Number"
-                        type="password"
-                        v-model="password"
-                        autocomplete="new-password"></v-text-field>
-                        <br>
-          <v-text-field label="Amount"
-                        type="password"
-                        v-model="password"
-                        autocomplete="new-password"></v-text-field>
+              required
+              :rules="[required]"
+              v-model="transaction.firstn"></v-text-field>
+            <v-text-field label="Last Name"
+              required
+              :rules="[required]"
+              v-model="transaction.lastn"></v-text-field>
+            <v-text-field label="Phone Number"
+              required
+              :rules="[required]"
+              v-model="transaction.phone"></v-text-field>
+            <v-text-field label="Amount"
+              required
+              :rules="[required]"
+              v-model="transaction.amount"></v-text-field>
         </form>
         <br>
-        <div class="danger-alert" v-html="error" />
+         <div class="danger-alert" v-if="error">
+            {{error}}
+        </div>
         <br>
         <v-btn dark
-               class="cyan"
-               @click="register">
-          Submit
+          class="cyan"
+          @click="create">
+          CREATE TRANSACTION
         </v-btn>
       </panel>
     </v-flex>
@@ -41,8 +42,48 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+import TransactionService from '@/services/TransactionService'
 // import NewAccountService from '@/services/NewAccountService'
 export default {
+  data () {
+    return {
+      transaction: {
+        trantype: null,
+        firstn: null,
+        lastn: null,
+        phone: null,
+        amount: null
+      },
+      error: null,
+      required: (values) => !!values || 'Required.'
+    }
+  },
+  computed: {
+    ...mapState([
+      'isUserLoggedIn'
+    ])
+  },
+  methods: {
+    async create () {
+      this.error = null
+      const areAllFieldsFilledIn = Object
+        .keys(this.transaction)
+        .every(key => !!this.transaction[key])
+      if (!areAllFieldsFilledIn) {
+        this.error = 'Please fill in all the required fields.'
+        return
+      }
+      try {
+        await TransactionService.post(this.transaction)
+        this.$router.push({
+          name: 'dashboard'
+        })
+      } catch (error) {
+        this.error = error.response.data.error
+      }
+    }
+  }
 }
 </script>
 

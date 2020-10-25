@@ -6,7 +6,11 @@ import Login from '@/components/Login'
 import BalanceSummary from '@/components/BalanceSummary'
 import NewAccount from '@/components/NewAccount'
 import Transaction from '@/components/Transaction'
-// import ViewSong from '@/components/ViewSong/Index'
+import Transfer from '@/components/Transfer'
+import BankDashboard from '@/components/bank/BankDashboard'
+import BankSummary from '@/components/bank/BankSummary'
+import AccountReport from '@/components/bank/AccountReport'
+import TransactionReport from '@/components/bank/TransactionReport'
 
 Vue.use(Router)
 
@@ -41,6 +45,31 @@ export default new Router({
       path: '/transaction',
       name: 'transaction',
       component: Transaction
+    },
+    {
+      path: '/bankdashboard',
+      name: 'bankdashboard',
+      component: BankDashboard
+    },
+    {
+      path: '/banksummary',
+      name: 'banksummary',
+      component: BankSummary
+    },
+    {
+      path: '/transfer',
+      name: 'transfer',
+      component: Transfer
+    },
+    {
+      path: '/accountreport',
+      name: 'accountreport',
+      component: AccountReport
+    },
+    {
+      path: '/transactionreport',
+      name: 'transactionreport',
+      component: TransactionReport
     }
   ]
 })

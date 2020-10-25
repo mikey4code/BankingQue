@@ -4,31 +4,26 @@
       <panel title="New Account">
         <form name="tab-tracker-form"
               autocomplete="off">
-          <v-text-field label="Transaction Type"
-              required
-              :rules="[required]"
-              v-model="account.trantype"></v-text-field>
-          <br>
           <v-text-field label="First Name"
               required
               :rules="[required]"
-              v-model="account.firstn"></v-text-field>
+              v-model="transfer.firstn"></v-text-field>
             <v-text-field label="Last Name"
               required
               :rules="[required]"
-              v-model="account.lastn"></v-text-field>
-            <v-text-field label="Address"
+              v-model="transfer.lastn"></v-text-field>
+            <v-text-field label="Account Number"
               required
               :rules="[required]"
-              v-model="account.address"></v-text-field>
-            <v-text-field label="Phone Number"
+              v-model="transfer.accountn"></v-text-field>
+            <v-text-field label="Recipicant Account Number"
               required
               :rules="[required]"
-              v-model="account.phone"></v-text-field>
-            <v-text-field label="Date Of Birth"
+              v-model="transfer.repcipn"></v-text-field>
+            <v-text-field label="Amount"
               required
               :rules="[required]"
-              v-model="account.dob"></v-text-field>
+              v-model="transfer.amount"></v-text-field>
         </form>
         <br>
          <div class="danger-alert" v-if="error">
@@ -38,7 +33,7 @@
         <v-btn dark
           class="cyan"
           @click="create">
-          CREATE ACCOUNT
+          CREATE TRANSFER
         </v-btn>
       </panel>
     </v-flex>
@@ -47,19 +42,17 @@
 
 <script>
 import {mapState} from 'vuex'
-// import TransactionService from '@/services/TransactionService'
-import AccountService from '@/services/AccountService'
+import TransactionService from '@/services/TransactionService'
+// import NewAccountService from '@/services/NewAccountService'
 export default {
   data () {
     return {
-      account: {
-        trantype: null,
+      transfer: {
         firstn: null,
         lastn: null,
-        address: null,
-        phone: null,
-        dob: null,
-        amount: 0
+        accountn: null,
+        repcipn: null,
+        amount: null
       },
       error: null,
       required: (values) => !!values || 'Required.'
@@ -74,14 +67,14 @@ export default {
     async create () {
       this.error = null
       const areAllFieldsFilledIn = Object
-        .keys(this.account)
-        .every(key => !!this.account[key])
+        .keys(this.transaction)
+        .every(key => !!this.transaction[key])
       if (!areAllFieldsFilledIn) {
         this.error = 'Please fill in all the required fields.'
         return
       }
       try {
-        await AccountService.post(this.account)
+        await TransactionService.post(this.transaction)
         this.$router.push({
           name: 'dashboard'
         })
