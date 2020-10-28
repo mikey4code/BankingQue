@@ -1,5 +1,5 @@
 <template>
-  <panel title="Accounts">
+  <panel title="Transaction Report">
     <v-data-table
     :headers="headers"
     :items="transaction"
@@ -19,6 +19,10 @@ export default {
         {
           text: 'Transaction Type',
           value: 'trantype'
+        },
+        {
+          text: 'Account#',
+          value: 'accnumber'
         },
         {
           text: 'First Name',

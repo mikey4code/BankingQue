@@ -32,15 +32,11 @@ module.exports = {
           email: email
         }
       })
-      console.log("step 1", password)
-      console.log(user.toJSON())
       if (!user) {
         return res.status(403).send({
           error: 'The user information was incorrect'
         })
       }
-
-      console.log("step 2", password, user.isPasswordValid)
     
       const isPasswordValid = await user.comparePassword(password)
       console.log("checking", isPasswordValid)

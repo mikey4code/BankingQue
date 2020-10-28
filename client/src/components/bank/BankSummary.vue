@@ -1,5 +1,5 @@
 <template>
-  <panel title="Bookmarks">
+  <panel title="Bank Summary">
     <v-data-table
     :headers="headers"
     :items="transactions"
@@ -29,6 +29,10 @@ export default {
           value: 'lastn'
         },
         {
+          text: 'Account Number',
+          value: 'accnumber'
+        },
+        {
           text: 'Address',
           value: 'address'
         },
@@ -52,13 +56,8 @@ export default {
   },
   async mounted () {
     if (this.isUserLoggedIn) {
-      this.transactions = (await TransacHisService.index({
-        userId: this.$store.state.user.id
-      })).data
+      this.transactions = (await TransacHisService.index()).data
       console.log('first account ', this.transactions)
-      // this.transactions = this.transactions.Account
-      // this.transactions = [].concat(this.transactions.Account)
-      console.log('this account ', this.transactions)
     }
   }
 }

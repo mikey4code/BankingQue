@@ -6,8 +6,14 @@ module.exports = (sequelize, DataTypes) => {
     address: DataTypes.STRING,
     phone: DataTypes.STRING,
     dob: DataTypes.STRING,
-    amount: DataTypes.INTEGER
+    amount: DataTypes.INTEGER,
+    accnumber: DataTypes.INTEGER,
   })
+  
+  Account.associate = function (models) {
 
+    Account.belongsTo(models.User)
+    
+  }
   return Account
 }

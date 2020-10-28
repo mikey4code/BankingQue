@@ -47,7 +47,7 @@
 
 <script>
 import {mapState} from 'vuex'
-// import TransactionService from '@/services/TransactionService'
+import TransacHisService from '@/services/TransacHisService'
 import AccountService from '@/services/AccountService'
 export default {
   data () {
@@ -58,9 +58,9 @@ export default {
         lastn: null,
         address: null,
         phone: null,
-        dob: null,
-        amount: 0
+        dob: null
       },
+      accountdata: {},
       error: null,
       required: (values) => !!values || 'Required.'
     }
@@ -81,12 +81,29 @@ export default {
         return
       }
       try {
-        await AccountService.post(this.account)
+        this.account.amount = 0
+        this.account.UserId = this.$store.state.user.id
+        this.account.accnumber = 56325
+        console.log('created account ', this.account)
+        const check = (await AccountService.post(this.account)).data
+        console.log(check)
         this.$router.push({
           name: 'dashboard'
         })
       } catch (error) {
         this.error = error.response.data.error
+      }
+      try {
+        this.accountdata = (await AccountService.show({
+          accnumber: this.account.accnumber})).data
+        console.log('result ', this.accountdata.id)
+        const tran = (await TransacHisService.post({
+          UserId: this.$store.state.user.id,
+          AccountId: this.accountdata.id
+        })).data
+        console.log('here', tran)
+      } catch (err) {
+        console.log(err)
       }
     }
   }

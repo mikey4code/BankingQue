@@ -1,10 +1,8 @@
 <template>
-  <panel title="Accounts">
+  <panel title="Account Report">
     <v-data-table
     :headers="headers"
     :items="accounts"
-    :items-per-page="5"
-    class="elevation-1"
   ></v-data-table>
   </panel>
 </template>
@@ -19,6 +17,10 @@ export default {
         {
           text: 'Transaction Type',
           value: 'trantype'
+        },
+        {
+          text: 'Account#',
+          value: 'accnumber'
         },
         {
           text: 'First Name',
@@ -39,6 +41,10 @@ export default {
         {
           text: 'DOB',
           value: 'dob'
+        },
+        {
+          text: 'Amount',
+          value: 'amount'
         }
       ],
       accounts: []
@@ -58,5 +64,4 @@ export default {
 </script>
 
 <style>
-
 </style>

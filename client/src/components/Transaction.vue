@@ -1,7 +1,7 @@
 <template>
   <v-layout>
     <v-flex offset-md2 blue>
-      <panel title="New Account">
+      <panel title="Transaction">
         <form name="tab-tracker-form"
               autocomplete="off">
           <v-text-field label="Transaction Type"
@@ -9,6 +9,10 @@
               :rules="[required]"
               v-model="transaction.trantype"></v-text-field>
           <br>
+          <v-text-field label="Account Number"
+              required
+              :rules="[required]"
+              v-model="transaction.accnumber"></v-text-field>
           <v-text-field label="First Name"
               required
               :rules="[required]"
@@ -44,7 +48,8 @@
 <script>
 import {mapState} from 'vuex'
 import TransactionService from '@/services/TransactionService'
-// import NewAccountService from '@/services/NewAccountService'
+import TransacHisService from '@/services/TransacHisService'
+import AccountService from '@/services/AccountService'
 export default {
   data () {
     return {
@@ -53,8 +58,11 @@ export default {
         firstn: null,
         lastn: null,
         phone: null,
-        amount: null
+        amount: null,
+        accnumber: null
       },
+      accountdata: {},
+      transactiondata: {},
       error: null,
       required: (values) => !!values || 'Required.'
     }
@@ -75,12 +83,32 @@ export default {
         return
       }
       try {
+        this.transaction.UserId = this.$store.state.user.id
+        this.accountdata = (await AccountService.show({
+          accnumber: this.transaction.accnumber})).data
+        this.transaction.AccountId = this.accountdata.id
         await TransactionService.post(this.transaction)
         this.$router.push({
           name: 'dashboard'
         })
       } catch (error) {
         this.error = error.response.data.error
+      }
+      try {
+        console.log('whats thisnumber ', this.transaction.accnumber)
+        // get the account ID using the accnumber
+        console.log('result ', this.accountdata)
+        // This get the transaction
+        this.transactiondata = (await TransactionService.show()).data
+        console.log('this tran', this.transactiondata)
+        const tran = (await TransacHisService.post({
+          UserId: this.$store.state.user.id,
+          AccountId: this.accountdata.id,
+          TransactionId: this.transactiondata.id
+        })).data
+        console.log('here', tran)
+      } catch (err) {
+        console.log(err)
       }
     }
   }

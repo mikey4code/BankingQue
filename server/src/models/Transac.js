@@ -5,6 +5,8 @@ module.exports = (sequelize) => {
 
         Transac.belongsTo(models.User)
         Transac.belongsTo(models.Account)
+        Transac.belongsTo(models.Transaction)
+        
     }
 
     return Transac

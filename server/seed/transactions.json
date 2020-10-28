@@ -3,13 +3,17 @@
     "firstn": "first",
     "lastn": "last",
     "phone": "203503655",
-    "amount": "0"
+    "accnumber": "78945632",
+    "amount": "300",
+    "AccountId": 1
    }, 
    {
     "trantype": "withdraw",
     "firstn": "mik",
     "lastn": "chow",
     "phone": "203504874",
-    "amount": "0"
+    "accnumber": "569874123",
+    "amount": "100",
+    "AccountId": 2
    }
 ]

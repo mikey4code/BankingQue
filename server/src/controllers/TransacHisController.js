@@ -1,21 +1,15 @@
-const {Transac,Account} = require('../models')
+const {Transac} = require('../models')
 const _ = require('lodash')
 
 module.exports = {
   async index (req, res) {
     try {
-      console.log('here ', req.query)
-      console.log('here ', req.body)
-      const where = {
-        UserId: 1
-      }
-      const transacs = await Transac.findAll({
-        where: where,
-        include: [{
-          model: Account
-        }]
-      })
-      const newtran = transacs.map(tran => tran.toJSON()).map(tran => _.extend({tranId: tran.id}, tran.Account))
+      console.log('here this ', req.query)
+
+      const transacs = await Transac.findAll({ include: { all: true }});
+
+      console.log(transacs)
+      const newtran = transacs.map(tran => tran.toJSON()).map(tran => _.extend({tranId: tran.id}, tran.Account, tran.Transaction))
       res.send(newtran)
     }catch (err) {
       res.status(500).send({
@@ -25,7 +19,7 @@ module.exports = {
   },
   async post (req, res) {
     try {    
-    console.log(req.body)
+    console.log('this is what', req.body)
     const newtran = await Transac.create(req.body)
     res.send(newtran)
     }catch (err) {

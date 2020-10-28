@@ -5,7 +5,9 @@
     "address": "live here",
     "phone": "203503655",
     "dob": "11/11/11",
-    "amount": "0"
+    "accnumber": "78945632",
+    "amount": "0",
+    "UserId": 1
    }, 
    {
     "trantype": "checking",
@@ -14,6 +16,8 @@
     "address": "live there",
     "phone": "203504874",
     "dob": "10/10/10",
-    "amount": "0"
+    "accnumber": "569874123",
+    "amount": "0",
+    "UserId": 1
    }
 ]

@@ -1,10 +1,12 @@
 [
     {
+      "UserId": 1,
       "AccountId": 1,
-      "UserId": 1
+      "TransactionId": 1
     },
     {
+      "UserId": 1,
       "AccountId": 2,
-      "UserId": 1
+      "TransactionId": 2
     }
   ]

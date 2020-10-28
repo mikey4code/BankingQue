@@ -22,6 +22,9 @@ module.exports = (app) => {
             
         app.post('/newaccount',
             NewAccountController.post)
+    
+        app.get('/showaccount',
+            NewAccountController.show)
 
         app.get('/viewtrans',
             TransacHisController.index)
@@ -34,5 +37,8 @@ module.exports = (app) => {
             
         app.get('/transactionreport',
             TransactionController.index)
+
+        app.get('/showtransaction',
+            TransactionController.show)
        
 }

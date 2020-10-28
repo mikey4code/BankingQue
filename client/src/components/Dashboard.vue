@@ -54,7 +54,7 @@
 
 <script>
 import {mapState} from 'vuex'
-import TransactionService from '@/services/TransactionService'
+import TransacHisService from '@/services/TransacHisService'
 export default {
 
   computed: {
@@ -66,7 +66,7 @@ export default {
     async AddTran () {
       try {
         console.log(this.$store.state.user.id)
-        const tran = (await TransactionService.post({
+        const tran = (await TransacHisService.post({
           UserId: this.$store.state.user.id
         })).data
         console.log('here', tran)

@@ -1,6 +1,6 @@
 <template>
   <v-layout column>
-    <v-flex xs6 offset-xs3>
+    <v-flex>
       <panel title="Dashboard">
         <br>
         <div class="danger-alert" v-html="error" />
