@@ -1,5 +1,5 @@
 <template>
-  <panel title="Transaction Report">
+  <panel title="Debit Report">
     <v-data-table
     :headers="headers"
     :items="debit"
@@ -35,10 +35,6 @@ export default {
         {
           text: 'Phone #',
           value: 'phone'
-        },
-        {
-          text: 'Amount',
-          value: 'amount'
         }
       ],
       debit: []

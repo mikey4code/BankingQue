@@ -33,12 +33,12 @@ export default {
           value: 'lastn'
         },
         {
-          text: 'Phone #',
-          value: 'phone'
+          text: 'Limit',
+          value: 'limit'
         },
         {
-          text: 'Amount',
-          value: 'amount'
+          text: 'Income',
+          value: 'income'
         }
       ],
       credit: []
