@@ -26,6 +26,18 @@
         <v-btn
           dark
           class="cyan"
+          to="/debitreport">
+          Debit Report
+        </v-btn>
+        <v-btn
+          dark
+          class="cyan"
+          to="/creditreport">
+          Credit Report
+        </v-btn>
+        <v-btn
+          dark
+          class="cyan"
           to="/banksummary">
           Bank Summary
         </v-btn>

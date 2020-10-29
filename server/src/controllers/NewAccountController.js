@@ -33,7 +33,8 @@ module.exports = {
       },
       async post (req, res) {
         try {
-          console.log('details ',req.body)
+          console.log('details here ',req.body)
+          console.log('details and now',req.body.accnumber)
           const account = await Account.create(req.body)
           res.send(account)
         } catch (err) {

@@ -5,6 +5,9 @@ const AuthenticationControllerPolicy = require('./policies/AuthenticationControl
 const NewAccountController = require('./controllers/NewAccountController')
 const TransacHisController = require('./controllers/TransacHisController')
 const TransactionController = require('./controllers/TransactionController')
+const DebitController = require('./controllers/DebitController')
+const CreditController = require('./controllers/CreditController')
+const TransferController = require('./controllers/TransferController')
 
 //const isAuthenticated = require('./policies/isAuthenticated')
 
@@ -40,5 +43,22 @@ module.exports = (app) => {
 
         app.get('/showtransaction',
             TransactionController.show)
+
+        app.post('/debit',
+            DebitController.post)
+        
+        app.get('/debitreport',
+            DebitController.index)
+
+        app.post('/credit',
+            CreditController.post)
+
+        app.get('/creditreport',
+            CreditController.index)
        
+        app.post('/tranfer',
+            TransferController.post)
+
+        app.get('/transferreport',
+            TransferController.index)
 }

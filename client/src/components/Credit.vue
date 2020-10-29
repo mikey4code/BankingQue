@@ -1,34 +1,41 @@
 <template>
   <v-layout>
     <v-flex offset-md2 blue>
-      <panel title="New Account">
+      <panel title="Credit">
         <form name="tab-tracker-form"
               autocomplete="off">
           <v-text-field label="Transaction Type"
               required
               :rules="[required]"
-              v-model="account.trantype"></v-text-field>
-          <br>
+              v-model="credit.trantype"></v-text-field>
           <v-text-field label="First Name"
               required
               :rules="[required]"
-              v-model="account.firstn"></v-text-field>
+              v-model="credit.firstn"></v-text-field>
             <v-text-field label="Last Name"
               required
               :rules="[required]"
-              v-model="account.lastn"></v-text-field>
+              v-model="credit.lastn"></v-text-field>
             <v-text-field label="Address"
               required
               :rules="[required]"
-              v-model="account.address"></v-text-field>
-            <v-text-field label="Phone Number"
+              v-model="credit.address"></v-text-field>
+            <v-text-field label="Phone"
               required
               :rules="[required]"
-              v-model="account.phone"></v-text-field>
-            <v-text-field label="Date Of Birth"
+              v-model="credit.phone"></v-text-field>
+            <v-text-field label="License Number"
               required
               :rules="[required]"
-              v-model="account.dob"></v-text-field>
+              v-model="credit.license"></v-text-field>
+            <v-text-field label="Income"
+              required
+              :rules="[required]"
+              v-model="credit.income"></v-text-field>
+            <v-text-field label="Account Number"
+              required
+              :rules="[required]"
+              v-model="credit.accnumber"></v-text-field>
         </form>
         <br>
          <div class="danger-alert" v-if="error">
@@ -38,7 +45,7 @@
         <v-btn dark
           class="cyan"
           @click="create">
-          CREATE ACCOUNT
+          CREATE CREDIT
         </v-btn>
       </panel>
     </v-flex>
@@ -47,20 +54,21 @@
 
 <script>
 import {mapState} from 'vuex'
-import TransacHisService from '@/services/TransacHisService'
-import AccountService from '@/services/AccountService'
+import CreditService from '@/services/CreditService'
+// import NewAccountService from '@/services/NewAccountService'
 export default {
   data () {
     return {
-      account: {
+      credit: {
         trantype: null,
         firstn: null,
         lastn: null,
         address: null,
         phone: null,
-        dob: null
+        license: null,
+        income: null,
+        accnumber: null
       },
-      accountdata: {},
       error: null,
       required: (values) => !!values || 'Required.'
     }
@@ -71,42 +79,23 @@ export default {
     ])
   },
   methods: {
-    generateNumber: function () {
-      return Math.floor(Math.random() * (99999999 - 10000000 + 1) + 10000000)
-    },
     async create () {
       this.error = null
       const areAllFieldsFilledIn = Object
-        .keys(this.account)
-        .every(key => !!this.account[key])
+        .keys(this.credit)
+        .every(key => !!this.credit[key])
       if (!areAllFieldsFilledIn) {
         this.error = 'Please fill in all the required fields.'
         return
       }
       try {
-        this.account.amount = 0
-        this.account.UserId = this.$store.state.user.id
-        this.account.accnumber = this.generateNumber()
-        console.log('created account ', this.account)
-        const check = (await AccountService.post(this.account)).data
-        console.log(check)
+        this.credit.limit = 2000
+        await CreditService.post(this.credit)
         this.$router.push({
           name: 'dashboard'
         })
       } catch (error) {
         this.error = error.response.data.error
-      }
-      try {
-        this.accountdata = (await AccountService.show({
-          accnumber: this.account.accnumber})).data
-        console.log('result ', this.accountdata.id)
-        const tran = (await TransacHisService.post({
-          UserId: this.$store.state.user.id,
-          AccountId: this.accountdata.id
-        })).data
-        console.log('here', tran)
-      } catch (err) {
-        console.log(err)
       }
     }
   }

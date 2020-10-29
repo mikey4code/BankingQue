@@ -1,9 +1,13 @@
 <template>
   <v-layout>
     <v-flex offset-md2 blue>
-      <panel title="New Account">
+      <panel title="Transfer">
         <form name="tab-tracker-form"
               autocomplete="off">
+          <v-text-field label="Transaction Type"
+              required
+              :rules="[required]"
+              v-model="transfer.trantype"></v-text-field>
           <v-text-field label="First Name"
               required
               :rules="[required]"
@@ -15,7 +19,7 @@
             <v-text-field label="Account Number"
               required
               :rules="[required]"
-              v-model="transfer.accountn"></v-text-field>
+              v-model="transfer.accnumber"></v-text-field>
             <v-text-field label="Recipicant Account Number"
               required
               :rules="[required]"
@@ -42,15 +46,16 @@
 
 <script>
 import {mapState} from 'vuex'
-import TransactionService from '@/services/TransactionService'
+import TransferService from '@/services/TransferService'
 // import NewAccountService from '@/services/NewAccountService'
 export default {
   data () {
     return {
       transfer: {
+        trantype: null,
         firstn: null,
         lastn: null,
-        accountn: null,
+        accnumber: null,
         repcipn: null,
         amount: null
       },
@@ -67,14 +72,14 @@ export default {
     async create () {
       this.error = null
       const areAllFieldsFilledIn = Object
-        .keys(this.transaction)
-        .every(key => !!this.transaction[key])
+        .keys(this.transfer)
+        .every(key => !!this.transfer[key])
       if (!areAllFieldsFilledIn) {
         this.error = 'Please fill in all the required fields.'
         return
       }
       try {
-        await TransactionService.post(this.transaction)
+        await TransferService.post(this.transfer)
         this.$router.push({
           name: 'dashboard'
         })

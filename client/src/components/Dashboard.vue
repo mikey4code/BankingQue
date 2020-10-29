@@ -26,13 +26,13 @@
         <v-btn
           dark
           class="cyan"
-          to="/">
+          to="/debit">
           New Debit
         </v-btn>
         <v-btn
           dark
           class="cyan"
-          to="/">
+          to="/credit">
           New Credit
         </v-btn>
         <v-btn
