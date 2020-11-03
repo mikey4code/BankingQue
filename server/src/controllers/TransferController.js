@@ -16,6 +16,7 @@ module.exports = {
   },
   async post (req, res) {
         try {
+          console.log('checking...', req.body)
           const transfer = await Transfer.create(req.body)
           res.send(transfer)
         } catch (err) {

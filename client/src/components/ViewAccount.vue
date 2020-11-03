@@ -1,8 +1,8 @@
 <template>
-  <panel title="Transfer Report">
+  <panel title="View Report">
     <v-data-table
     :headers="headers"
-    :items="transfer"
+    :items="account"
     :items-per-page="5"
     class="elevation-1"
   ></v-data-table>
@@ -11,7 +11,7 @@
 
 <script>
 import {mapState} from 'vuex'
-import TransferService from '@/services/TransferService'
+import AccountService from '@/services/AccountService'
 export default {
   data () {
     return {
@@ -41,7 +41,7 @@ export default {
           value: 'amount'
         }
       ],
-      transfer: []
+      account: []
     }
   },
   computed: {
@@ -51,8 +51,8 @@ export default {
     ])
   },
   async mounted () {
-    this.transfer = (await TransferService.index()).data
-    console.log('first account ', this.transfer)
+    const accountId = this.$store.state.route.params.accountId
+    this.account = (await AccountService.showacc(accountId)).data
   }
 }
 </script>

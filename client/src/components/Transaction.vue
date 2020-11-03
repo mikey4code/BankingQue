@@ -50,6 +50,7 @@ import {mapState} from 'vuex'
 import TransactionService from '@/services/TransactionService'
 import TransacHisService from '@/services/TransacHisService'
 import AccountService from '@/services/AccountService'
+import WaitingService from '@/services/WaitingService'
 export default {
   data () {
     return {
@@ -101,6 +102,9 @@ export default {
         // This get the transaction
         this.transactiondata = (await TransactionService.show()).data
         console.log('this tran', this.transactiondata)
+        // post to waiting queue
+        const waiting = (await WaitingService.post(this.transaction)).data
+        console.log('waiting', waiting)
         const tran = (await TransacHisService.post({
           UserId: this.$store.state.user.id,
           AccountId: this.accountdata.id,

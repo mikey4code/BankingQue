@@ -1,17 +1,23 @@
 <template>
-  <panel title="Transfer Report">
+  <panel title="Waiting Queue">
     <v-data-table
     :headers="headers"
-    :items="transfer"
+    :items="waiting"
     :items-per-page="5"
     class="elevation-1"
   ></v-data-table>
+  <v-btn
+    dark
+    class="cyan"
+    @click="remove">
+    Next Customer
+  </v-btn>
   </panel>
 </template>
 
 <script>
 import {mapState} from 'vuex'
-import TransferService from '@/services/TransferService'
+import WaitingService from '@/services/WaitingService'
 export default {
   data () {
     return {
@@ -25,10 +31,6 @@ export default {
           value: 'accnumber'
         },
         {
-          text: 'Recipient',
-          value: 'recipn'
-        },
-        {
           text: 'First Name',
           value: 'firstn'
         },
@@ -37,11 +39,11 @@ export default {
           value: 'lastn'
         },
         {
-          text: 'Amount',
-          value: 'amount'
+          text: 'Create At',
+          value: 'createdAt'
         }
       ],
-      transfer: []
+      waiting: []
     }
   },
   computed: {
@@ -51,8 +53,16 @@ export default {
     ])
   },
   async mounted () {
-    this.transfer = (await TransferService.index()).data
-    console.log('first account ', this.transfer)
+    this.waiting = (await WaitingService.index()).data
+  },
+  methods: {
+    async remove () {
+      try {
+        await WaitingService.removeq()
+      } catch (error) {
+        this.error = error.response.data.error
+      }
+    }
   }
 }
 </script>

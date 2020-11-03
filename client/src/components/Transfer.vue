@@ -23,7 +23,7 @@
             <v-text-field label="Recipicant Account Number"
               required
               :rules="[required]"
-              v-model="transfer.repcipn"></v-text-field>
+              v-model="transfer.recipn"></v-text-field>
             <v-text-field label="Amount"
               required
               :rules="[required]"
@@ -56,7 +56,7 @@ export default {
         firstn: null,
         lastn: null,
         accnumber: null,
-        repcipn: null,
+        recipn: null,
         amount: null
       },
       error: null,
@@ -79,6 +79,7 @@ export default {
         return
       }
       try {
+        console.log('create tansfer ', this.transfer)
         await TransferService.post(this.transfer)
         this.$router.push({
           name: 'dashboard'

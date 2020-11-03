@@ -31,6 +31,38 @@ module.exports = {
           })
         }
       },
+      async useracc (req, res) {
+        try {
+          const userId = req.query
+          console.log('what is req here ', userId)
+          const account = await Account.findAll({
+            where: {
+              UserId: userId.UserId
+            }
+          })
+          console.log('this', account)
+          res.send(account)
+        } catch (err) {
+          res.status(500).send({
+            error: 'an error has occured trying to fetch account by accnumber'
+          })
+        }
+      },
+      async showacc (req, res) {
+        try {
+          console.log('acount id ', req.params.accountId)
+          const account = await Account.findAll({
+            where: {
+              id: req.params.accountId
+            }})
+          console.log('this', account)
+          res.send(account)
+        } catch (err) {
+          res.status(500).send({
+            error: 'an error has occured trying to fetch account by ID'
+          })
+        }
+      },
       async post (req, res) {
         try {
           console.log('details here ',req.body)

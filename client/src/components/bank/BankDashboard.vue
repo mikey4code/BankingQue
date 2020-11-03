@@ -14,7 +14,7 @@
         <v-btn
           dark
           class="cyan"
-          to="/viewtrans">
+          to="/transferreport">
           Transfer Report
         </v-btn>
         <v-btn
@@ -41,12 +41,6 @@
           to="/banksummary">
           Bank Summary
         </v-btn>
-        <v-btn
-          dark
-          class="cyan"
-          @click="AddTran">
-          Add a trans
-        </v-btn>
       </panel>
     </v-flex>
   </v-layout>
@@ -54,7 +48,7 @@
 
 <script>
 import {mapState} from 'vuex'
-import TransacHisService from '@/services/TransacHisService'
+// import TransacHisService from '@/services/TransacHisService'
 export default {
 
   computed: {
@@ -63,17 +57,6 @@ export default {
     ])
   },
   methods: {
-    async AddTran () {
-      try {
-        console.log(this.$store.state.user.id)
-        const tran = (await TransacHisService.post({
-          UserId: this.$store.state.user.id
-        })).data
-        console.log('here', tran)
-      } catch (err) {
-        console.log(err)
-      }
-    }
   }
 }
 </script>

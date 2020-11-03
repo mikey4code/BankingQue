@@ -1,13 +1,14 @@
 
 const AuthenticationController = require('./controllers/AuthenticationController')
 const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
-//const BalanceSummaryController = require('./controllers/BalanceSummaryController')
 const NewAccountController = require('./controllers/NewAccountController')
 const TransacHisController = require('./controllers/TransacHisController')
 const TransactionController = require('./controllers/TransactionController')
 const DebitController = require('./controllers/DebitController')
 const CreditController = require('./controllers/CreditController')
 const TransferController = require('./controllers/TransferController')
+const WaitingController = require('./controllers/WaitingController')
+
 
 //const isAuthenticated = require('./policies/isAuthenticated')
 
@@ -22,6 +23,12 @@ module.exports = (app) => {
         
         app.get('/accountreport',
             NewAccountController.index)
+
+        app.get('/useracc/:accountId',
+            NewAccountController.showacc)
+            
+        app.get('/useracc',
+            NewAccountController.useracc)
             
         app.post('/newaccount',
             NewAccountController.post)
@@ -56,9 +63,18 @@ module.exports = (app) => {
         app.get('/creditreport',
             CreditController.index)
        
-        app.post('/tranfer',
+        app.post('/transfer',
             TransferController.post)
 
         app.get('/transferreport',
             TransferController.index)
+
+        app.post('/waitingqueue',
+            WaitingController.post)
+
+        app.get('/waitingqueue',
+            WaitingController.index)
+
+        app.delete('/removequeue',
+            WaitingController.removeq)
 }

@@ -5,7 +5,9 @@ import Register from '@/components/Register'
 import Login from '@/components/Login'
 import BalanceSummary from '@/components/BalanceSummary'
 import NewAccount from '@/components/NewAccount'
+import ViewAccount from '@/components/ViewAccount'
 import Transaction from '@/components/Transaction'
+import WaitingQueue from '@/components/WaitingQueue'
 import Debit from '@/components/Debit'
 import Credit from '@/components/Credit'
 import Transfer from '@/components/Transfer'
@@ -100,6 +102,16 @@ export default new Router({
       path: '/debit',
       name: 'debit',
       component: Debit
+    },
+    {
+      path: '/useracc/:accountId',
+      name: 'account',
+      component: ViewAccount
+    },
+    {
+      path: '/waitingqueue',
+      name: 'waitingqueue',
+      component: WaitingQueue
     }
   ]
 })
