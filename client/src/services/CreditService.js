@@ -7,5 +7,5 @@ export default {
   },
   post (credit) {
     return Api().post('credit', credit)
-  }
+  },
 }

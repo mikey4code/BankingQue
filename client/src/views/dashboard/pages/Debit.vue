@@ -140,7 +140,51 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
+  import DebitService from '@/services/DebitService'
   export default {
-    //
+    data () {
+      return {
+        debit: {
+          trantype: null,
+          firstn: null,
+          lastn: null,
+          address: null,
+          phone: null,
+          license: null,
+          accnumber: null,
+        },
+        error: null,
+        required: (values) => !!values || 'Required.',
+      }
+    },
+    computed: {
+      ...mapState([
+        'isUserLoggedIn',
+      ]),
+    },
+    methods: {
+      async create () {
+        this.error = null
+        const areAllFieldsFilledIn = Object
+          .keys(this.debit)
+          .every(key => !!this.debit[key])
+        if (!areAllFieldsFilledIn) {
+          this.error = 'Please fill in all the required fields.'
+          return
+        }
+        try {
+          await DebitService.post(this.debit)
+          this.$router.push({
+            name: 'dashboard',
+          })
+        } catch (error) {
+          this.error = error.response.data.error
+        }
+      },
+    },
   }
 </script>
+
+<style scoped>
+</style>

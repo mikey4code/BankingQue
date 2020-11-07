@@ -10,5 +10,5 @@ export default {
   },
   removeq () {
     return Api().get('removequeue')
-  }
+  },
 }

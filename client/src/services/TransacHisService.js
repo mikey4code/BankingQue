@@ -8,5 +8,5 @@ export default {
   post (transac) {
     console.log('param ', transac)
     return Api().post('viewtrans', transac)
-  }
+  },
 }

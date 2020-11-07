@@ -140,7 +140,51 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
+  import TransferService from '@/services/TransferService'
   export default {
-    //
+    data () {
+      return {
+        transfer: {
+          trantype: null,
+          firstn: null,
+          lastn: null,
+          accnumber: null,
+          recipn: null,
+          amount: null,
+        },
+        error: null,
+        required: (values) => !!values || 'Required.',
+      }
+    },
+    computed: {
+      ...mapState([
+        'isUserLoggedIn',
+      ]),
+    },
+    methods: {
+      async create () {
+        this.error = null
+        const areAllFieldsFilledIn = Object
+          .keys(this.transfer)
+          .every(key => !!this.transfer[key])
+        if (!areAllFieldsFilledIn) {
+          this.error = 'Please fill in all the required fields.'
+          return
+        }
+        try {
+          console.log('create tansfer ', this.transfer)
+          await TransferService.post(this.transfer)
+          this.$router.push({
+            name: 'dashboard',
+          })
+        } catch (error) {
+          this.error = error.response.data.error
+        }
+      },
+    },
   }
 </script>
+
+<style scoped>
+</style>

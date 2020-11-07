@@ -140,7 +140,53 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
+  import CreditService from '@/services/CreditService'
   export default {
-    //
+    data () {
+      return {
+        credit: {
+          trantype: null,
+          firstn: null,
+          lastn: null,
+          address: null,
+          phone: null,
+          license: null,
+          income: null,
+          accnumber: null,
+        },
+        error: null,
+        required: (values) => !!values || 'Required.',
+      }
+    },
+    computed: {
+      ...mapState([
+        'isUserLoggedIn',
+      ]),
+    },
+    methods: {
+      async create () {
+        this.error = null
+        const areAllFieldsFilledIn = Object
+          .keys(this.credit)
+          .every(key => !!this.credit[key])
+        if (!areAllFieldsFilledIn) {
+          this.error = 'Please fill in all the required fields.'
+          return
+        }
+        try {
+          this.credit.limit = 2000
+          await CreditService.post(this.credit)
+          this.$router.push({
+            name: 'dashboard',
+          })
+        } catch (error) {
+          this.error = error.response.data.error
+        }
+      },
+    },
   }
 </script>
+
+<style scoped>
+</style>

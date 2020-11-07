@@ -10,5 +10,5 @@ export default {
   },
   post (transaction) {
     return Api().post('transaction', transaction)
-  }
+  },
 }

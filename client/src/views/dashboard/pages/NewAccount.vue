@@ -140,7 +140,71 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
+  import TransacHisService from '@/services/TransacHisService'
+  import AccountService from '@/services/AccountService'
   export default {
-    //
+    data () {
+      return {
+        account: {
+          trantype: null,
+          firstn: null,
+          lastn: null,
+          address: null,
+          phone: null,
+          dob: null,
+        },
+        accountdata: {},
+        error: null,
+        required: (values) => !!values || 'Required.',
+      }
+    },
+    computed: {
+      ...mapState([
+        'isUserLoggedIn',
+      ]),
+    },
+    methods: {
+      generateNumber: function () {
+        return Math.floor(Math.random() * (99999999 - 10000000 + 1) + 10000000)
+      },
+      async create () {
+        this.error = null
+        const areAllFieldsFilledIn = Object
+          .keys(this.account)
+          .every(key => !!this.account[key])
+        if (!areAllFieldsFilledIn) {
+          this.error = 'Please fill in all the required fields.'
+          return
+        }
+        try {
+          this.account.amount = 0
+          this.account.UserId = this.$store.state.user.id
+          this.account.accnumber = this.generateNumber()
+          console.log('created account ', this.account)
+          const check = (await AccountService.post(this.account)).data
+          console.log(check)
+          this.$router.push({
+            name: 'dashboard',
+          })
+        } catch (error) {
+          this.error = error.response.data.error
+        }
+        try {
+          this.accountdata = (await AccountService.show({ accnumber: this.account.accnumber })).data
+          console.log('result ', this.accountdata.id)
+          const tran = (await TransacHisService.post({
+            UserId: this.$store.state.user.id,
+            AccountId: this.accountdata.id,
+          })).data
+          console.log('here', tran)
+        } catch (err) {
+          console.log(err)
+        }
+      },
+    },
   }
 </script>
+
+<style scoped>
+</style>

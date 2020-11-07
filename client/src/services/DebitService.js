@@ -7,5 +7,5 @@ export default {
   },
   post (debit) {
     return Api().post('debit', debit)
-  }
+  },
 }

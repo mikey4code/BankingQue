@@ -140,7 +140,34 @@
 </template>
 
 <script>
+  import AuthenticationService from '@/services/AuthenticationService'
   export default {
-    //
+    data () {
+      return {
+        email: '',
+        password: '',
+        error: null
+      }
+    },
+    methods: {
+      async register () {
+        try {
+          const response = await AuthenticationService.register({
+            email: this.email,
+            password: this.password
+          })
+          this.$store.dispatch('setToken', response.data.token)
+          this.$store.dispatch('setUser', response.data.user)
+          this.$router.push({
+            name: 'dashboard'
+          })
+        } catch (error) {
+          this.error = error.response.data.error
+        }
+      }
+    }
   }
 </script>
+
+<style scoped>
+</style>

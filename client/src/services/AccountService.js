@@ -8,14 +8,14 @@ export default {
   // takes userID
   useracc (param) {
     return Api().get('useracc', {
-      params: param
+      params: param,
     })
   },
   // takes account number
   show (param) {
     console.log('passsedc ', param)
     return Api().get('showaccount', {
-      params: param
+      params: param,
     })
   },
   // takes accountId
@@ -24,5 +24,5 @@ export default {
   },
   post (newaccount) {
     return Api().post('newaccount', newaccount)
-  }
+  },
 }

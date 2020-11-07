@@ -7,5 +7,5 @@ export default {
   },
   post (transfer) {
     return Api().post('transfer', transfer)
-  }
+  },
 }
