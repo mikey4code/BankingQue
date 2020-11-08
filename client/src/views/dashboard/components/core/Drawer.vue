@@ -116,26 +116,6 @@
           title: 'user',
           to: '/newaccount',
         },
-        {
-          icon: 'mdi-account',
-          title: 'user',
-          to: '/transaction',
-        },
-        {
-          icon: 'mdi-account',
-          title: 'user',
-          to: '/transfer',
-        },
-        {
-          icon: 'mdi-account',
-          title: 'user',
-          to: '/credit',
-        },
-        {
-          icon: 'mdi-account',
-          title: 'user',
-          to: '/debit',
-        },
       ],
     }),
 

@@ -20,7 +20,11 @@
             </div>
           </template>
 
-          <v-form>
+          <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation
+          >
             <v-container class="py-0">
               <v-row>
                 <v-col
@@ -30,8 +34,9 @@
                   <v-text-field
                     v-model="account.trantype"
                     class="purple-input"
-                    label="Transaction Type"
                     :rules="[required]"
+                    label="Transaction Type"
+                    required
                   />
                 </v-col>
 
@@ -43,7 +48,8 @@
                     v-model="account.first"
                     class="purple-input"
                     label="First Name"
-                    :rules="[required]"
+                    :rules="nameRules"
+                    required
                   />
                 </v-col>
 
@@ -55,7 +61,8 @@
                     v-model="account.lastn"
                     class="purple-input"
                     label="Last Name"
-                    :rules="[required]"
+                    :rules="nameRules"
+                    required
                   />
                 </v-col>
 
@@ -65,6 +72,7 @@
                     class="purple-input"
                     label="Address"
                     :rules="[required]"
+                    required
                   />
                 </v-col>
 
@@ -77,6 +85,7 @@
                     class="purple-input"
                     label="Number"
                     :rules="[required]"
+                    required
                   />
                 </v-col>
 
@@ -89,6 +98,7 @@
                     class="purple-input"
                     label="DOB"
                     :rules="[required]"
+                    required
                   />
                 </v-col>
 
@@ -97,11 +107,12 @@
                   class="text-right"
                 >
                   <v-btn
-                    dark
-                    class="cyan"
-                    @click="create"
-                    >
-                    CREATE ACCOUNT
+                    :disabled="!valid"
+                    color="success"
+                    class="mr-0"
+                    @click="validate"
+                  >
+                    Update Profile
                   </v-btn>
                 </v-col>
               </v-row>
@@ -130,6 +141,15 @@
         },
         accountdata: {},
         error: null,
+        valid: true,
+        nameRules: [
+          v => !!v || 'Name is required',
+          v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+        ],
+        emailRules: [
+          v => !!v || 'E-mail is required',
+          v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+        ],
         required: (values) => !!values || 'Required.',
       }
     },
@@ -142,15 +162,14 @@
       generateNumber: function () {
         return Math.floor(Math.random() * (99999999 - 10000000 + 1) + 10000000)
       },
-      async create () {
-        this.error = null
-        const areAllFieldsFilledIn = Object
-          .keys(this.account)
-          .every(key => !!this.account[key])
-        if (!areAllFieldsFilledIn) {
-          this.error = 'Please fill in all the required fields.'
-          return
+      validate () {
+        if (!this.$refs.form.validate()) {
+          this.$refs.form.validate()
+        } else {
+          this.create()
         }
+      },
+      async create () {
         try {
           this.account.amount = 0
           this.account.UserId = this.$store.state.user.id
