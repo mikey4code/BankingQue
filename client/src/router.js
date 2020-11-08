@@ -43,6 +43,11 @@ export default new Router({
           path: '/debit',
           component: () => import('@/views/dashboard/pages/Debit'),
         },
+        {
+          name: 'Login',
+          path: '/login',
+          component: () => import('@/views/dashboard/pages/Login'),
+        },
       ],
     },
     {

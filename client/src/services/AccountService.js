@@ -23,6 +23,7 @@ export default {
     return Api().get(`useracc/${accountId}`)
   },
   post (newaccount) {
+    console.log(Api)
     return Api().post('newaccount', newaccount)
   },
 }

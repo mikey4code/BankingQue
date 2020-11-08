@@ -23,33 +23,15 @@
           <v-form>
             <v-container class="py-0">
               <v-row>
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    label="Company (disabled)"
-                    disabled
-                  />
-                </v-col>
 
                 <v-col
                   cols="12"
-                  md="4"
+                  md="6"
                 >
                   <v-text-field
+                    v-model="email"
                     class="purple-input"
-                    label="User Name"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    label="Email Address"
-                    class="purple-input"
+                    label="Email"
                   />
                 </v-col>
 
@@ -58,64 +40,9 @@
                   md="6"
                 >
                   <v-text-field
-                    label="First Name"
+                    v-model="password"
                     class="purple-input"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="6"
-                >
-                  <v-text-field
-                    label="Last Name"
-                    class="purple-input"
-                  />
-                </v-col>
-
-                <v-col cols="12">
-                  <v-text-field
-                    label="Adress"
-                    class="purple-input"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    label="City"
-                    class="purple-input"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    label="Country"
-                    class="purple-input"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    class="purple-input"
-                    label="Postal Code"
-                    type="number"
-                  />
-                </v-col>
-
-                <v-col cols="12">
-                  <v-textarea
-                    class="purple-input"
-                    label="About Me"
-                    value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                    label="Password"
                   />
                 </v-col>
 
@@ -126,6 +53,7 @@
                   <v-btn
                     color="success"
                     class="mr-0"
+                    @click="login"
                   >
                     Update Profile
                   </v-btn>
@@ -146,7 +74,7 @@
       return {
         email: '',
         password: '',
-        error: null
+        error: null,
       }
     },
     methods: {
@@ -154,21 +82,20 @@
         try {
           const response = await AuthenticationService.login({
             email: this.email,
-            password: this.password
+            password: this.password,
           })
           this.$store.dispatch('setToken', response.data.token)
           this.$store.dispatch('setUser', response.data.user)
           this.$router.push({
-            name: 'dashboard'
+            name: 'Dashboard',
           })
         } catch (error) {
           this.error = error.response.data.error
         }
-      }
-    }
+      },
+    },
   }
 </script>
 
 <style scoped>
 </style>
-

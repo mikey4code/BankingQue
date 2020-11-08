@@ -106,6 +106,34 @@
       </v-list>
     </v-menu>
 
+    <v-toolbar-items>
+      <v-btn
+        v-if="!$store.state.isUserLoggedIn"
+        dark
+        :to="{
+          name: 'Login'
+        }"
+      >
+        Login
+      </v-btn>
+      <v-btn
+        v-if="!$store.state.isUserLoggedIn"
+        dark
+        :to="{
+          name: 'Login'
+        }"
+      >
+        Sign Up
+      </v-btn>
+      <v-btn
+        v-if="$store.state.isUserLoggedIn"
+        dark
+        @click="logout"
+      >
+        Log Out
+      </v-btn>
+    </v-toolbar-items>
+
     <v-btn
       class="ml-2"
       min-width="0"
@@ -186,6 +214,13 @@
       ...mapMutations({
         setDrawer: 'SET_DRAWER',
       }),
+      logout () {
+        this.$store.dispatch('setToken', null)
+        this.$store.dispatch('setUser', null)
+        this.$router.push({
+          name: 'Dashboard',
+        })
+      },
     },
   }
 </script>

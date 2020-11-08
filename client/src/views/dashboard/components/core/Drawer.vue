@@ -6,7 +6,7 @@
     :expand-on-hover="expandOnHover"
     :right="$vuetify.rtl"
     :src="barImage"
-    mobile-break-point="960"
+    mobile-breakpoint="960"
     app
     width="260"
     v-bind="$attrs"
@@ -113,27 +113,27 @@
         },
         {
           icon: 'mdi-account',
-          title: 'New Account',
+          title: 'user',
           to: '/newaccount',
         },
         {
           icon: 'mdi-account',
-          title: 'Transaction',
+          title: 'user',
           to: '/transaction',
         },
         {
           icon: 'mdi-account',
-          title: 'Transfer',
+          title: 'user',
           to: '/transfer',
         },
         {
           icon: 'mdi-account',
-          title: 'Credit',
+          title: 'user',
           to: '/credit',
         },
         {
           icon: 'mdi-account',
-          title: 'Debit',
+          title: 'user',
           to: '/debit',
         },
       ],

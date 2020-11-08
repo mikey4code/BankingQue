@@ -6,7 +6,7 @@
     :expand-on-hover="expandOnHover"
     :right="$vuetify.rtl"
     :src="barImage"
-    mobile-break-point="960"
+    mobile-breakpoint="960"
     app
     width="260"
     v-bind="$attrs"
@@ -113,32 +113,32 @@
         },
         {
           icon: 'mdi-account',
-          title: 'Account Report',
+          title: 'rtables',
           to: '/bank/accountreport',
         },
         {
           icon: 'mdi-account',
-          title: 'Transaction Report',
+          title: 'rtables',
           to: '/bank/transactionreport',
         },
         {
           icon: 'mdi-account',
-          title: 'Transfer Report',
+          title: 'rtables',
           to: '/bank/transferreport',
         },
         {
           icon: 'mdi-account',
-          title: 'Credit Report',
+          title: 'rtables',
           to: '/bank/creditreport',
         },
         {
           icon: 'mdi-account',
-          title: 'Debit Report',
+          title: 'rtables',
           to: '/bank/debitreport',
         },
         {
           icon: 'mdi-account',
-          title: 'Bank Report',
+          title: 'rtables',
           to: '/bank/bankreport',
         },
       ],

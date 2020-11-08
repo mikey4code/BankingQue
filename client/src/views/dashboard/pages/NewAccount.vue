@@ -25,31 +25,13 @@
               <v-row>
                 <v-col
                   cols="12"
-                  md="4"
+                  md="7"
                 >
                   <v-text-field
-                    label="Company (disabled)"
-                    disabled
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
+                    v-model="account.trantype"
                     class="purple-input"
-                    label="User Name"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    label="Email Address"
-                    class="purple-input"
+                    label="Transaction Type"
+                    :rules="[required]"
                   />
                 </v-col>
 
@@ -58,8 +40,10 @@
                   md="6"
                 >
                   <v-text-field
+                    v-model="account.first"
+                    class="purple-input"
                     label="First Name"
-                    class="purple-input"
+                    :rules="[required]"
                   />
                 </v-col>
 
@@ -68,15 +52,19 @@
                   md="6"
                 >
                   <v-text-field
+                    v-model="account.lastn"
+                    class="purple-input"
                     label="Last Name"
-                    class="purple-input"
+                    :rules="[required]"
                   />
                 </v-col>
 
                 <v-col cols="12">
                   <v-text-field
-                    label="Adress"
+                    v-model="account.address"
                     class="purple-input"
+                    label="Address"
+                    :rules="[required]"
                   />
                 </v-col>
 
@@ -85,8 +73,10 @@
                   md="4"
                 >
                   <v-text-field
-                    label="City"
+                    v-model="account.phone"
                     class="purple-input"
+                    label="Number"
+                    :rules="[required]"
                   />
                 </v-col>
 
@@ -95,27 +85,10 @@
                   md="4"
                 >
                   <v-text-field
-                    label="Country"
+                    v-model="account.dob"
                     class="purple-input"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    class="purple-input"
-                    label="Postal Code"
-                    type="number"
-                  />
-                </v-col>
-
-                <v-col cols="12">
-                  <v-textarea
-                    class="purple-input"
-                    label="About Me"
-                    value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                    label="DOB"
+                    :rules="[required]"
                   />
                 </v-col>
 
@@ -124,10 +97,11 @@
                   class="text-right"
                 >
                   <v-btn
-                    color="success"
-                    class="mr-0"
-                  >
-                    Update Profile
+                    dark
+                    class="cyan"
+                    @click="create"
+                    >
+                    CREATE ACCOUNT
                   </v-btn>
                 </v-col>
               </v-row>
@@ -185,7 +159,7 @@
           const check = (await AccountService.post(this.account)).data
           console.log(check)
           this.$router.push({
-            name: 'dashboard',
+            name: 'Dashboard',
           })
         } catch (error) {
           this.error = error.response.data.error
