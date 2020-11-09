@@ -113,8 +113,28 @@
         },
         {
           icon: 'mdi-account',
-          title: 'user',
+          title: 'account',
           to: '/newaccount',
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'transaction',
+          to: '/transaction',
+        },
+        {
+          icon: 'mdi-account',
+          title: 'transfer',
+          to: '/transfer',
+        },
+        {
+          icon: 'mdi-account',
+          title: 'credit',
+          to: '/credit',
+        },
+        {
+          icon: 'mdi-account',
+          title: 'debit',
+          to: '/debit',
         },
       ],
     }),

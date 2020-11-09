@@ -1,11 +1,11 @@
 <template>
   <v-container
-    id="icons"
+    id="trans"
     fluid
     tag="section"
   >
     <base-v-component
-      heading="Icons"
+      heading="Trans"
       link="components/icons"
     />
 

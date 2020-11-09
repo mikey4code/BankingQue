@@ -75,24 +75,12 @@
       <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
       <div />
     </v-list>
-
-    <template v-slot:append>
-      <base-item
-        :item="{
-          title: $t('upgrade'),
-          icon: 'mdi-package-up',
-          to: '/upgrade',
-        }"
-      />
-    </template>
   </v-navigation-drawer>
 </template>
 
 <script>
   // Utilities
-  import {
-    mapState,
-  } from 'vuex'
+  import { mapState } from 'vuex'
 
   export default {
     name: 'DashboardCoreDrawerBank',
@@ -113,33 +101,33 @@
         },
         {
           icon: 'mdi-account',
-          title: 'rtables',
-          to: '/bank/accountreport',
+          title: 'accountreport',
+          to: '/accountreport',
         },
         {
           icon: 'mdi-account',
-          title: 'rtables',
-          to: '/bank/transactionreport',
+          title: 'transactionreport',
+          to: '/transactionreport',
         },
         {
           icon: 'mdi-account',
-          title: 'rtables',
-          to: '/bank/transferreport',
+          title: 'transferreport',
+          to: '/transferreport',
         },
         {
           icon: 'mdi-account',
-          title: 'rtables',
-          to: '/bank/creditreport',
+          title: 'creditreport',
+          to: '/creditreport',
         },
         {
           icon: 'mdi-account',
-          title: 'rtables',
-          to: '/bank/debitreport',
+          title: 'debitreport',
+          to: '/debitreport',
         },
         {
           icon: 'mdi-account',
-          title: 'rtables',
-          to: '/bank/bankreport',
+          title: 'bankreport',
+          to: '/bankreport',
         },
       ],
     }),

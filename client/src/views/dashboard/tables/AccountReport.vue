@@ -4,19 +4,12 @@
     fluid
     tag="section"
   >
-    <base-v-component
-      heading="Simple Tables"
-      link="components/simple-tables"
-    />
-
-    <div class="py-3" />
-
     <base-material-card
       color="success"
       dark
       icon="mdi-clipboard-plus"
-      title="Table on Dark Background"
-      class="px-5 py-3"
+      title="ACCOUNT REPORT"
+      class="px-6 py-3"
     >
       <v-simple-table>
         <thead>

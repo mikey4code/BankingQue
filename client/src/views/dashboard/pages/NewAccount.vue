@@ -45,7 +45,7 @@
                   md="6"
                 >
                   <v-text-field
-                    v-model="account.first"
+                    v-model="account.firstn"
                     class="purple-input"
                     label="First Name"
                     :rules="nameRules"

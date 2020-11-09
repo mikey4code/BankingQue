@@ -63,32 +63,32 @@ export default new Router({
         // Tables
         {
           name: 'Account Report',
-          path: '/bank/accountreport',
+          path: '/accountreport',
           component: () => import('@/views/dashboard/tables/AccountReport'),
         },
         {
           name: 'Transaction Report',
-          path: '/bank/transactionreport',
+          path: '/transactionreport',
           component: () => import('@/views/dashboard/tables/TransactionReport'),
         },
         {
           name: 'Transfer Report',
-          path: '/bank/transferreport',
+          path: '/transferreport',
           component: () => import('@/views/dashboard/tables/TransferReport'),
         },
         {
           name: 'Credit Report',
-          path: '/bank/creditreport',
+          path: '/creditreport',
           component: () => import('@/views/dashboard/tables/CreditReport'),
         },
         {
           name: 'Debit Report',
-          path: '/bank/debitreport',
+          path: '/debitreport',
           component: () => import('@/views/dashboard/tables/DebitReport'),
         },
         {
           name: 'Bank Report',
-          path: '/bank/Bankreport',
+          path: '/bankreport',
           component: () => import('@/views/dashboard/tables/BankReport'),
         },
       ],
