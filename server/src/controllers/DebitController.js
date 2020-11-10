@@ -14,6 +14,24 @@ module.exports = {
       })
     }
   },
+  async showdebit (req, res) {
+    try {
+      const reqnumber = req.query.param
+      console.log('what is req ', reqnumber)
+      console.log('need to be here ')
+      const tran = await Debit.findAll({
+        where: {
+          accnumber: reqnumber
+        }
+      })
+      console.log('this', tran)
+      res.send(tran)
+    } catch (err) {
+      res.status(500).send({
+        error: 'an error has occured trying to fetch account accnumber'
+      })
+    }
+  },
   async post (req, res) {
         try {
           console.log('what debit ', req.body)

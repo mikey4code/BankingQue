@@ -19,9 +19,11 @@ import './plugins/base'
 import './plugins/chartist'
 import './plugins/vee-validate'
 import vuetify from './plugins/vuetify'
+import { sync } from 'vuex-router-sync'
 import i18n from './i18n'
 
 Vue.config.productionTip = false
+sync(store, router)
 
 new Vue({
   router,

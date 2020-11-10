@@ -31,6 +31,24 @@ module.exports = {
       })
     }
   },
+  async showtran (req, res) {
+    try {
+      const reqnumber = req.query.param
+      console.log('what is req ', reqnumber)
+      console.log('need to be here ')
+      const tran = await Transaction.findAll({
+        where: {
+          accnumber: reqnumber
+        }
+      })
+      console.log('this', tran)
+      res.send(tran)
+    } catch (err) {
+      res.status(500).send({
+        error: 'an error has occured trying to fetch account accnumber'
+      })
+    }
+  },
   async post (req, res) {
         try {
           const transaction = await Transaction.create(req.body)

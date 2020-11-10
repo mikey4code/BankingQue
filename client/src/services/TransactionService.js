@@ -8,6 +8,12 @@ export default {
   show () {
     return Api().get('showtransaction')
   },
+  showtran (param) {
+    console.log(param)
+    return Api().get('showtran', {
+      params: { param },
+    })
+  },
   post (transaction) {
     return Api().post('transaction', transaction)
   },

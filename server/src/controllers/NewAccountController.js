@@ -51,11 +51,11 @@ module.exports = {
       async showacc (req, res) {
         try {
           console.log('acount id ', req.params.accountId)
-          const account = await Account.findAll({
+          const account = await Account.findOne({
             where: {
               id: req.params.accountId
             }})
-          console.log('this', account)
+          console.log('account byID', account)
           res.send(account)
         } catch (err) {
           res.status(500).send({

@@ -84,7 +84,7 @@
                     v-model="account.phone"
                     class="purple-input"
                     label="Number"
-                    :rules="[required]"
+                    :rules="numberRules"
                     required
                   />
                 </v-col>
@@ -149,6 +149,10 @@
         emailRules: [
           v => !!v || 'E-mail is required',
           v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+        ],
+        numberRules: [
+          v => !!v || 'Phone number is required',
+          v => (v && v.length === 10) || 'Phone number must be equal to 10 digits',
         ],
         required: (values) => !!values || 'Required.',
       }

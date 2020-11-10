@@ -27,9 +27,13 @@
                   cols="12"
                   md="4"
                 >
-                  <v-text-field
-                    label="Company (disabled)"
-                    disabled
+                  <v-select
+                    v-model="transfer.trantype"
+                    class="purple-input"
+                    :rules="[required]"
+                    :items="items"
+                    label="Transaction Type"
+                    required
                   />
                 </v-col>
 
@@ -38,28 +42,24 @@
                   md="4"
                 >
                   <v-text-field
+                    v-model="transfer.firstn"
                     class="purple-input"
-                    label="User Name"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    label="Email Address"
-                    class="purple-input"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="6"
-                >
-                  <v-text-field
+                    :rules="nameRules"
                     label="First Name"
+                    required
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <v-text-field
+                    v-model="transfer.lastn"
                     class="purple-input"
+                    :rules="nameRules"
+                    label="Last Name"
+                    required
                   />
                 </v-col>
 
@@ -68,54 +68,37 @@
                   md="6"
                 >
                   <v-text-field
-                    label="Last Name"
+                    v-model="transfer.accnnumber"
                     class="purple-input"
-                  />
-                </v-col>
-
-                <v-col cols="12">
-                  <v-text-field
-                    label="Adress"
-                    class="purple-input"
+                    :rules="[required]"
+                    label="Account Number"
+                    required
                   />
                 </v-col>
 
                 <v-col
                   cols="12"
-                  md="4"
+                  md="6"
                 >
                   <v-text-field
-                    label="City"
+                    v-model="transfer.recipn"
                     class="purple-input"
+                    :rules="[required]"
+                    label="Recipient"
+                    required
                   />
                 </v-col>
 
                 <v-col
                   cols="12"
-                  md="4"
+                  md="6"
                 >
                   <v-text-field
-                    label="Country"
+                    v-model="transfer.amount"
                     class="purple-input"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    class="purple-input"
-                    label="Postal Code"
-                    type="number"
-                  />
-                </v-col>
-
-                <v-col cols="12">
-                  <v-textarea
-                    class="purple-input"
-                    label="About Me"
-                    value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                    :rules="[required]"
+                    label="Amount"
+                    required
                   />
                 </v-col>
 
@@ -145,6 +128,7 @@
   export default {
     data () {
       return {
+        items: ['Checkings', 'Savings'],
         transfer: {
           trantype: null,
           firstn: null,
@@ -154,6 +138,10 @@
           amount: null,
         },
         error: null,
+        nameRules: [
+          v => !!v || 'Name is required',
+          v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+        ],
         required: (values) => !!values || 'Required.',
       }
     },

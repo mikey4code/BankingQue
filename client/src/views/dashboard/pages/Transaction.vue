@@ -27,9 +27,13 @@
                   cols="12"
                   md="4"
                 >
-                  <v-text-field
-                    label="Company (disabled)"
-                    disabled
+                  <v-select
+                    v-model="transaction.trantype"
+                    class="purple-input"
+                    :items="items"
+                    :rules="[required]"
+                    label="Transaction Type"
+                    required
                   />
                 </v-col>
 
@@ -38,28 +42,24 @@
                   md="4"
                 >
                   <v-text-field
+                    v-model="transaction.firstn"
                     class="purple-input"
-                    label="User Name"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    label="Email Address"
-                    class="purple-input"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="6"
-                >
-                  <v-text-field
+                    :rules="nameRules"
                     label="First Name"
+                    required
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <v-text-field
+                    v-model="transaction.lastn"
                     class="purple-input"
+                    :rules="nameRules"
+                    label="Last Name"
+                    required
                   />
                 </v-col>
 
@@ -68,54 +68,34 @@
                   md="6"
                 >
                   <v-text-field
-                    label="Last Name"
+                    v-model="transaction.phone"
                     class="purple-input"
+                    :rules="numberRules"
+                    label="Phone Number"
+                    required
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="transaction.amount"
+                    class="purple-input"
+                    :rules="[required]"
+                    label="Amount"
+                    required
                   />
                 </v-col>
 
                 <v-col cols="12">
                   <v-text-field
-                    label="Adress"
+                    v-model="transaction.accnumber"
                     class="purple-input"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    label="City"
-                    class="purple-input"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    label="Country"
-                    class="purple-input"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    class="purple-input"
-                    label="Postal Code"
-                    type="number"
-                  />
-                </v-col>
-
-                <v-col cols="12">
-                  <v-textarea
-                    class="purple-input"
-                    label="About Me"
-                    value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                    :rules="[required]"
+                    label="Account Number"
+                    required
                   />
                 </v-col>
 
@@ -148,6 +128,7 @@
   export default {
     data () {
       return {
+        items: ['Deposit', 'Withdrawl'],
         transaction: {
           trantype: null,
           firstn: null,
@@ -159,6 +140,15 @@
         accountdata: {},
         transactiondata: {},
         error: null,
+        valid: true,
+        nameRules: [
+          v => !!v || 'Name is required',
+          v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+        ],
+        numberRules: [
+          v => !!v || 'Phone number is required',
+          v => (v && v.length === 10) || 'Phone number must be equal to 10 digits',
+        ],
         required: (values) => !!values || 'Required.',
       }
     },

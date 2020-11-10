@@ -50,6 +50,9 @@ module.exports = (app) => {
 
         app.get('/showtransaction',
             TransactionController.show)
+            
+        app.get('/showtran',
+            TransactionController.showtran)
 
         app.post('/debit',
             DebitController.post)
@@ -57,14 +60,23 @@ module.exports = (app) => {
         app.get('/debitreport',
             DebitController.index)
 
+        app.get('/showdebit',
+            DebitController.showdebit)
+
         app.post('/credit',
             CreditController.post)
 
         app.get('/creditreport',
             CreditController.index)
+
+        app.get('/showcredit',
+            CreditController.showcredit)
        
         app.post('/transfer',
             TransferController.post)
+
+        app.get('/showtransfer',
+            TransferController.showtransfer)
 
         app.get('/transferreport',
             TransferController.index)

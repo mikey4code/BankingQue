@@ -27,28 +27,15 @@
                   cols="12"
                   md="4"
                 >
-                  <v-text-field
-                    label="Company (disabled)"
-                    disabled
-                  />
-                </v-col>
 
                 <v-col
                   cols="12"
                   md="4"
                 >
                   <v-text-field
-                    class="purple-input"
-                    label="User Name"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
+                    v-model="reg.email"
                     label="Email Address"
+                    :required="emailRules"
                     class="purple-input"
                   />
                 </v-col>
@@ -58,67 +45,13 @@
                   md="6"
                 >
                   <v-text-field
-                    label="First Name"
+                    v-model="reg.password"
+                    label="Password"
+                    :required="passRules"
                     class="purple-input"
                   />
                 </v-col>
-
-                <v-col
-                  cols="12"
-                  md="6"
-                >
-                  <v-text-field
-                    label="Last Name"
-                    class="purple-input"
-                  />
-                </v-col>
-
-                <v-col cols="12">
-                  <v-text-field
-                    label="Adress"
-                    class="purple-input"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    label="City"
-                    class="purple-input"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    label="Country"
-                    class="purple-input"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    class="purple-input"
-                    label="Postal Code"
-                    type="number"
-                  />
-                </v-col>
-
-                <v-col cols="12">
-                  <v-textarea
-                    class="purple-input"
-                    label="About Me"
-                    value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                  />
-                </v-col>
-
+                
                 <v-col
                   cols="12"
                   class="text-right"
@@ -126,6 +59,7 @@
                   <v-btn
                     color="success"
                     class="mr-0"
+                    @click="register"
                   >
                     Update Profile
                   </v-btn>
@@ -144,9 +78,20 @@
   export default {
     data () {
       return {
+       reg: {
         email: '',
-        password: '',
-        error: null
+        password: ''
+       },
+        error: null,
+        valid: true,
+        emailRules: [
+          v => !!v || 'E-mail is required',
+          v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+        ],
+        passRules: [
+          v => !!v || 'Password is required',
+          v => (v && v.length <= 8) || 'Password must be less than 8 characters ',
+        ],
       }
     },
     methods: {

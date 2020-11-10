@@ -29,8 +29,9 @@
                   md="6"
                 >
                   <v-text-field
-                    v-model="email"
+                    v-model="log.email"
                     class="purple-input"
+                    :required="emailRules"
                     label="Email"
                   />
                 </v-col>
@@ -40,8 +41,9 @@
                   md="6"
                 >
                   <v-text-field
-                    v-model="password"
+                    v-model="log.password"
                     class="purple-input"
+                    :required="passRules"
                     label="Password"
                   />
                 </v-col>
@@ -55,7 +57,7 @@
                     class="mr-0"
                     @click="login"
                   >
-                    Update Profile
+                    Login
                   </v-btn>
                 </v-col>
               </v-row>
@@ -72,9 +74,20 @@
   export default {
     data () {
       return {
-        email: '',
-        password: '',
+        log: {
+          email: '',
+          password: '',
+        },
         error: null,
+        valid: true,
+        emailRules: [
+          v => !!v || 'E-mail is required',
+          v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+        ],
+        passRules: [
+          v => !!v || 'Password is required',
+          v => (v && v.length <= 8) || 'Password must be less than 8 characters ',
+        ],
       }
     },
     methods: {

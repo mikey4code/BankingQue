@@ -8,84 +8,48 @@
       color="success"
       dark
       icon="mdi-clipboard-plus"
-      title="ACCOUNT REPORT"
-      class="px-6 py-3"
+      title="Table on Dark Background"
+      class="px-5 py-10"
     >
-      <v-simple-table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Country</th>
-            <th>City</th>
-            <th class="text-right">
-              Salary
-            </th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Dakota Rice</td>
-            <td>Niger</td>
-            <td>Oud-Turnhout</td>
-            <td class="text-right">
-              $36,738
-            </td>
-          </tr>
-
-          <tr>
-            <td>2</td>
-            <td>Minverva Hooper</td>
-            <td>Curaçao</td>
-            <td>Sinaas-Waas</td>
-            <td class="text-right">
-              $23,789
-            </td>
-          </tr>
-
-          <tr>
-            <td>3</td>
-            <td>Sage Rodriguez</td>
-            <td>Netherlands</td>
-            <td>Baileux</td>
-            <td class="text-right">
-              $56,142
-            </td>
-          </tr>
-
-          <tr>
-            <td>4</td>
-            <td>Philip Chaney</td>
-            <td>Korea, South</td>
-            <td>Overland Park</td>
-            <td class="text-right">
-              $38,735
-            </td>
-          </tr>
-
-          <tr>
-            <td>5</td>
-            <td>Doris Greene</td>
-            <td>Malawi</td>
-            <td>Feldkirchen in Kärnten</td>
-            <td class="text-right">
-              $63,542
-            </td>
-          </tr>
-
-          <tr>
-            <td>6</td>
-            <td>Mason Porter</td>
-            <td>Chile</td>
-            <td>Gloucester</td>
-            <td class="text-right">
-              $78,615
-            </td>
-          </tr>
-        </tbody>
-      </v-simple-table>
+      <v-data-table
+        :headers="headers"
+        :items="accounts"
+        class="elevation-1"
+      >
+        <template slot-scope="props">
+          <td>{{ props.amount }}</td>
+          <td class="text-right">
+            {{ items.amount }}
+          </td>
+          <td class="text-right">
+            {{ props.item.first }}
+          </td>
+          <td class="text-right">
+            {{ props.item.lastn }}
+          </td>
+          <td class="text-right">
+            {{ props.item.address }}
+          </td>
+          <td class="text-right">
+            {{ props.item.phone }}
+          </td><td class="text-right">
+            {{ props.item.dob }}
+          </td><td class="text-right">
+            {{ props.item.amount }}
+          </td>
+          <td class="justify-center layout px-0">
+            <v-btn
+              class="ma-1"
+              color="success"
+              @click="navigateTo({name: 'account', params:{
+                accountId: account.id
+              }})"
+            >
+              View
+            </v-btn>
+          </td>
+        </template>
+      </v-data-table>
     </base-material-card>
   </v-container>
 </template>
@@ -99,6 +63,8 @@
         headers: [
           {
             text: 'Transaction Type',
+            align: 'left',
+            sortable: false,
             value: 'trantype',
           },
           {
@@ -129,6 +95,11 @@
             text: 'Amount',
             value: 'amount',
           },
+          {
+            text: 'Actions',
+            value: 'name',
+            sortable: false,
+          },
         ],
         accounts: [],
       }
@@ -142,6 +113,12 @@
     async mounted () {
       this.accounts = (await AccountService.index()).data
       console.log('first account ', this.accounts)
+    },
+    methods: {
+      navigateTo (route) {
+        console.log('route ', route)
+        this.$router.push(route)
+      },
     },
   }
 </script>

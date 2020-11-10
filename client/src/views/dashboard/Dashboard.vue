@@ -21,13 +21,13 @@
               class="mx-auto"
             >
               <v-slide-group
-                v-model="model"
+                v-model="waiting"
                 class="pa-4"
                 show-arrows
               >
                 <v-slide-item
                   v-for="(wait, i) in waiting"
-                  :key="wait"
+                  :key="i"
                 >
                   <v-card
                     color="green"
@@ -84,58 +84,42 @@
                 show-arrows
               >
                 <v-slide-item
-                  v-for="acc in useracc"
-                  :key="acc"
-                  v-slot="{ active, toggle }"
+                  v-for="(account, index) in useracc"
+                  :key="index"
                 >
                   <v-card
-                    :color="active ? 'primary' : 'grey lighten-1'"
-                    class="ma-4"
-                    height="100"
-                    width="200"
-                    @click="toggle"
+                    class="mx-3"
+                    width="300"
                   >
-                    {{ acc }}
-                    <v-row
-                      class="fill-height"
-                      align="center"
-                      justify="center"
-                    >
-                      <v-scale-transition>
-                        <v-icon
-                          v-if="active"
-                          color="white"
-                          size="48"
-                          v-text="'mdi-close-circle-outline'"
-                        />
-                      </v-scale-transition>
-                    </v-row>
+                    <v-card-title>
+                      {{ account.trantype }}
+                      {{ account.accnumber }}
+                      {{ account.id }}
+                    </v-card-title>
+                    <br>
+                    <v-card-subtitle>
+                      Amount : {{ account.amount }}
+                    </v-card-subtitle>
+
+                    <v-card-actions>
+                      <v-btn
+                        color="orange lighten-2"
+                        text
+                        @click="navigateTo({name: 'account', params:{
+                          accountId: account.id
+                        }})"
+                      >
+                        View
+                      </v-btn>
+                    </v-card-actions>
                   </v-card>
                 </v-slide-item>
               </v-slide-group>
-
-              <v-expand-transition>
-                <v-sheet
-                  v-if="model != null"
-                  height="auto"
-                  tile
-                >
-                  <v-row
-                    class="fill-height"
-                    align="center"
-                    justify="center"
-                  >
-                    <h3 class="title">
-                      Selected {{ acc.id }}
-                    </h3>
-                  </v-row>
-                </v-sheet>
-              </v-expand-transition>
             </v-sheet>
           </v-col>
         </base-material-card>
-
       </v-col>
+
       <v-col
         cols="12"
         sm="6"
@@ -540,6 +524,10 @@
     methods: {
       complete (index) {
         this.list[index] = !this.list[index]
+      },
+      navigateTo (route) {
+        console.log('route ', route)
+        this.$router.push(route)
       },
     },
   }

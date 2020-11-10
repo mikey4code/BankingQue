@@ -106,33 +106,37 @@
       </v-list>
     </v-menu>
 
-    <v-toolbar-items>
-      <v-btn
-        v-if="!$store.state.isUserLoggedIn"
-        dark
-        :to="{
-          name: 'Login'
-        }"
-      >
-        Login
-      </v-btn>
-      <v-btn
-        v-if="!$store.state.isUserLoggedIn"
-        dark
-        :to="{
-          name: 'Login'
-        }"
-      >
-        Sign Up
-      </v-btn>
-      <v-btn
-        v-if="$store.state.isUserLoggedIn"
-        dark
-        @click="logout"
-      >
-        Log Out
-      </v-btn>
-    </v-toolbar-items>
+    <v-btn
+      v-if="!$store.state.isUserLoggedIn"
+      class="ml-2"
+      width="10"
+      text
+      large
+      to="/login"
+    >
+      Login
+    </v-btn>
+    <v-btn
+      v-if="!$store.state.isUserLoggedIn"
+      class="ml-2"
+      width="10"
+      text
+      large
+      to="/login"
+    >
+      Sign Up
+    </v-btn>
+    <v-btn
+      v-if="$store.state.isUserLoggedIn"
+      class="ml-2"
+      width="10"
+      text
+      large
+      elevation="2"
+      @click="logout"
+    >
+      Log Out
+    </v-btn>
 
     <v-btn
       class="ml-2"

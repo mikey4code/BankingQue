@@ -27,9 +27,13 @@
                   cols="12"
                   md="4"
                 >
-                  <v-text-field
-                    label="Company (disabled)"
-                    disabled
+                  <v-select
+                    v-model="debit.trantype"
+                    class="purple-input"
+                    :rules="[required]"
+                    :items="items"
+                    label="Transaction Type"
+                    required
                   />
                 </v-col>
 
@@ -38,28 +42,24 @@
                   md="4"
                 >
                   <v-text-field
+                    v-model="debit.firstn"
                     class="purple-input"
-                    label="User Name"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    label="Email Address"
-                    class="purple-input"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="6"
-                >
-                  <v-text-field
+                    :rules="nameRules"
                     label="First Name"
+                    required
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <v-text-field
+                    v-model="credit.lastn"
                     class="purple-input"
+                    :rules="nameRules"
+                    label="Last Name"
+                    required
                   />
                 </v-col>
 
@@ -68,15 +68,34 @@
                   md="6"
                 >
                   <v-text-field
-                    label="Last Name"
+                    v-model="debit.address"
                     class="purple-input"
+                    :rules="[required]"
+                    label="Address"
+                    required
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="debit.phone"
+                    class="purple-input"
+                    :rules="numberRules"
+                    label="Phone Number"
+                    required
                   />
                 </v-col>
 
                 <v-col cols="12">
                   <v-text-field
-                    label="Adress"
+                    v-model="debit.license"
                     class="purple-input"
+                    :rules="[required]"
+                    label="License Number"
+                    required
                   />
                 </v-col>
 
@@ -95,37 +114,18 @@
                   md="4"
                 >
                   <v-text-field
-                    label="Country"
+                    v-model="debit.accnumber"
                     class="purple-input"
+                    :rules="[required]"
+                    label="Account Number"
+                    required
                   />
                 </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    class="purple-input"
-                    label="Postal Code"
-                    type="number"
-                  />
-                </v-col>
-
-                <v-col cols="12">
-                  <v-textarea
-                    class="purple-input"
-                    label="About Me"
-                    value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  class="text-right"
-                >
+                <v-col>
                   <v-btn
                     color="success"
                     class="mr-0"
+                    @click="create"
                   >
                     Update Profile
                   </v-btn>
@@ -145,6 +145,7 @@
   export default {
     data () {
       return {
+        items: ['Debit'],
         debit: {
           trantype: null,
           firstn: null,
@@ -155,6 +156,15 @@
           accnumber: null,
         },
         error: null,
+        valid: true,
+        nameRules: [
+          v => !!v || 'Name is required',
+          v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+        ],
+        numberRules: [
+          v => !!v || 'Phone number is required',
+          v => (v && v.length === 10) || 'Phone number must be equal to 10 digits',
+        ],
         required: (values) => !!values || 'Required.',
       }
     },
