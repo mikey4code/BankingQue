@@ -20,7 +20,11 @@
             </div>
           </template>
 
-          <v-form>
+          <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation
+          >
             <v-container class="py-0">
               <v-row>
                 <v-col
@@ -55,7 +59,7 @@
                   md="4"
                 >
                   <v-text-field
-                    v-model="credit.lastn"
+                    v-model="debit.lastn"
                     class="purple-input"
                     :rules="nameRules"
                     label="Last Name"
@@ -123,9 +127,10 @@
                 </v-col>
                 <v-col>
                   <v-btn
+                    :disabled="!valid"
                     color="success"
                     class="mr-0"
-                    @click="create"
+                    @click="validate"
                   >
                     Update Profile
                   </v-btn>
@@ -174,6 +179,13 @@
       ]),
     },
     methods: {
+      validate () {
+        if (!this.$refs.form.validate()) {
+          this.$refs.form.validate()
+        } else {
+          this.create()
+        }
+      },
       async create () {
         this.error = null
         const areAllFieldsFilledIn = Object

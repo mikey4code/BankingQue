@@ -20,7 +20,11 @@
             </div>
           </template>
 
-          <v-form>
+          <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation
+          >
             <v-container class="py-0">
               <v-row>
                 <v-col
@@ -107,8 +111,10 @@
                   class="text-right"
                 >
                   <v-btn
+                    :disabled="!valid"
                     color="success"
                     class="mr-0"
+                    @click="validate"
                   >
                     Update Profile
                   </v-btn>
@@ -128,7 +134,7 @@
   export default {
     data () {
       return {
-        items: ['Checkings', 'Savings'],
+        items: ['Transfer'],
         transfer: {
           trantype: null,
           firstn: null,
@@ -138,6 +144,7 @@
           amount: null,
         },
         error: null,
+        valid: true,
         nameRules: [
           v => !!v || 'Name is required',
           v => (v && v.length <= 10) || 'Name must be less than 10 characters',
@@ -151,6 +158,13 @@
       ]),
     },
     methods: {
+      validate () {
+        if (!this.$refs.form.validate()) {
+          this.$refs.form.validate()
+        } else {
+          this.create()
+        }
+      },
       async create () {
         this.error = null
         const areAllFieldsFilledIn = Object

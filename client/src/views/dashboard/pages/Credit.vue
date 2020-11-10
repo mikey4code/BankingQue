@@ -20,16 +20,21 @@
             </div>
           </template>
 
-          <v-form>
+          <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation
+          >
             <v-container class="py-0">
               <v-row>
                 <v-col
                   cols="12"
                   md="4"
                 >
-                  <v-text-field
+                  <v-select
                     v-model="credit.trantype"
                     class="purple-input"
+                    :items="items"
                     :rules="[required]"
                     label="Transaction Type"
                     required
@@ -118,9 +123,10 @@
                   cols="12"
                   md="4"
                 >
-                  <v-text-field
+                  <v-select
                     v-model="credit.accnumber"
                     class="purple-input"
+                    :items="useracc"
                     :rules="[required]"
                     label="Account Number"
                     required
@@ -142,9 +148,10 @@
                   class="text-right"
                 >
                   <v-btn
+                    :disabled="!valid"
                     color="success"
                     class="mr-0"
-                    @click="create"
+                    @click="validate"
                   >
                     Update Profile
                   </v-btn>
@@ -161,9 +168,12 @@
 <script>
   import { mapState } from 'vuex'
   import CreditService from '@/services/CreditService'
+  import AccountService from '@/services/AccountService'
   export default {
     data () {
       return {
+        items: ['Credit'],
+        useracc: [],
         credit: {
           trantype: null,
           firstn: null,
@@ -192,7 +202,25 @@
         'isUserLoggedIn',
       ]),
     },
+    async mounted () {
+      try {
+        console.log(this.$store.state.user.id)
+        this.useracc = (await AccountService.useracc({
+          UserId: this.$store.state.user.id,
+        })).data
+        console.log('here', this.useracc)
+      } catch (err) {
+        console.log(err)
+      }
+    },
     methods: {
+      validate () {
+        if (!this.$refs.form.validate()) {
+          this.$refs.form.validate()
+        } else {
+          this.create()
+        }
+      },
       async create () {
         this.error = null
         const areAllFieldsFilledIn = Object

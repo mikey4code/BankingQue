@@ -31,9 +31,10 @@
                   cols="12"
                   md="7"
                 >
-                  <v-text-field
+                  <v-select
                     v-model="account.trantype"
                     class="purple-input"
+                    :items="items"
                     :rules="[required]"
                     label="Transaction Type"
                     required
@@ -131,6 +132,7 @@
   export default {
     data () {
       return {
+        items: ['Checkings', 'Savings'],
         account: {
           trantype: null,
           firstn: null,

@@ -20,7 +20,11 @@
             </div>
           </template>
 
-          <v-form>
+          <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation
+          >
             <v-container class="py-0">
               <v-row>
                 <v-col
@@ -89,10 +93,14 @@
                   />
                 </v-col>
 
-                <v-col cols="12">
-                  <v-text-field
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <v-select
                     v-model="transaction.accnumber"
                     class="purple-input"
+                    :items="useracc"
                     :rules="[required]"
                     label="Account Number"
                     required
@@ -104,8 +112,10 @@
                   class="text-right"
                 >
                   <v-btn
+                    :disabled="!valid"
                     color="success"
                     class="mr-0"
+                    @click="validate"
                   >
                     Update Profile
                   </v-btn>
@@ -129,6 +139,7 @@
     data () {
       return {
         items: ['Deposit', 'Withdrawl'],
+        useracc: ['de'],
         transaction: {
           trantype: null,
           firstn: null,
@@ -158,6 +169,13 @@
       ]),
     },
     methods: {
+      validate () {
+        if (!this.$refs.form.validate()) {
+          this.$refs.form.validate()
+        } else {
+          this.create()
+        }
+      },
       async create () {
         this.error = null
         const areAllFieldsFilledIn = Object
@@ -194,6 +212,17 @@
             TransactionId: this.transactiondata.id,
           })).data
           console.log('here', tran)
+        } catch (err) {
+          console.log(err)
+        }
+      },
+      async mounted () {
+        try {
+          console.log(this.$store.state.user.id)
+          this.useracc = (await AccountService.useracc({
+            UserId: this.$store.state.user.id,
+          })).data
+          console.log('here', this.useracc)
         } catch (err) {
           console.log(err)
         }
