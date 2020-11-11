@@ -12,10 +12,21 @@
       title="Transaction Report"
       class="px-5 py-3"
     >
+      <v-card-title>
+        <v-spacer />
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+        />
+      </v-card-title>
       <v-data-table
         :headers="headers"
         :items="transaction"
         :items-per-page="5"
+        :search="search"
         class="elevation-1"
       />
     </base-material-card>
@@ -41,6 +52,7 @@
   export default {
     data () {
       return {
+        search: '',
         headers: [
           {
             text: 'Transaction Type',
@@ -77,7 +89,7 @@
           title: 'My Awesome CSV',
           useTextFile: false,
           useBom: true,
-          headers: ['Column 1', 'Column 2'],
+          headers: ['Column 1', 'Column 2', 'Column 3', 'Column 4', 'Column 5'],
         },
       }
     },

@@ -12,19 +12,43 @@
       title="Debit Card Report"
       class="px-5 py-3"
     >
+      <v-card-title>
+        <v-spacer />
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+        />
+      </v-card-title>
       <v-data-table
         :headers="headers"
         :items="debit"
         :items-per-page="5"
+        :search="search"
         class="elevation-1"
       />
     </base-material-card>
+    <v-col
+      cols="12"
+      class="text-right"
+    >
+      <v-btn
+        color="success"
+        class="mr-0"
+        @click="download"
+      >
+        Download
+      </v-btn>
+    </v-col>
   </v-container>
 </template>
 
 <script>
   import { mapState } from 'vuex'
   import DebitService from '@/services/DebitService'
+  import { ExportToCsv } from 'export-to-csv'
   export default {
     data () {
       return {
@@ -51,6 +75,17 @@
           },
         ],
         debit: [],
+        options: {
+          fieldSeparator: ',',
+          quoteStrings: '"',
+          decimalSeparator: '.',
+          showLabels: true,
+          showTitle: true,
+          title: 'My Awesome CSV',
+          useTextFile: false,
+          useBom: true,
+          headers: ['Column 1', 'Column 2', 'Column 3', 'Column 4', 'Column 5'],
+        },
       }
     },
     computed: {
@@ -62,6 +97,12 @@
     async mounted () {
       this.debit = (await DebitService.index()).data
       console.log('first account ', this.debit)
+    },
+    methods: {
+      async download () {
+        const csvExporter = new ExportToCsv(this.options)
+        csvExporter.generateCsv(this.transaction)
+      },
     },
   }
 </script>
