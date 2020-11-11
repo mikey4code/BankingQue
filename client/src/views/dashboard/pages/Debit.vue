@@ -20,11 +20,7 @@
             </div>
           </template>
 
-          <v-form
-            ref="form"
-            v-model="valid"
-            lazy-validation
-          >
+          <v-form>
             <v-container class="py-0">
               <v-row>
                 <v-col
@@ -97,19 +93,9 @@
                   <v-text-field
                     v-model="debit.license"
                     class="purple-input"
-                    :rules="[required]"
+                    :rules="licenseRules"
                     label="License Number"
                     required
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    label="City"
-                    class="purple-input"
                   />
                 </v-col>
 
@@ -127,10 +113,9 @@
                 </v-col>
                 <v-col>
                   <v-btn
-                    :disabled="!valid"
                     color="success"
                     class="mr-0"
-                    @click="validate"
+                    @click="create"
                   >
                     Update Profile
                   </v-btn>
@@ -170,6 +155,10 @@
           v => !!v || 'Phone number is required',
           v => (v && v.length === 10) || 'Phone number must be equal to 10 digits',
         ],
+        licenseRules: [
+          v => !!v || 'License number is required',
+          v => (v && v.length === 9) || 'License number must be equal to 9 digits',
+        ],
         required: (values) => !!values || 'Required.',
       }
     },
@@ -179,13 +168,6 @@
       ]),
     },
     methods: {
-      validate () {
-        if (!this.$refs.form.validate()) {
-          this.$refs.form.validate()
-        } else {
-          this.create()
-        }
-      },
       async create () {
         this.error = null
         const areAllFieldsFilledIn = Object

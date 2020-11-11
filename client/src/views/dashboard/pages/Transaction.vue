@@ -20,11 +20,7 @@
             </div>
           </template>
 
-          <v-form
-            ref="form"
-            v-model="valid"
-            lazy-validation
-          >
+          <v-form>
             <v-container class="py-0">
               <v-row>
                 <v-col
@@ -87,37 +83,31 @@
                   <v-text-field
                     v-model="transaction.amount"
                     class="purple-input"
-                    :rules="[required]"
+                    :rules="ammountRules"
                     label="Amount"
                     required
                   />
                 </v-col>
 
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-select
+                <v-col cols="12">
+                  <v-text-field
                     v-model="transaction.accnumber"
                     class="purple-input"
-                    :items="useracc"
                     :rules="[required]"
                     label="Account Number"
                     required
                   />
                 </v-col>
-
                 <v-col
                   cols="12"
                   class="text-right"
                 >
                   <v-btn
-                    :disabled="!valid"
                     color="success"
                     class="mr-0"
-                    @click="validate"
+                    @create="create"
                   >
-                    Update Profile
+                    Submit
                   </v-btn>
                 </v-col>
               </v-row>
@@ -139,7 +129,6 @@
     data () {
       return {
         items: ['Deposit', 'Withdrawl'],
-        useracc: ['de'],
         transaction: {
           trantype: null,
           firstn: null,
@@ -160,6 +149,10 @@
           v => !!v || 'Phone number is required',
           v => (v && v.length === 10) || 'Phone number must be equal to 10 digits',
         ],
+        ammountRules: [
+          v => !!v || 'Amount is required',
+          v => /^\$?[0-9]+(\.[0-9][0-9])?$/.test(v) || 'Amount must be in dollars',
+        ],
         required: (values) => !!values || 'Required.',
       }
     },
@@ -169,13 +162,6 @@
       ]),
     },
     methods: {
-      validate () {
-        if (!this.$refs.form.validate()) {
-          this.$refs.form.validate()
-        } else {
-          this.create()
-        }
-      },
       async create () {
         this.error = null
         const areAllFieldsFilledIn = Object
@@ -212,17 +198,6 @@
             TransactionId: this.transactiondata.id,
           })).data
           console.log('here', tran)
-        } catch (err) {
-          console.log(err)
-        }
-      },
-      async mounted () {
-        try {
-          console.log(this.$store.state.user.id)
-          this.useracc = (await AccountService.useracc({
-            UserId: this.$store.state.user.id,
-          })).data
-          console.log('here', this.useracc)
         } catch (err) {
           console.log(err)
         }

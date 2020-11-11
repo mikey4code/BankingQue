@@ -9,6 +9,9 @@ export default {
     return Api().post('waitingqueue', waiting)
   },
   removeq () {
-    return Api().get('removequeue')
+    return Api().delete('removequeue')
+  },
+  sendtext () {
+    return Api().post('sendtext')
   },
 }

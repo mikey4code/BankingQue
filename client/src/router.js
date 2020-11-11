@@ -49,6 +49,11 @@ export default new Router({
           component: () => import('@/views/dashboard/pages/Login'),
         },
         {
+          name: 'Register',
+          path: '/register',
+          component: () => import('@/views/dashboard/pages/Register'),
+        },
+        {
           name: 'account',
           path: '/useracc/:accountId',
           component: () => import('@/views/dashboard/pages/ViewAccount'),

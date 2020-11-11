@@ -20,11 +20,7 @@
             </div>
           </template>
 
-          <v-form
-            ref="form"
-            v-model="valid"
-            lazy-validation
-          >
+          <v-form>
             <v-container class="py-0">
               <v-row>
                 <v-col
@@ -100,7 +96,7 @@
                   <v-text-field
                     v-model="transfer.amount"
                     class="purple-input"
-                    :rules="[required]"
+                    :rules="ammountRules"
                     label="Amount"
                     required
                   />
@@ -111,10 +107,8 @@
                   class="text-right"
                 >
                   <v-btn
-                    :disabled="!valid"
                     color="success"
                     class="mr-0"
-                    @click="validate"
                   >
                     Update Profile
                   </v-btn>
@@ -134,7 +128,7 @@
   export default {
     data () {
       return {
-        items: ['Transfer'],
+        items: ['Checkings', 'Savings'],
         transfer: {
           trantype: null,
           firstn: null,
@@ -144,10 +138,13 @@
           amount: null,
         },
         error: null,
-        valid: true,
         nameRules: [
           v => !!v || 'Name is required',
           v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+        ],
+        ammountRules: [
+          v => !!v || 'Amount is required',
+          v => /.+$.+\..+/.test(v) || 'Amount must be in dollars',
         ],
         required: (values) => !!values || 'Required.',
       }
@@ -158,13 +155,6 @@
       ]),
     },
     methods: {
-      validate () {
-        if (!this.$refs.form.validate()) {
-          this.$refs.form.validate()
-        } else {
-          this.create()
-        }
-      },
       async create () {
         this.error = null
         const areAllFieldsFilledIn = Object

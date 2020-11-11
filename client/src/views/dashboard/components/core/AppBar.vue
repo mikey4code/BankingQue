@@ -122,7 +122,7 @@
       width="10"
       text
       large
-      to="/login"
+      to="/register"
     >
       Sign Up
     </v-btn>

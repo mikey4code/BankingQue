@@ -89,4 +89,8 @@ module.exports = (app) => {
 
         app.delete('/removequeue',
             WaitingController.removeq)
+
+        app.post('/sendtext',
+            WaitingController.sendtext)
+
 }

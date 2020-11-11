@@ -7,212 +7,73 @@
     <v-row>
       <v-col
         cols="12"
-        lg="4"
       >
-        <base-material-chart-card
-          :data="emailsSubscriptionChart.data"
-          :options="emailsSubscriptionChart.options"
-          :responsive-options="emailsSubscriptionChart.responsiveOptions"
-          color="#E91E63"
-          hover-reveal
-          type="Bar"
-        >
-          <template v-slot:reveal-actions>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  color="info"
-                  icon
-                  v-on="on"
-                >
-                  <v-icon
-                    color="info"
-                  >
-                    mdi-refresh
-                  </v-icon>
-                </v-btn>
-              </template>
-
-              <span>Refresh</span>
-            </v-tooltip>
-
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  light
-                  icon
-                  v-on="on"
-                >
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-              </template>
-
-              <span>Change Date</span>
-            </v-tooltip>
-          </template>
-
-          <h4 class="card-title font-weight-light mt-2 ml-2">
-            Website Views
-          </h4>
-
-          <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            Last Campaign Performance
-          </p>
-
-          <template v-slot:actions>
-            <v-icon
-              class="mr-1"
-              small
-            >
-              mdi-clock-outline
-            </v-icon>
-            <span class="caption grey--text font-weight-light">updated 10 minutes ago</span>
-          </template>
-        </base-material-chart-card>
-      </v-col>
-
-      <v-col
-        cols="12"
-        lg="4"
-      >
-        <base-material-chart-card
-          :data="dailySalesChart.data"
-          :options="dailySalesChart.options"
+        <base-material-card
           color="success"
-          hover-reveal
-          type="Line"
+          icon="mdi-clipboard-plus"
+          title="Waiting Queue"
+          class="px-5 py-3"
         >
-          <template v-slot:reveal-actions>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  color="info"
-                  icon
-                  v-on="on"
+          <v-col
+            cols="12"
+          >
+            <v-sheet
+              class="mx-auto"
+            >
+              <v-slide-group
+                v-model="waiting"
+                class="pa-4"
+                show-arrows
+              >
+                <v-slide-item
+                  v-for="(wait, i) in waiting"
+                  :key="i"
                 >
-                  <v-icon
-                    color="info"
+                  <v-card
+                    color="green"
+                    class="ma-4"
+                    height="200"
+                    width="300"
                   >
-                    mdi-refresh
-                  </v-icon>
-                </v-btn>
-              </template>
+                    Next in line {{ i + 1 }}
+                    <v-row
+                      class="fill-height"
+                      align="center"
+                      justify="center"
+                    >
+                      <v-card-title class="headline">
+                        {{ wait.firstn }}
+                      </v-card-title>
 
-              <span>Refresh</span>
-            </v-tooltip>
-
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  light
-                  icon
-                  v-on="on"
-                >
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-              </template>
-
-              <span>Change Date</span>
-            </v-tooltip>
-          </template>
-
-          <h4 class="card-title font-weight-light mt-2 ml-2">
-            Daily Sales
-          </h4>
-
-          <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            <v-icon
-              color="green"
-              small
+                      <v-card-subtitle>
+                        {{ wait.firstn }}
+                        {{ wait.lastn }}
+                        {{ wait.phone }}
+                        {{ wait.firstn }}
+                        {{ wait.firstn }}
+                      </v-card-subtitle>
+                    </v-row>
+                  </v-card>
+                </v-slide-item>
+              </v-slide-group>
+            </v-sheet>
+          </v-col>
+          <v-col
+            cols="12"
+            class="text-right"
+          >
+            <v-btn
+              color="success"
+              class="mr-0"
+              @click="nextCus"
             >
-              mdi-arrow-up
-            </v-icon>
-            <span class="green--text">55%</span>&nbsp;
-            increase in today's sales
-          </p>
-
-          <template v-slot:actions>
-            <v-icon
-              class="mr-1"
-              small
-            >
-              mdi-clock-outline
-            </v-icon>
-            <span class="caption grey--text font-weight-light">updated 4 minutes ago</span>
-          </template>
-        </base-material-chart-card>
+              Next Customer
+            </v-btn>
+          </v-col>
+        </base-material-card>
       </v-col>
 
-      <v-col
-        cols="12"
-        lg="4"
-      >
-        <base-material-chart-card
-          :data="dataCompletedTasksChart.data"
-          :options="dataCompletedTasksChart.options"
-          hover-reveal
-          color="info"
-          type="Line"
-        >
-          <template v-slot:reveal-actions>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  color="info"
-                  icon
-                  v-on="on"
-                >
-                  <v-icon
-                    color="info"
-                  >
-                    mdi-refresh
-                  </v-icon>
-                </v-btn>
-              </template>
-
-              <span>Refresh</span>
-            </v-tooltip>
-
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  light
-                  icon
-                  v-on="on"
-                >
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-              </template>
-
-              <span>Change Date</span>
-            </v-tooltip>
-          </template>
-
-          <h3 class="card-title font-weight-light mt-2 ml-2">
-            Completed Tasks
-          </h3>
-
-          <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            Last Last Campaign Performance
-          </p>
-
-          <template v-slot:actions>
-            <v-icon
-              class="mr-1"
-              small
-            >
-              mdi-clock-outline
-            </v-icon>
-            <span class="caption grey--text font-weight-light">campaign sent 26 minutes ago</span>
-          </template>
-        </base-material-chart-card>
-      </v-col>
+      <div class="py-3" />
 
       <v-col
         cols="12"
@@ -393,11 +254,15 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
+  import WaitingService from '@/services/WaitingService'
+  import AccountService from '@/services/AccountService'
   export default {
-    name: 'DashboardDashboard',
-
     data () {
       return {
+        waiting: [],
+        model: null,
+        useracc: [],
         dailySalesChart: {
           data: {
             labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
@@ -591,10 +456,33 @@
         },
       }
     },
-
+    computed: {
+      ...mapState([
+        'isUserLoggedIn',
+        'user',
+      ]),
+    },
+    async mounted () {
+      try {
+        this.waiting = (await WaitingService.index()).data
+        console.log(this.$store.state.user.id)
+        this.useracc = (await AccountService.useracc({
+          UserId: this.$store.state.user.id,
+        })).data
+        console.log('here', this.useracc)
+      } catch (err) {
+        console.log(err)
+      }
+    },
     methods: {
       complete (index) {
         this.list[index] = !this.list[index]
+      },
+      async nextCus () {
+        const text = await WaitingService.sendtext()
+        console.log('hello', text)
+        const del = await WaitingService.removeq()
+        console.log('hello', del)
       },
     },
   }

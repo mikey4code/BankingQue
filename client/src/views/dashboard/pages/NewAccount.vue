@@ -34,9 +34,9 @@
                   <v-select
                     v-model="account.trantype"
                     class="purple-input"
-                    :items="items"
                     :rules="[required]"
                     label="Transaction Type"
+                    :items="items"
                     required
                   />
                 </v-col>
@@ -85,7 +85,7 @@
                     v-model="account.phone"
                     class="purple-input"
                     label="Number"
-                    :rules="numberRules"
+                    :rules="[required]"
                     required
                   />
                 </v-col>
@@ -94,13 +94,36 @@
                   cols="12"
                   md="4"
                 >
-                  <v-text-field
+                  <v-menu
                     v-model="account.dob"
                     class="purple-input"
-                    label="DOB"
                     :rules="[required]"
                     required
-                  />
+                    :close-on-content-click="false"
+                    :nudge-left="40"
+                    transition="scale-transition"
+                    offset-y
+                    max-width="295px"
+                    min-width="295px"
+                  >
+                    <template v-slot:activator="{ on }">
+                      <v-text-field
+                        label="DOB"
+                        readonly
+                        :value="fromDateDisp"
+                        :rules="dobRules"
+                        v-on="on"
+                      />
+                    </template>
+                    <v-date-picker
+                      v-model="fromDateVal"
+                      locale="en-in"
+                      no-title
+                      :min="minDate"
+                      @input="account.dob = false"
+                    />
+                  </v-menu>
+
                 </v-col>
 
                 <v-col
@@ -132,14 +155,16 @@
   export default {
     data () {
       return {
-        items: ['Checkings', 'Savings'],
+        fromDateVal: null,
+        minDate: '1920-01-06',
+        items: ['Deposit', 'Withdrawl'],
         account: {
           trantype: null,
           firstn: null,
           lastn: null,
           address: null,
           phone: null,
-          dob: null,
+          dob: false,
         },
         accountdata: {},
         error: null,
@@ -152,9 +177,8 @@
           v => !!v || 'E-mail is required',
           v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
         ],
-        numberRules: [
-          v => !!v || 'Phone number is required',
-          v => (v && v.length === 10) || 'Phone number must be equal to 10 digits',
+        dobRules: [
+          v => !!v || 'Date of Birth required',
         ],
         required: (values) => !!values || 'Required.',
       }
@@ -163,6 +187,9 @@
       ...mapState([
         'isUserLoggedIn',
       ]),
+      fromDateDisp () {
+        return this.fromDateVal
+      },
     },
     methods: {
       generateNumber: function () {

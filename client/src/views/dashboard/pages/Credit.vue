@@ -20,22 +20,18 @@
             </div>
           </template>
 
-          <v-form
-            ref="form"
-            v-model="valid"
-            lazy-validation
-          >
+          <v-form>
             <v-container class="py-0">
               <v-row>
                 <v-col
                   cols="12"
                   md="4"
                 >
-                  <v-select
+                  <v-text-field
                     v-model="credit.trantype"
                     class="purple-input"
-                    :items="items"
                     :rules="[required]"
+                    :items="items"
                     label="Transaction Type"
                     required
                   />
@@ -100,7 +96,7 @@
                   <v-text-field
                     v-model="credit.license"
                     class="purple-input"
-                    :rules="[required]"
+                    :rules="licenseRules"
                     label="License Number"
                     required
                   />
@@ -110,9 +106,10 @@
                   cols="12"
                   md="4"
                 >
-                  <v-text-field
+                  <v-select
                     v-model="credit.income"
                     class="purple-input"
+                    :options="options"
                     :rules="[required]"
                     label="Income"
                     required
@@ -123,35 +120,23 @@
                   cols="12"
                   md="4"
                 >
-                  <v-select
+                  <v-text-field
                     v-model="credit.accnumber"
                     class="purple-input"
-                    :items="useracc"
                     :rules="[required]"
                     label="Account Number"
                     required
                   />
                 </v-col>
-                <v-col
-                  cols="12"
-                >
-                  <v-alert
-                    v-if="error"
-                    class="center"
-                    type="warning"
-                  >
-                    {{ error }}
-                  </v-alert>
-                </v-col>
+
                 <v-col
                   cols="12"
                   class="text-right"
                 >
                   <v-btn
-                    :disabled="!valid"
                     color="success"
                     class="mr-0"
-                    @click="validate"
+                    @click="create"
                   >
                     Update Profile
                   </v-btn>
@@ -168,12 +153,11 @@
 <script>
   import { mapState } from 'vuex'
   import CreditService from '@/services/CreditService'
-  import AccountService from '@/services/AccountService'
   export default {
     data () {
       return {
         items: ['Credit'],
-        useracc: [],
+        options: ['25000 and less', '25000 and more', 'Between 50000 and 75000', 'Between 75000 and 100000', '100000 or more'],
         credit: {
           trantype: null,
           firstn: null,
@@ -194,6 +178,10 @@
           v => !!v || 'Phone number is required',
           v => (v && v.length === 10) || 'Phone number must be equal to 10 digits',
         ],
+        licenseRules: [
+          v => !!v || 'License number is required',
+          v => (v && v.length === 9) || 'License number must be equal to 9 digits',
+        ],
         required: (values) => !!values || 'Required.',
       }
     },
@@ -202,25 +190,7 @@
         'isUserLoggedIn',
       ]),
     },
-    async mounted () {
-      try {
-        console.log(this.$store.state.user.id)
-        this.useracc = (await AccountService.useracc({
-          UserId: this.$store.state.user.id,
-        })).data
-        console.log('here', this.useracc)
-      } catch (err) {
-        console.log(err)
-      }
-    },
     methods: {
-      validate () {
-        if (!this.$refs.form.validate()) {
-          this.$refs.form.validate()
-        } else {
-          this.create()
-        }
-      },
       async create () {
         this.error = null
         const areAllFieldsFilledIn = Object
@@ -231,10 +201,24 @@
           return
         }
         try {
-          this.credit.limit = 2000
+          if (this.options === '25000 and less') {
+            this.credit.limit = 12500
+          }
+          if (this.options === '25000 and more') {
+            this.credit.limit = 15000
+          }
+          if (this.options === 'Between 50000 and 75000') {
+            this.credit.limit = 25000
+          }
+          if (this.options === 'Between 75000 and 100000') {
+            this.credit.limit = 37500
+          }
+          if (this.options === '100000 or more') {
+            this.credit.limit = 50000
+          }
           await CreditService.post(this.credit)
           this.$router.push({
-            name: 'Dashboard',
+            name: 'dashboard',
           })
         } catch (error) {
           this.error = error.response.data.error

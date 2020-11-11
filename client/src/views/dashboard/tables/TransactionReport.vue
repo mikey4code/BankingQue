@@ -19,12 +19,25 @@
         class="elevation-1"
       />
     </base-material-card>
+    <v-col
+      cols="12"
+      class="text-right"
+    >
+      <v-btn
+        color="success"
+        class="mr-0"
+        @click="download"
+      >
+        Download
+      </v-btn>
+    </v-col>
   </v-container>
 </template>
 
 <script>
   import { mapState } from 'vuex'
   import TransactionService from '@/services/TransactionService'
+  import { ExportToCsv } from 'export-to-csv'
   export default {
     data () {
       return {
@@ -55,8 +68,20 @@
           },
         ],
         transaction: [],
+        options: {
+          fieldSeparator: ',',
+          quoteStrings: '"',
+          decimalSeparator: '.',
+          showLabels: true,
+          showTitle: true,
+          title: 'My Awesome CSV',
+          useTextFile: false,
+          useBom: true,
+          headers: ['Column 1', 'Column 2'],
+        },
       }
     },
+
     computed: {
       ...mapState([
         'isUserLoggedIn',
@@ -66,6 +91,12 @@
     async mounted () {
       this.transaction = (await TransactionService.index()).data
       console.log('first account ', this.transaction)
+    },
+    methods: {
+      async download () {
+        const csvExporter = new ExportToCsv(this.options)
+        csvExporter.generateCsv(this.transaction)
+      },
     },
   }
 </script>

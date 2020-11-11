@@ -16,38 +16,19 @@
         :items="accounts"
         class="elevation-1"
       >
-        <template slot-scope="props">
-          <td>{{ props.amount }}</td>
-          <td class="text-right">
-            {{ items.amount }}
-          </td>
-          <td class="text-right">
-            {{ props.item.first }}
-          </td>
-          <td class="text-right">
-            {{ props.item.lastn }}
-          </td>
-          <td class="text-right">
-            {{ props.item.address }}
-          </td>
-          <td class="text-right">
-            {{ props.item.phone }}
-          </td><td class="text-right">
-            {{ props.item.dob }}
-          </td><td class="text-right">
-            {{ props.item.amount }}
-          </td>
-          <td class="justify-center layout px-0">
-            <v-btn
-              class="ma-1"
-              color="success"
-              @click="navigateTo({name: 'account', params:{
-                accountId: account.id
-              }})"
-            >
-              View
-            </v-btn>
-          </td>
+        <template
+          v-slot:[`item.actions`]="{ item }"
+        >
+          <v-btn
+            v-model="item.actions"
+            class="ma-1"
+            color="success"
+            @click="navigateTo({name: 'account', params:{
+              accountId: item.id
+            }})"
+          >
+            View
+          </v-btn>
         </template>
       </v-data-table>
     </base-material-card>
@@ -97,7 +78,7 @@
           },
           {
             text: 'Actions',
-            value: 'name',
+            value: 'actions',
             sortable: false,
           },
         ],

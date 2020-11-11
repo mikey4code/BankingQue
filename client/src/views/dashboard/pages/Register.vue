@@ -25,33 +25,32 @@
               <v-row>
                 <v-col
                   cols="12"
-                  md="4"
                 >
 
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    v-model="reg.email"
-                    label="Email Address"
-                    :required="emailRules"
-                    class="purple-input"
-                  />
-                </v-col>
+                  <v-col
+                    cols="12"
+                    md="6"
+                  >
+                    <v-text-field
+                      v-model="reg.email"
+                      label="Email Address"
+                      :required="emailRules"
+                      class="purple-input"
+                    />
+                  </v-col>
 
-                <v-col
-                  cols="12"
-                  md="6"
-                >
-                  <v-text-field
-                    v-model="reg.password"
-                    label="Password"
-                    :required="passRules"
-                    class="purple-input"
-                  />
+                  <v-col
+                    cols="12"
+                    md="6"
+                  >
+                    <v-text-field
+                      v-model="reg.password"
+                      label="Password"
+                      :required="passRules"
+                      class="purple-input"
+                    />
+                  </v-col>
                 </v-col>
-                
                 <v-col
                   cols="12"
                   class="text-right"
@@ -78,10 +77,10 @@
   export default {
     data () {
       return {
-       reg: {
-        email: '',
-        password: ''
-       },
+        reg: {
+          email: '',
+          password: '',
+        },
         error: null,
         valid: true,
         emailRules: [
@@ -99,18 +98,18 @@
         try {
           const response = await AuthenticationService.register({
             email: this.email,
-            password: this.password
+            password: this.password,
           })
           this.$store.dispatch('setToken', response.data.token)
           this.$store.dispatch('setUser', response.data.user)
           this.$router.push({
-            name: 'dashboard'
+            name: 'New Account',
           })
         } catch (error) {
           this.error = error.response.data.error
         }
-      }
-    }
+      },
+    },
   }
 </script>
 
