@@ -136,7 +136,7 @@
                     class="mr-0"
                     @click="validate"
                   >
-                    Update Profile
+                    Submit
                   </v-btn>
                 </v-col>
               </v-row>
@@ -157,7 +157,7 @@
       return {
         fromDateVal: null,
         minDate: '1920-01-06',
-        items: ['Deposit', 'Withdrawl'],
+        items: ['Checking', 'Saving'],
         account: {
           trantype: null,
           firstn: null,

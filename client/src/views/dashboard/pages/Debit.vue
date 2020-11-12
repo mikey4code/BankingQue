@@ -20,7 +20,11 @@
             </div>
           </template>
 
-          <v-form>
+          <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation
+          >
             <v-container class="py-0">
               <v-row>
                 <v-col
@@ -113,11 +117,12 @@
                 </v-col>
                 <v-col>
                   <v-btn
+                    :disabled="!valid"
                     color="success"
                     class="mr-0"
-                    @click="create"
+                    @click="validate"
                   >
-                    Update Profile
+                    Submit
                   </v-btn>
                 </v-col>
               </v-row>
@@ -168,19 +173,18 @@
       ]),
     },
     methods: {
-      async create () {
-        this.error = null
-        const areAllFieldsFilledIn = Object
-          .keys(this.debit)
-          .every(key => !!this.debit[key])
-        if (!areAllFieldsFilledIn) {
-          this.error = 'Please fill in all the required fields.'
-          return
+      validate () {
+        if (!this.$refs.form.validate()) {
+          this.$refs.form.validate()
+        } else {
+          this.create()
         }
+      },
+      async create () {
         try {
           await DebitService.post(this.debit)
           this.$router.push({
-            name: 'dashboard',
+            name: 'Dashboard',
           })
         } catch (error) {
           this.error = error.response.data.error

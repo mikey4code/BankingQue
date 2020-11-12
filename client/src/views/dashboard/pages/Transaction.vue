@@ -20,7 +20,11 @@
             </div>
           </template>
 
-          <v-form>
+          <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation
+          >
             <v-container class="py-0">
               <v-row>
                 <v-col
@@ -103,9 +107,10 @@
                   class="text-right"
                 >
                   <v-btn
+                    :disabled="!valid"
                     color="success"
                     class="mr-0"
-                    @create="create"
+                    @create="validate"
                   >
                     Submit
                   </v-btn>
@@ -162,15 +167,15 @@
       ]),
     },
     methods: {
-      async create () {
-        this.error = null
-        const areAllFieldsFilledIn = Object
-          .keys(this.transaction)
-          .every(key => !!this.transaction[key])
-        if (!areAllFieldsFilledIn) {
-          this.error = 'Please fill in all the required fields.'
-          return
+      validate () {
+        if (!this.$refs.form.validate()) {
+          console.log('here')
+          this.$refs.form.validate()
+        } else {
+          this.create()
         }
+      },
+      async create () {
         try {
           this.transaction.UserId = this.$store.state.user.id
           this.accountdata = (await AccountService.show({ accnumber: this.transaction.accnumber })).data

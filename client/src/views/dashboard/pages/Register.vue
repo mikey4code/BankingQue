@@ -20,7 +20,11 @@
             </div>
           </template>
 
-          <v-form>
+          <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation
+          >
             <v-container class="py-0">
               <v-row>
                 <v-col
@@ -56,11 +60,12 @@
                   class="text-right"
                 >
                   <v-btn
+                    :disabled="!valid"
                     color="success"
                     class="mr-0"
-                    @click="register"
+                    @click="validate"
                   >
-                    Update Profile
+                    Register
                   </v-btn>
                 </v-col>
               </v-row>
@@ -94,6 +99,13 @@
       }
     },
     methods: {
+      validate () {
+        if (!this.$refs.form.validate()) {
+          this.$refs.form.validate()
+        } else {
+          this.register()
+        }
+      },
       async register () {
         try {
           const response = await AuthenticationService.register({

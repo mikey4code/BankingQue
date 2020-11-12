@@ -20,7 +20,11 @@
             </div>
           </template>
 
-          <v-form>
+          <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation
+          >
             <v-container class="py-0">
               <v-row>
                 <v-col
@@ -107,10 +111,12 @@
                   class="text-right"
                 >
                   <v-btn
+                    :disabled="!valid"
                     color="success"
                     class="mr-0"
+                    @click="validate"
                   >
-                    Update Profile
+                    Submit
                   </v-btn>
                 </v-col>
               </v-row>
@@ -144,7 +150,7 @@
         ],
         ammountRules: [
           v => !!v || 'Amount is required',
-          v => /.+$.+\..+/.test(v) || 'Amount must be in dollars',
+          v => /^\$?[0-9]+(\.[0-9][0-9])?$/.test(v) || 'Amount must be in dollars',
         ],
         required: (values) => !!values || 'Required.',
       }
@@ -155,20 +161,19 @@
       ]),
     },
     methods: {
-      async create () {
-        this.error = null
-        const areAllFieldsFilledIn = Object
-          .keys(this.transfer)
-          .every(key => !!this.transfer[key])
-        if (!areAllFieldsFilledIn) {
-          this.error = 'Please fill in all the required fields.'
-          return
+      validate () {
+        if (!this.$refs.form.validate()) {
+          this.$refs.form.validate()
+        } else {
+          this.create()
         }
+      },
+      async create () {
         try {
           console.log('create tansfer ', this.transfer)
           await TransferService.post(this.transfer)
           this.$router.push({
-            name: 'dashboard',
+            name: 'Dashboard',
           })
         } catch (error) {
           this.error = error.response.data.error

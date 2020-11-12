@@ -20,7 +20,11 @@
             </div>
           </template>
 
-          <v-form>
+          <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation
+          >
             <v-container class="py-0">
               <v-row>
                 <v-col
@@ -109,7 +113,7 @@
                   <v-select
                     v-model="credit.income"
                     class="purple-input"
-                    :options="options"
+                    :items="options"
                     :rules="[required]"
                     label="Income"
                     required
@@ -134,11 +138,12 @@
                   class="text-right"
                 >
                   <v-btn
+                    :disabled="!valid"
                     color="success"
                     class="mr-0"
-                    @click="create"
+                    @click="validate"
                   >
-                    Update Profile
+                    Submit
                   </v-btn>
                 </v-col>
               </v-row>
@@ -191,15 +196,14 @@
       ]),
     },
     methods: {
-      async create () {
-        this.error = null
-        const areAllFieldsFilledIn = Object
-          .keys(this.credit)
-          .every(key => !!this.credit[key])
-        if (!areAllFieldsFilledIn) {
-          this.error = 'Please fill in all the required fields.'
-          return
+      validate () {
+        if (!this.$refs.form.validate()) {
+          this.$refs.form.validate()
+        } else {
+          this.create()
         }
+      },
+      async create () {
         try {
           if (this.options === '25000 and less') {
             this.credit.limit = 12500
@@ -218,7 +222,7 @@
           }
           await CreditService.post(this.credit)
           this.$router.push({
-            name: 'dashboard',
+            name: 'Dashboard',
           })
         } catch (error) {
           this.error = error.response.data.error
