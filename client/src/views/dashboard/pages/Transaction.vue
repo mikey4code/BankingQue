@@ -110,7 +110,7 @@
                     :disabled="!valid"
                     color="success"
                     class="mr-0"
-                    @create="validate"
+                    @click="validate"
                   >
                     Submit
                   </v-btn>
@@ -181,9 +181,6 @@
           this.accountdata = (await AccountService.show({ accnumber: this.transaction.accnumber })).data
           this.transaction.AccountId = this.accountdata.id
           await TransactionService.post(this.transaction)
-          this.$router.push({
-            name: 'dashboard',
-          })
         } catch (error) {
           this.error = error.response.data.error
         }
@@ -202,6 +199,9 @@
             AccountId: this.accountdata.id,
             TransactionId: this.transactiondata.id,
           })).data
+          this.$router.push({
+            name: 'Dashboard',
+          })
           console.log('here', tran)
         } catch (err) {
           console.log(err)
