@@ -12,11 +12,7 @@
         <base-material-card>
           <template v-slot:heading>
             <div class="display-2 font-weight-light">
-              Edit Profile
-            </div>
-
-            <div class="subtitle-1 font-weight-light">
-              Complete your profile
+              Register
             </div>
           </template>
 
@@ -36,7 +32,7 @@
                     md="6"
                   >
                     <v-text-field
-                      v-model="reg.email"
+                      v-model="email"
                       label="Email Address"
                       :required="emailRules"
                       class="purple-input"
@@ -48,13 +44,17 @@
                     md="6"
                   >
                     <v-text-field
-                      v-model="reg.password"
+                      v-model="password"
                       label="Password"
                       :required="passRules"
                       class="purple-input"
                     />
                   </v-col>
                 </v-col>
+                <div
+                  class="alert"
+                  v-html="error"
+                />
                 <v-col
                   cols="12"
                   class="text-right"
@@ -82,10 +82,8 @@
   export default {
     data () {
       return {
-        reg: {
-          email: '',
-          password: '',
-        },
+        email: '',
+        password: '',
         error: null,
         valid: true,
         emailRules: [

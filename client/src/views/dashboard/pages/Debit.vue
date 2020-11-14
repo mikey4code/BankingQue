@@ -107,9 +107,10 @@
                   cols="12"
                   md="4"
                 >
-                  <v-text-field
+                  <v-select
                     v-model="debit.accnumber"
                     class="purple-input"
+                    :items="account"
                     :rules="[required]"
                     label="Account Number"
                     required
@@ -137,10 +138,13 @@
 <script>
   import { mapState } from 'vuex'
   import DebitService from '@/services/DebitService'
+  import AccountService from '@/services/AccountService'
+  import TransacHisService from '@/services/TransacHisService'
   export default {
     data () {
       return {
         items: ['Debit'],
+        account: [],
         debit: {
           trantype: null,
           firstn: null,
@@ -150,6 +154,8 @@
           license: null,
           accnumber: null,
         },
+        accountdata: {},
+        debitdata: {},
         error: null,
         valid: true,
         nameRules: [
@@ -172,6 +178,19 @@
         'isUserLoggedIn',
       ]),
     },
+    async mounted () {
+      try {
+        this.useracc = (await AccountService.useracc({
+          UserId: this.$store.state.user.id,
+        })).data
+
+        for (var i = 0; i < this.useracc.length; i++) {
+          this.account.push(this.useracc[i].accnumber)
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    },
     methods: {
       validate () {
         if (!this.$refs.form.validate()) {
@@ -182,12 +201,26 @@
       },
       async create () {
         try {
+          this.accountdata = (await AccountService.show({ accnumber: this.debit.accnumber })).data
           await DebitService.post(this.debit)
+        } catch (error) {
+          this.error = error.response.data.error
+        }
+        try {
+          // This get the transaction
+          this.debitdata = (await DebitService.show()).data
+          // create transaction history
+          const tran = (await TransacHisService.post({
+            UserId: this.$store.state.user.id,
+            AccountId: this.accountdata.id,
+            DebitId: this.debitdata.id,
+          })).data
           this.$router.push({
             name: 'Dashboard',
           })
-        } catch (error) {
-          this.error = error.response.data.error
+          console.log('here', tran)
+        } catch (err) {
+          console.log(err)
         }
       },
     },

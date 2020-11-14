@@ -44,7 +44,7 @@ module.exports = {
           res.send(account)
         } catch (err) {
           res.status(500).send({
-            error: 'an error has occured trying to fetch account by accnumber'
+            error: 'an error has occured trying to fetch account by User Id'
           })
         }
       },

@@ -27,7 +27,7 @@ module.exports = {
       res.send(account)
     } catch (err) {
       res.status(500).send({
-        error: 'an error has occured trying to fetch account id'
+        error: 'an error has occured trying to fetch account that is recently added'
       })
     }
   },

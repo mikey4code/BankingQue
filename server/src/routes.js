@@ -63,11 +63,17 @@ module.exports = (app) => {
         app.get('/showdebit',
             DebitController.showdebit)
 
+        app.get('/recentdebit',
+            DebitController.show)
+
         app.post('/credit',
             CreditController.post)
 
         app.get('/creditreport',
             CreditController.index)
+
+        app.get('/recentcredit',
+            CreditController.show)
 
         app.get('/showcredit',
             CreditController.showcredit)
@@ -77,6 +83,9 @@ module.exports = (app) => {
 
         app.get('/showtransfer',
             TransferController.showtransfer)
+
+        app.get('/recenttransfer',
+            TransferController.show)
 
         app.get('/transferreport',
             TransferController.index)

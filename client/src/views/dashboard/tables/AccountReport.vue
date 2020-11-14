@@ -138,7 +138,7 @@
       },
       async download () {
         const csvExporter = new ExportToCsv(this.options)
-        csvExporter.generateCsv(this.transaction)
+        csvExporter.generateCsv(this.accounts)
       },
     },
   }

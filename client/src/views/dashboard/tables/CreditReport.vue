@@ -52,6 +52,7 @@
   export default {
     data () {
       return {
+        search: '',
         headers: [
           {
             text: 'Transaction Type',
@@ -105,7 +106,7 @@
     methods: {
       async download () {
         const csvExporter = new ExportToCsv(this.options)
-        csvExporter.generateCsv(this.transaction)
+        csvExporter.generateCsv(this.credit)
       },
     },
   }

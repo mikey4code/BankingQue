@@ -5,6 +5,9 @@ export default {
   index () {
     return Api().get('transferreport')
   },
+  show () {
+    return Api().get('recenttransfer')
+  },
   showtransfer (param) {
     return Api().get('showtransfer', {
       params: { param },

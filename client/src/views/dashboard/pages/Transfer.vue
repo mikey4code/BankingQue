@@ -71,9 +71,10 @@
                   cols="12"
                   md="6"
                 >
-                  <v-text-field
-                    v-model="transfer.accnnumber"
+                  <v-select
+                    v-model="transfer.accnumber"
                     class="purple-input"
+                    :items="account"
                     :rules="[required]"
                     label="Account Number"
                     required
@@ -131,10 +132,13 @@
 <script>
   import { mapState } from 'vuex'
   import TransferService from '@/services/TransferService'
+  import AccountService from '@/services/AccountService'
+  import TransacHisService from '@/services/TransacHisService'
   export default {
     data () {
       return {
         items: ['Checkings', 'Savings'],
+        account: [],
         transfer: {
           trantype: null,
           firstn: null,
@@ -143,7 +147,10 @@
           recipn: null,
           amount: null,
         },
+        accountdata: {},
+        transferdata: {},
         error: null,
+        valid: true,
         nameRules: [
           v => !!v || 'Name is required',
           v => (v && v.length <= 10) || 'Name must be less than 10 characters',
@@ -160,6 +167,19 @@
         'isUserLoggedIn',
       ]),
     },
+    async mounted () {
+      try {
+        this.useracc = (await AccountService.useracc({
+          UserId: this.$store.state.user.id,
+        })).data
+
+        for (var i = 0; i < this.useracc.length; i++) {
+          this.account.push(this.useracc[i].accnumber)
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    },
     methods: {
       validate () {
         if (!this.$refs.form.validate()) {
@@ -170,13 +190,26 @@
       },
       async create () {
         try {
-          console.log('create tansfer ', this.transfer)
+          this.accountdata = (await AccountService.show({ accnumber: this.transfer.accnumber })).data
           await TransferService.post(this.transfer)
+        } catch (error) {
+          this.error = error.response.data.error
+        }
+        try {
+          // This get the transaction
+          this.transferdata = (await TransferService.show()).data
+          // create transaction history
+          const tran = (await TransacHisService.post({
+            UserId: this.$store.state.user.id,
+            AccountId: this.accountdata.id,
+            TransferId: this.transferdata.id,
+          })).data
           this.$router.push({
             name: 'Dashboard',
           })
-        } catch (error) {
-          this.error = error.response.data.error
+          console.log('here', tran)
+        } catch (err) {
+          console.log(err)
         }
       },
     },

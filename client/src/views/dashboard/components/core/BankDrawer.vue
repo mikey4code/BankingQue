@@ -55,6 +55,15 @@
       <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
       <div />
 
+      <template>
+        <base-item
+          :item="{
+            title: $t('dashboard'),
+            icon: 'mdi-view-dashboard',
+            to: '/bank',
+          }"
+        />
+      </template>
       <template v-for="(item, i) in computedItems">
         <base-item-group
           v-if="item.children"
@@ -65,7 +74,7 @@
         </base-item-group>
 
         <base-item
-          v-else
+          v-if="$store.state.isUserLoggedIn && i >= 1"
           :key="`item-${i}`"
           :item="item"
         />

@@ -5,6 +5,9 @@ export default {
   index () {
     return Api().get('creditreport')
   },
+  show () {
+    return Api().get('recentcredit')
+  },
   showcredit (param) {
     return Api().get('showcredit', {
       params: { param },

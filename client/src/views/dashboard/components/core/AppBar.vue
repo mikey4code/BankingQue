@@ -211,7 +211,10 @@
     }),
 
     computed: {
-      ...mapState(['drawer']),
+      ...mapState([
+        'isUserLoggedIn',
+        'drawer',
+      ]),
     },
 
     methods: {

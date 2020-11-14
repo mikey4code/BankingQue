@@ -54,7 +54,15 @@
       <!-- Style cascading bug  -->
       <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
       <div />
-
+      <template>
+        <base-item
+          :item="{
+            title: $t('dashboard'),
+            icon: 'mdi-view-dashboard',
+            to: '/',
+          }"
+        />
+      </template>
       <template v-for="(item, i) in computedItems">
         <base-item-group
           v-if="item.children"
@@ -65,7 +73,7 @@
         </base-item-group>
 
         <base-item
-          v-else
+          v-if="$store.state.isUserLoggedIn && i >= 1"
           :key="`item-${i}`"
           :item="item"
         />
@@ -75,16 +83,6 @@
       <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
       <div />
     </v-list>
-
-    <template v-slot:append>
-      <base-item
-        :item="{
-          title: $t('upgrade'),
-          icon: 'mdi-package-up',
-          to: '/upgrade',
-        }"
-      />
-    </template>
   </v-navigation-drawer>
 </template>
 
@@ -140,7 +138,7 @@
     }),
 
     computed: {
-      ...mapState(['barColor', 'barImage']),
+      ...mapState(['barColor', 'barImage', 'isUserLoggedIn']),
       drawer: {
         get () {
           return this.$store.state.drawer

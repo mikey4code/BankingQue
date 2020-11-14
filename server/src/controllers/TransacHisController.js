@@ -9,7 +9,7 @@ module.exports = {
       const transacs = await Transac.findAll({ include: { all: true }});
 
       console.log(transacs)
-      const newtran = transacs.map(tran => tran.toJSON()).map(tran => _.extend({tranId: tran.id}, tran.Account, tran.Transaction))
+      const newtran = transacs.map(tran => tran.toJSON()).map(tran => _.extend({tranId: tran.id}, tran.Account, tran.Transaction, tran.Transfer, tran.Credit, tran.Debit))
       res.send(newtran)
     }catch (err) {
       res.status(500).send({

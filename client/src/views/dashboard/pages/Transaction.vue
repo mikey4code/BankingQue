@@ -93,10 +93,14 @@
                   />
                 </v-col>
 
-                <v-col cols="12">
-                  <v-text-field
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <v-select
                     v-model="transaction.accnumber"
                     class="purple-input"
+                    :items="account"
                     :rules="[required]"
                     label="Account Number"
                     required
@@ -134,6 +138,7 @@
     data () {
       return {
         items: ['Deposit', 'Withdrawl'],
+        account: [],
         transaction: {
           trantype: null,
           firstn: null,
@@ -166,6 +171,19 @@
         'isUserLoggedIn',
       ]),
     },
+    async mounted () {
+      try {
+        this.useracc = (await AccountService.useracc({
+          UserId: this.$store.state.user.id,
+        })).data
+
+        for (var i = 0; i < this.useracc.length; i++) {
+          this.account.push(this.useracc[i].accnumber)
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    },
     methods: {
       validate () {
         if (!this.$refs.form.validate()) {
@@ -185,15 +203,13 @@
           this.error = error.response.data.error
         }
         try {
-          console.log('whats thisnumber ', this.transaction.accnumber)
-          // get the account ID using the accnumber
-          console.log('result ', this.accountdata)
           // This get the transaction
           this.transactiondata = (await TransactionService.show()).data
           console.log('this tran', this.transactiondata)
           // post to waiting queue
           const waiting = (await WaitingService.post(this.transaction)).data
           console.log('waiting', waiting)
+          // create transaction history
           const tran = (await TransacHisService.post({
             UserId: this.$store.state.user.id,
             AccountId: this.accountdata.id,

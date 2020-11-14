@@ -24,7 +24,7 @@
       </v-card-title>
       <v-data-table
         :headers="headers"
-        :items="transactions"
+        :items="transac"
         :items-per-page="5"
         :search="search"
         class="elevation-1"
@@ -83,7 +83,7 @@
             value: 'dob',
           },
         ],
-        transactions: [],
+        transac: [],
         options: {
           fieldSeparator: ',',
           quoteStrings: '"',
@@ -104,13 +104,13 @@
       ]),
     },
     async mounted () {
-      this.transactions = (await TransacHisService.index()).data
-      console.log('first account ', this.transactions)
+      this.transac = (await TransacHisService.index()).data
+      console.log('first account ', this.transac)
     },
     methods: {
       async download () {
         const csvExporter = new ExportToCsv(this.options)
-        csvExporter.generateCsv(this.transaction)
+        csvExporter.generateCsv(this.transac)
       },
     },
   }

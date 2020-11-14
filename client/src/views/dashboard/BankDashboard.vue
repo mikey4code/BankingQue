@@ -63,6 +63,7 @@
             class="text-right"
           >
             <v-btn
+              v-if="$store.state.isUserLoggedIn"
               color="success"
               class="mr-0"
               @click="nextCus"

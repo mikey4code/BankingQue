@@ -32,6 +32,23 @@ module.exports = {
       })
     }
   },
+  async show (req, res) {
+    try {
+      const reqnumber = req.query.accnumber
+      console.log('what is req ', reqnumber)
+      const account = await Transfer.findOne({
+        order:[
+          ['id', 'DESC']
+        ]
+      })
+      console.log('this', account)
+      res.send(account)
+    } catch (err) {
+      res.status(500).send({
+        error: 'an error has occured trying to fetch credit that is recently added'
+      })
+    }
+  },
   async post (req, res) {
         try {
           console.log('checking...', req.body)
