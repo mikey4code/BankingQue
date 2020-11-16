@@ -103,6 +103,7 @@
                     class="purple-input"
                     :rules="ammountRules"
                     label="Amount"
+                    prefix="$"
                     required
                   />
                 </v-col>

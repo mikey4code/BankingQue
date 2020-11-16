@@ -1,10 +1,16 @@
 <template>
+
   <v-container
     id="regular-tables"
     fluid
     tag="section"
   >
-
+    <v-alert
+      v-if="error"
+      type="error"
+    >
+      <span><h2> ERROR - {{ error }} </h2></span>
+    </v-alert>
     <base-material-card
       color="success"
       dark
@@ -80,6 +86,7 @@
           },
         ],
         transaction: [],
+        error: null,
         options: {
           fieldSeparator: ',',
           quoteStrings: '"',
@@ -101,8 +108,12 @@
       ]),
     },
     async mounted () {
-      this.transaction = (await TransactionService.index()).data
-      console.log('first account ', this.transaction)
+      try {
+        this.transaction = (await TransactionService.index()).data
+        console.log('first account ', this.transaction)
+      } catch (error) {
+        this.error = error.response.data.error
+      }
     },
     methods: {
       async download () {

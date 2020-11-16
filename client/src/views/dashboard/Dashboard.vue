@@ -6,6 +6,53 @@
   >
     <v-row>
       <v-col
+        v-if="!$store.state.isUserLoggedIn"
+        cols="12"
+      >
+        <base-material-card
+          color="green"
+          class="px-5 py-3"
+        >
+          <template v-slot:heading>
+            <div class="display-2 font-weight-light">
+              GET STARTED
+            </div>
+
+            <div class="subtitle-1 font-weight-light">
+              Login or Register to access more feather !
+            </div>
+          </template>
+          <v-card-text>
+            <v-container
+              class="pa-0"
+              fluid
+            >
+              <v-row
+                align="center"
+              >
+                hello welcome to banking queue
+                click here login
+                <v-btn
+                  elevation="5"
+                  rounded
+                  x-large
+                  to="/login"
+                >LOGIN</v-btn>
+                dont have have an account ?
+                then click here to get started
+                <v-btn
+                  elevation="5"
+                  rounded
+                  x-large
+                  to="/register"
+                >REGISTER</v-btn>
+              </v-row>
+            </v-container>
+          </v-card-text>
+        </base-material-card>
+      </v-col>
+
+      <v-col
         cols="12"
       >
         <base-material-card
@@ -118,67 +165,6 @@
             </v-sheet>
           </v-col>
         </base-material-card>
-      </v-col>
-
-      <v-col
-        cols="12"
-        sm="6"
-        lg="3"
-      >
-        <base-material-stats-card
-          color="info"
-          icon="mdi-twitter"
-          title="Followers"
-          value="+245"
-          sub-icon="mdi-clock"
-          sub-text="Just Updated"
-        />
-      </v-col>
-
-      <v-col
-        cols="12"
-        sm="6"
-        lg="3"
-      >
-        <base-material-stats-card
-          color="primary"
-          icon="mdi-poll"
-          title="Website Visits"
-          value="75.521"
-          sub-icon="mdi-tag"
-          sub-text="Tracked from Google Analytics"
-        />
-      </v-col>
-
-      <v-col
-        cols="12"
-        sm="6"
-        lg="3"
-      >
-        <base-material-stats-card
-          color="success"
-          icon="mdi-store"
-          title="Revenue"
-          value="$ 34,245"
-          sub-icon="mdi-calendar"
-          sub-text="Last 24 Hours"
-        />
-      </v-col>
-
-      <v-col
-        cols="12"
-        sm="6"
-        lg="3"
-      >
-        <base-material-stats-card
-          color="orange"
-          icon="mdi-sofa"
-          title="Bookings"
-          value="184"
-          sub-icon="mdi-alert"
-          sub-icon-color="red"
-          sub-text="Get More Space..."
-        />
       </v-col>
 
       <v-col
@@ -512,11 +498,11 @@
     async mounted () {
       try {
         this.waiting = (await WaitingService.index()).data
-        console.log(this.$store.state.user.id)
-        this.useracc = (await AccountService.useracc({
-          UserId: this.$store.state.user.id,
-        })).data
-        console.log('here', this.useracc)
+        if (this.$store.state.isUserLoggedIn) {
+          this.useracc = (await AccountService.useracc({
+            UserId: this.$store.state.user.id,
+          })).data
+        }
       } catch (err) {
         console.log(err)
       }
@@ -526,7 +512,6 @@
         this.list[index] = !this.list[index]
       },
       navigateTo (route) {
-        console.log('route ', route)
         this.$router.push(route)
       },
     },

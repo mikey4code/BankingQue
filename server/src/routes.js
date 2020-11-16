@@ -9,9 +9,8 @@ const CreditController = require('./controllers/CreditController')
 const TransferController = require('./controllers/TransferController')
 const WaitingController = require('./controllers/WaitingController')
 
-
-//const isAuthenticated = require('./policies/isAuthenticated')
-
+const isAuthenticated = require('./policies/isAuthenticated')
+const isrootAuthenticated = require('./policies/isrootAuthenticated')
 
 module.exports = (app) => {
     app.post('/register',
@@ -22,12 +21,15 @@ module.exports = (app) => {
             AuthenticationController.login)
         
         app.get('/accountreport',
+            isrootAuthenticated,
             NewAccountController.index)
 
         app.get('/useracc/:accountId',
+            isAuthenticated,
             NewAccountController.showacc)
             
         app.get('/useracc',
+            isAuthenticated,
             NewAccountController.useracc)
             
         app.post('/newaccount',
@@ -37,15 +39,18 @@ module.exports = (app) => {
             NewAccountController.show)
 
         app.get('/viewtrans',
+            isrootAuthenticated,
             TransacHisController.index)
 
         app.post('/viewtrans',
             TransacHisController.post)
 
         app.post('/transaction',
+            isAuthenticated,
             TransactionController.post)
             
         app.get('/transactionreport',
+            isrootAuthenticated,
             TransactionController.index)
 
         app.get('/showtransaction',
@@ -58,6 +63,7 @@ module.exports = (app) => {
             DebitController.post)
         
         app.get('/debitreport',
+            isrootAuthenticated,
             DebitController.index)
 
         app.get('/showdebit',
@@ -70,6 +76,7 @@ module.exports = (app) => {
             CreditController.post)
 
         app.get('/creditreport',
+            isrootAuthenticated,
             CreditController.index)
 
         app.get('/recentcredit',
@@ -88,6 +95,7 @@ module.exports = (app) => {
             TransferController.show)
 
         app.get('/transferreport',
+            isrootAuthenticated,
             TransferController.index)
 
         app.post('/waitingqueue',

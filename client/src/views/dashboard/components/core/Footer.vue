@@ -33,7 +33,7 @@
             <v-icon size="18">
               mdi-heart
             </v-icon>
-            by MIKEY for a better web.
+            by Banking Queue.
           </div>
         </v-col>
       </v-row>
@@ -52,16 +52,8 @@
           text: 'Dashboard',
         },
         {
-          href: '#',
+          href: '/#/aboutus',
           text: 'About Us',
-        },
-        {
-          href: '#',
-          text: 'Blog',
-        },
-        {
-          href: '#',
-          text: 'Licenses',
         },
       ],
     }),

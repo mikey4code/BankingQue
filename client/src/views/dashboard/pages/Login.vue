@@ -43,11 +43,17 @@
                   <v-text-field
                     v-model="password"
                     class="purple-input"
-                    :required="passRules"
                     label="Password"
+                    :required="passRules"
+                    type="password"
                   />
                 </v-col>
-
+                <br>
+                <div
+                  class="danger-alert"
+                  v-html="error"
+                />
+                <br>
                 <v-col
                   cols="12"
                   class="text-right"
@@ -105,9 +111,11 @@
           })
           this.$store.dispatch('setToken', response.data.token)
           this.$store.dispatch('setUser', response.data.user)
-          this.$router.push({
-            name: 'Dashboard',
-          })
+          if (response.data.user.email === 'root@gmail.com') {
+            this.$router.push({ name: 'BankDashboard' })
+          } else {
+            this.$router.push({ name: 'Dashboard' })
+          }
         } catch (error) {
           this.error = error.response.data.error
         }

@@ -58,9 +58,6 @@ module.exports = {
               ['id', 'ASC']
             ]
           })
-          console.log('get account ', account.id)
-          console.log('get account ', account.id)
-          console.log('get account ', '1' + account.phone)
           const from = '15417038583';
           const to = '1' + account.phone;
           const text = 'Hello, We are ready to take you in.';

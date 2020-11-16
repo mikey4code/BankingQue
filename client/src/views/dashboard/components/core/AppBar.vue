@@ -5,6 +5,7 @@
     app
     color="transparent"
     flat
+    mobile-breakpoint="960"
     height="75"
   >
     <v-btn
@@ -29,27 +30,6 @@
     />
 
     <v-spacer />
-
-    <v-text-field
-      :label="$t('search')"
-      color="secondary"
-      hide-details
-      style="max-width: 165px;"
-    >
-      <template
-        v-if="$vuetify.breakpoint.mdAndUp"
-        v-slot:append-outer
-      >
-        <v-btn
-          class="mt-n2"
-          elevation="1"
-          fab
-          small
-        >
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-      </template>
-    </v-text-field>
 
     <div class="mx-3" />
 
@@ -106,26 +86,6 @@
       </v-list>
     </v-menu>
 
-    <v-btn
-      v-if="!$store.state.isUserLoggedIn"
-      class="ml-2"
-      width="10"
-      text
-      large
-      to="/login"
-    >
-      Login
-    </v-btn>
-    <v-btn
-      v-if="!$store.state.isUserLoggedIn"
-      class="ml-2"
-      width="10"
-      text
-      large
-      to="/register"
-    >
-      Sign Up
-    </v-btn>
     <v-btn
       v-if="$store.state.isUserLoggedIn"
       class="ml-2"

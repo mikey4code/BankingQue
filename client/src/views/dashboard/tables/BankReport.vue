@@ -4,7 +4,12 @@
     fluid
     tag="section"
   >
-
+    <v-alert
+      v-if="error"
+      type="error"
+    >
+      <span><h2> ERROR - {{ error }} </h2></span>
+    </v-alert>
     <base-material-card
       color="success"
       dark
@@ -84,6 +89,7 @@
           },
         ],
         transac: [],
+        error: null,
         options: {
           fieldSeparator: ',',
           quoteStrings: '"',
@@ -104,8 +110,12 @@
       ]),
     },
     async mounted () {
-      this.transac = (await TransacHisService.index()).data
-      console.log('first account ', this.transac)
+      try {
+        this.transac = (await TransacHisService.index()).data
+        console.log('first account ', this.transac)
+      } catch (error) {
+        this.error = error.response.data.error
+      }
     },
     methods: {
       async download () {
