@@ -27,6 +27,10 @@ module.exports = (app) => {
         app.get('/useracc/:accountId',
             isAuthenticated,
             NewAccountController.showacc)
+
+        app.put('/useracc/:accountId',
+            isAuthenticated,
+            NewAccountController.put)
             
         app.get('/useracc',
             isAuthenticated,

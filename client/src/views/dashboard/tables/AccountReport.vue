@@ -121,10 +121,10 @@
           decimalSeparator: '.',
           showLabels: true,
           showTitle: true,
-          title: 'My Awesome CSV',
+          title: 'Account Report',
           useTextFile: false,
           useBom: true,
-          headers: ['Column 1', 'Column 2', 'Column 3', 'Column 4', 'Column 5'],
+          headers: ['ID', 'Transaction Type', 'First Name', 'Last Name', 'Address', 'Phone Number', 'DOB', 'Amount', 'Account Numeber'],
         },
       }
     },

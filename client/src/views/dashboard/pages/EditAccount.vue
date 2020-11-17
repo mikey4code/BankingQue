@@ -29,27 +29,50 @@
               <v-row>
                 <v-col
                   cols="12"
-                  md="4"
+                  md="7"
                 >
                   <v-select
-                    v-model="transfer.trantype"
+                    v-model="account.trantype"
                     class="purple-input"
                     :rules="[required]"
-                    :items="items"
                     label="Transaction Type"
+                    :items="items"
                     required
                   />
                 </v-col>
 
                 <v-col
                   cols="12"
-                  md="4"
+                  md="6"
                 >
                   <v-text-field
-                    v-model="transfer.firstn"
+                    v-model="account.firstn"
                     class="purple-input"
-                    :rules="nameRules"
                     label="First Name"
+                    :rules="nameRules"
+                    required
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="account.lastn"
+                    class="purple-input"
+                    label="Last Name"
+                    :rules="nameRules"
+                    required
+                  />
+                </v-col>
+
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="account.address"
+                    class="purple-input"
+                    label="Address"
+                    :rules="[required]"
                     required
                   />
                 </v-col>
@@ -59,53 +82,48 @@
                   md="4"
                 >
                   <v-text-field
-                    v-model="transfer.lastn"
+                    v-model="account.phone"
                     class="purple-input"
-                    :rules="nameRules"
-                    label="Last Name"
-                    required
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="6"
-                >
-                  <v-select
-                    v-model="transfer.accnumber"
-                    class="purple-input"
-                    :items="account"
+                    label="Number"
                     :rules="[required]"
-                    label="Account Number"
                     required
                   />
                 </v-col>
 
                 <v-col
                   cols="12"
-                  md="6"
+                  md="4"
                 >
-                  <v-text-field
-                    v-model="transfer.recipn"
+                  <v-menu
+                    v-model="account.dob"
                     class="purple-input"
                     :rules="[required]"
-                    label="Recipient"
                     required
-                  />
-                </v-col>
+                    :close-on-content-click="false"
+                    :nudge-left="40"
+                    transition="scale-transition"
+                    offset-y
+                    max-width="295px"
+                    min-width="295px"
+                  >
+                    <template v-slot:activator="{ on }">
+                      <v-text-field
+                        label="DOB"
+                        readonly
+                        :value="fromDateDisp"
+                        :rules="dobRules"
+                        v-on="on"
+                      />
+                    </template>
+                    <v-date-picker
+                      v-model="fromDateVal"
+                      locale="en-in"
+                      no-title
+                      :min="minDate"
+                      @input="account.dob = null"
+                    />
+                  </v-menu>
 
-                <v-col
-                  cols="12"
-                  md="6"
-                >
-                  <v-text-field
-                    v-model="transfer.amount"
-                    class="purple-input"
-                    :rules="ammountRules"
-                    label="Amount"
-                    prefix="$"
-                    required
-                  />
                 </v-col>
 
                 <v-col
@@ -118,7 +136,7 @@
                     class="mr-0"
                     @click="validate"
                   >
-                    Submit
+                    Save
                   </v-btn>
                 </v-col>
               </v-row>
@@ -132,33 +150,35 @@
 
 <script>
   import { mapState } from 'vuex'
-  import TransferService from '@/services/TransferService'
-  import AccountService from '@/services/AccountService'
   import TransacHisService from '@/services/TransacHisService'
+  import AccountService from '@/services/AccountService'
   export default {
     data () {
       return {
-        items: ['Transfer'],
-        account: [],
-        transfer: {
+        fromDateVal: null,
+        minDate: '1920-01-06',
+        items: ['Checking', 'Saving'],
+        account: {
           trantype: null,
           firstn: null,
           lastn: null,
-          accnumber: null,
-          recipn: null,
-          amount: null,
+          address: null,
+          phone: null,
+          dob: null,
         },
         accountdata: {},
-        transferdata: {},
         error: null,
         valid: true,
         nameRules: [
           v => !!v || 'Name is required',
           v => (v && v.length <= 10) || 'Name must be less than 10 characters',
         ],
-        ammountRules: [
-          v => !!v || 'Amount is required',
-          v => /^\$?[0-9]+(\.[0-9][0-9])?$/.test(v) || 'Amount must be in dollars',
+        emailRules: [
+          v => !!v || 'E-mail is required',
+          v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+        ],
+        dobRules: [
+          v => !!v || 'Date of Birth required',
         ],
         required: (values) => !!values || 'Required.',
       }
@@ -167,48 +187,48 @@
       ...mapState([
         'isUserLoggedIn',
       ]),
+      fromDateDisp () {
+        return this.fromDateVal
+      },
     },
     async mounted () {
       try {
-        this.useracc = (await AccountService.useracc({
-          UserId: this.$store.state.user.id,
-        })).data
-
-        for (var i = 0; i < this.useracc.length; i++) {
-          this.account.push(this.useracc[i].accnumber)
-        }
-      } catch (err) {
-        console.log(err)
+        const accountId = this.$store.state.route.params.accountId
+        this.account = (await AccountService.showacc(accountId)).data
+        console.log('first account ', this.account)
+      } catch (error) {
+        this.error = error.response.data.error
       }
     },
     methods: {
+      generateNumber: function () {
+        return Math.floor(Math.random() * (99999999 - 10000000 + 1) + 10000000)
+      },
       validate () {
         if (!this.$refs.form.validate()) {
           this.$refs.form.validate()
         } else {
-          this.create()
+          console.log('dob', this.fromDateVal)
+          this.save()
         }
       },
-      async create () {
+      async save () {
         try {
-          this.accountdata = (await AccountService.show({ accnumber: this.transfer.accnumber })).data
-          await TransferService.post(this.transfer)
+          this.account.dob = this.fromDateVal
+          this.account.UserId = this.$store.state.user.id
+          await AccountService.put(this.account).data
+          this.$router.push({
+            name: 'Dashboard',
+          })
         } catch (error) {
           this.error = error.response.data.error
         }
         try {
-          // This get the transaction
-          this.transferdata = (await TransferService.show()).data
-          // create transaction history
-          const tran = (await TransacHisService.post({
+          this.accountdata = (await AccountService.show({ accnumber: this.account.accnumber })).data
+          await TransacHisService.post({
             UserId: this.$store.state.user.id,
             AccountId: this.accountdata.id,
-            TransferId: this.transferdata.id,
-          })).data
-          this.$router.push({
-            name: 'Dashboard',
-          })
-          console.log('here', tran)
+          }).data
         } catch (err) {
           console.log(err)
         }

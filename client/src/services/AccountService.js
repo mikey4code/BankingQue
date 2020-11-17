@@ -25,4 +25,8 @@ export default {
   post (newaccount) {
     return Api().post('newaccount', newaccount)
   },
+   // takes accountId
+   put (account) {
+    return Api().put(`useracc/${account.id}`, account)
+  },
 }

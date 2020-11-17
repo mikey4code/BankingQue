@@ -74,5 +74,22 @@ module.exports = {
             error: 'an error has occured trying to create account'
           })
         }
+      },
+      async put (req, res) {
+        try {
+          console.log('details here ',req.body)
+          console.log('details and now',req.body.accnumber)
+          const account = await Account.update(req.body , {
+            where: {
+              id: req.params.accountId
+            }
+          })
+          console.log(account)
+          res.send(req.body)
+        } catch (err) {
+          res.status(500).send({
+            error: 'an error has occured trying to create account'
+          })
+        }
       }   
 }

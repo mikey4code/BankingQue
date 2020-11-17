@@ -116,7 +116,10 @@
                     required
                   />
                 </v-col>
-                <v-col>
+                <v-col
+                  cols="12"
+                  class="text-right"
+                >
                   <v-btn
                     :disabled="!valid"
                     color="success"

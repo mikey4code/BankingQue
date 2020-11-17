@@ -199,17 +199,17 @@
         if (!this.$refs.form.validate()) {
           this.$refs.form.validate()
         } else {
+          console.log('dob', this.fromDateVal)
           this.create()
         }
       },
       async create () {
         try {
+          this.account.dob = this.fromDateVal
           this.account.amount = 0
           this.account.UserId = this.$store.state.user.id
           this.account.accnumber = this.generateNumber()
-          console.log('created account ', this.account)
-          const check = (await AccountService.post(this.account)).data
-          console.log(check)
+          await AccountService.post(this.account).data
           this.$router.push({
             name: 'Dashboard',
           })
@@ -218,12 +218,10 @@
         }
         try {
           this.accountdata = (await AccountService.show({ accnumber: this.account.accnumber })).data
-          console.log('result ', this.accountdata.id)
-          const tran = (await TransacHisService.post({
+          await TransacHisService.post({
             UserId: this.$store.state.user.id,
             AccountId: this.accountdata.id,
-          })).data
-          console.log('here', tran)
+          }).data
         } catch (err) {
           console.log(err)
         }

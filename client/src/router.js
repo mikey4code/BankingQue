@@ -59,6 +59,11 @@ export default new Router({
           component: () => import('@/views/dashboard/pages/ViewAccount'),
         },
         {
+          name: 'editaccount',
+          path: '/useracc/:accountId/edit',
+          component: () => import('@/views/dashboard/pages/EditAccount'),
+        },
+        {
           name: 'aboutus',
           path: '/aboutus',
           component: () => import('@/views/dashboard/components/core/AboutUs'),
