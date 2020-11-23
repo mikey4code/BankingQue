@@ -14,4 +14,8 @@ export default {
   sendtext () {
     return Api().post('sendtext')
   },
+  exitqueue (param) {
+    console.log('paramsss ', param)
+    return Api().delete('exitqueue', param)
+  },
 }

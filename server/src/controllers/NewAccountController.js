@@ -1,6 +1,7 @@
 const {Account} = require('../models')
 
 module.exports = {
+    // RETURN ALL ACCOUNTS
     async index (req, res) {
         try {
           const account = await Account.findAll({
@@ -14,6 +15,8 @@ module.exports = {
           })
         }
       },
+      
+      // RUTURN ONE ACCOUNT BY ACCT NUMBER
       async show (req, res) {
         try {
           const reqnumber = req.query.accnumber
@@ -31,6 +34,32 @@ module.exports = {
           })
         }
       },
+
+      // AUTO FILL INFO BY ACCT NUMBER WITH AMOUNT
+      async autofill (req, res) {
+        try {
+          const reqnumber = req.query.accnumber
+          console.log('what is req here ', reqnumber)
+          const account = await Account.findOne({
+            where: {
+              accnumber: reqnumber
+            }
+          })
+          console.log(account.accnumber)
+          console.log(account.toJSON())
+          var obj = account.toJSON()
+          delete obj.amount
+          console.log(obj)
+          // console.log('this', newacc)
+          res.send(obj)
+        } catch (err) {
+          res.status(500).send({
+            error: 'an error has occured trying to autofill account by accnumber'
+          })
+        }
+      },
+
+      // RETURN ALL ACCOUNT BY USER ID 
       async useracc (req, res) {
         try {
           const userId = req.query
@@ -48,6 +77,8 @@ module.exports = {
           })
         }
       },
+
+      // RETURN ONE ACCOUNT BY ACCT ID
       async showacc (req, res) {
         try {
           console.log('acount id ', req.params.accountId)
@@ -63,6 +94,8 @@ module.exports = {
           })
         }
       },
+
+      // CREATE ACCOUNT
       async post (req, res) {
         try {
           console.log('details here ',req.body)
@@ -75,6 +108,8 @@ module.exports = {
           })
         }
       },
+
+      // UPDATE ACCOUNT INFO, FIND BY ACCOUNT ID
       async put (req, res) {
         try {
           console.log('details here ',req.body)
@@ -88,7 +123,29 @@ module.exports = {
           res.send(req.body)
         } catch (err) {
           res.status(500).send({
-            error: 'an error has occured trying to create account'
+            error: 'an error has occured trying to update account'
+          })
+        }
+      },
+
+      // UPDATE ACCOUNT 
+      async useramount (req, res) {
+        try {
+          const param = req.body.params
+          console.log('details here ',req.body.params)
+          const account = await Account.findOne({
+            where: {
+              accnumber: param.accnumber
+            }
+          })
+          console.log('the acct to update', account)
+          account.amount += param.amount
+          await account.save()
+          console.log('updated acct', account)
+          res.send(req.body)
+        } catch (err) {
+          res.status(500).send({
+            error: 'an error has occured trying to update account'
           })
         }
       }   

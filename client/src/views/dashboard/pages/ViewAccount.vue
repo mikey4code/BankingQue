@@ -107,10 +107,14 @@
                   v-for="item in transaction"
                   :key="item.name"
                 >
-                  <td class="text-uppercase">{{ item.trantype }}</td>
-                  <td class="text-uppercase">{{ item.firstn }}</td>
-                  <td class="text-uppercase">{{ item.lastn }}</td>
-                  <td class="text-uppercase">{{ item.amount }}</td>
+                  <td class="text-uppercase">
+                    {{ item.trantype }} </td>
+                  <td class="text-uppercase">
+                    {{ item.firstn }}</td>
+                  <td class="text-uppercase">
+                    {{ item.lastn }}</td>
+                  <td class="text-uppercase">
+                    {{ item.amount }}</td>
                 </tr>
               </tbody>
             </template>
@@ -161,11 +165,16 @@
                   v-for="item in credit"
                   :key="item.name"
                 >
-                  <td class="text-uppercase">{{ item.trantype }}</td>
-                  <td class="text-uppercase">{{ item.firstn }}</td>
-                  <td class="text-uppercase">{{ item.lastn }}</td>
-                  <td class="text-uppercase">{{ item.limit }}</td>
-                  <td class="text-uppercase">{{ item.income }}</td>
+                  <td class="text-uppercase">
+                    {{ item.trantype }}</td>
+                  <td class="text-uppercase">
+                    {{ item.firstn }}</td>
+                  <td class="text-uppercase">
+                    {{ item.lastn }}</td>
+                  <td class="text-uppercase">
+                    {{ item.limit }}</td>
+                  <td class="text-uppercase">
+                    {{ item.income }}</td>
                 </tr>
               </tbody>
             </template>
@@ -212,10 +221,14 @@
                   v-for="item in debit"
                   :key="item.name"
                 >
-                  <td class="text-uppercase">{{ item.trantype }}</td>
-                  <td class="text-uppercase">{{ item.firstn }}</td>
-                  <td class="text-uppercase">{{ item.lastn }}</td>
-                  <td class="text-uppercase">{{ item.license }}</td>
+                  <td class="text-uppercase">
+                    {{ item.trantype }}</td>
+                  <td class="text-uppercase">
+                    {{ item.firstn }}</td>
+                  <td class="text-uppercase">
+                    {{ item.lastn }}</td>
+                  <td class="text-uppercase">
+                    {{ item.license }}</td>
                 </tr>
               </tbody>
             </template>
@@ -265,11 +278,16 @@
                   v-for="item in transfer"
                   :key="item.name"
                 >
-                  <td class="text-uppercase">{{ item.trantype }}</td>
-                  <td class="text-uppercase">{{ item.firstn }}</td>
-                  <td class="text-uppercase">{{ item.lastn }}</td>
-                  <td class="text-uppercase">{{ item.recipn }}</td>
-                  <td class="text-uppercase">{{ item.amount }}</td>
+                  <td class="text-uppercase">
+                    {{ item.trantype }}</td>
+                  <td class="text-uppercase">
+                    {{ item.firstn }}</td>
+                  <td class="text-uppercase">
+                    {{ item.lastn }}</td>
+                  <td class="text-uppercase">
+                    {{ item.recipn }}</td>
+                  <td class="text-uppercase">
+                    {{ item.amount }}</td>
                 </tr>
               </tbody>
             </template>

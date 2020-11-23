@@ -32,6 +32,20 @@
                   md="4"
                 >
                   <v-select
+                    v-model="transaction.accnumber"
+                    class="purple-input"
+                    :items="account"
+                    :rules="[required]"
+                    label="Account Number"
+                    required
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <v-select
                     v-model="transaction.trantype"
                     class="purple-input"
                     :items="items"
@@ -43,27 +57,25 @@
 
                 <v-col
                   cols="12"
-                  md="4"
+                  md="6"
                 >
                   <v-text-field
                     v-model="transaction.firstn"
                     class="purple-input"
-                    :rules="nameRules"
+                    readonly
                     label="First Name"
-                    required
                   />
                 </v-col>
 
                 <v-col
                   cols="12"
-                  md="4"
+                  md="6"
                 >
                   <v-text-field
                     v-model="transaction.lastn"
                     class="purple-input"
-                    :rules="nameRules"
+                    readonly
                     label="Last Name"
-                    required
                   />
                 </v-col>
 
@@ -74,9 +86,8 @@
                   <v-text-field
                     v-model="transaction.phone"
                     class="purple-input"
-                    :rules="numberRules"
+                    readonly
                     label="Phone Number"
-                    required
                   />
                 </v-col>
 
@@ -94,19 +105,6 @@
                   />
                 </v-col>
 
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-select
-                    v-model="transaction.accnumber"
-                    class="purple-input"
-                    :items="account"
-                    :rules="[required]"
-                    label="Account Number"
-                    required
-                  />
-                </v-col>
                 <v-col
                   cols="12"
                   class="text-right"
@@ -140,6 +138,7 @@
       return {
         items: ['Deposit', 'Withdrawl'],
         account: [],
+        temp: {},
         transaction: {
           trantype: null,
           firstn: null,
@@ -172,6 +171,18 @@
         'isUserLoggedIn',
       ]),
     },
+    watch: {
+      'transaction.accnumber': {
+        handler: async function (after, before) {
+          console.log('changed', after, before)
+          const selaccnumber = after
+          console.log(selaccnumber)
+          console.log('before change', this.transaction)
+          this.transaction = (await AccountService.autofill({ accnumber: selaccnumber })).data
+          console.log('return', this.transaction)
+        },
+      },
+    },
     async mounted () {
       try {
         this.useracc = (await AccountService.useracc({
@@ -188,7 +199,6 @@
     methods: {
       validate () {
         if (!this.$refs.form.validate()) {
-          console.log('here')
           this.$refs.form.validate()
         } else {
           this.create()
@@ -196,19 +206,32 @@
       },
       async create () {
         try {
-          this.transaction.UserId = this.$store.state.user.id
+          console.log('what we have ', this.transaction)
+          // Get account data
           this.accountdata = (await AccountService.show({ accnumber: this.transaction.accnumber })).data
-          this.transaction.AccountId = this.accountdata.id
-          await TransactionService.post(this.transaction)
+
+          console.log('whats beeing post', this.transaction)
+          this.temp = {
+            trantype: this.transaction.trantype,
+            firstn: this.transaction.firstn,
+            lastn: this.transaction.lastn,
+            phone: this.transaction.phone,
+            amount: this.transaction.amount,
+            accnumber: this.transaction.accnumber,
+            AccountId: this.accountdata.id,
+          }
+          console.log('what temp is ', this.temp)
+          await TransactionService.post(this.temp)
         } catch (error) {
           this.error = error.response.data.error
         }
         try {
           // This get the transaction
           this.transactiondata = (await TransactionService.show()).data
-          console.log('this tran', this.transactiondata)
+          console.log('this tran data', this.transactiondata)
           // post to waiting queue
-          const waiting = (await WaitingService.post(this.transaction)).data
+          this.temp.UserId = this.$store.state.user.id
+          const waiting = (await WaitingService.post(this.temp)).data
           console.log('waiting', waiting)
           // create transaction history
           const tran = (await TransacHisService.post({

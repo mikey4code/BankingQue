@@ -29,9 +29,23 @@
               <v-row>
                 <v-col
                   cols="12"
-                  md="4"
+                  md="6"
                 >
-                  <v-text-field
+                  <v-select
+                    v-model="credit.accnumber"
+                    class="purple-input"
+                    :items="account"
+                    :rules="[required]"
+                    label="Account Number"
+                    required
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-select
                     v-model="credit.trantype"
                     class="purple-input"
                     :rules="[required]"
@@ -43,11 +57,12 @@
 
                 <v-col
                   cols="12"
-                  md="4"
+                  md="6"
                 >
                   <v-text-field
                     v-model="credit.firstn"
                     class="purple-input"
+                    readonly
                     :rules="nameRules"
                     label="First Name"
                     required
@@ -56,11 +71,12 @@
 
                 <v-col
                   cols="12"
-                  md="4"
+                  md="6"
                 >
                   <v-text-field
                     v-model="credit.lastn"
                     class="purple-input"
+                    readonly
                     :rules="nameRules"
                     label="Last Name"
                     required
@@ -74,6 +90,7 @@
                   <v-text-field
                     v-model="credit.address"
                     class="purple-input"
+                    readonly
                     :rules="[required]"
                     label="Adress"
                     required
@@ -87,6 +104,7 @@
                   <v-text-field
                     v-model="credit.phone"
                     class="purple-input"
+                    readonly
                     :rules="numberRules"
                     label="Phone Number"
                     required
@@ -122,20 +140,6 @@
 
                 <v-col
                   cols="12"
-                  md="4"
-                >
-                  <v-select
-                    v-model="credit.accnumber"
-                    class="purple-input"
-                    :items="account"
-                    :rules="[required]"
-                    label="Account Number"
-                    required
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
                   class="text-right"
                 >
                   <v-btn
@@ -164,9 +168,10 @@
   export default {
     data () {
       return {
-        items: ['Credit'],
+        items: ['Credit Card'],
         options: ['25000 and less', '25000 and more', 'Between 50000 and 75000', 'Between 75000 and 100000', '100000 or more'],
         account: [],
+        temp: {},
         credit: {
           trantype: null,
           firstn: null,
@@ -200,6 +205,18 @@
       ...mapState([
         'isUserLoggedIn',
       ]),
+    },
+    watch: {
+      'credit.accnumber': {
+        handler: async function (after, before) {
+          console.log('changed', after, before)
+          const selaccnumber = after
+          console.log(selaccnumber)
+          console.log(this.credit)
+          this.credit = (await AccountService.autofill({ accnumber: selaccnumber })).data
+          console.log('return', this.credit)
+        },
+      },
     },
     async mounted () {
       try {
@@ -239,8 +256,19 @@
           if (this.credit.income === '100000 or more') {
             this.credit.limit = 50000
           }
-          this.accountdata = (await AccountService.show({ accnumber: this.credit.accnumber })).data
-          await CreditService.post(this.credit)
+          this.temp = {
+            trantype: this.credit.trantype,
+            firstn: this.credit.firstn,
+            lastn: this.credit.lastn,
+            address: this.credit.address,
+            phone: this.credit.phone,
+            license: this.credit.license,
+            income: this.credit.income,
+            accnumber: this.credit.accnumber,
+            limit: this.credit.limit,
+          }
+          console.log('credit to post', this.temp)
+          await CreditService.post(this.temp)
         } catch (error) {
           this.error = error.response.data.error
         }

@@ -48,6 +48,7 @@
                       label="Password"
                       :required="passRules"
                       class="purple-input"
+                      type="password"
                     />
                   </v-col>
                 </v-col>

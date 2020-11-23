@@ -31,6 +31,10 @@ module.exports = (app) => {
         app.put('/useracc/:accountId',
             isAuthenticated,
             NewAccountController.put)
+
+        app.put('/useramount',
+            isAuthenticated,
+            NewAccountController.useramount)
             
         app.get('/useracc',
             isAuthenticated,
@@ -42,6 +46,9 @@ module.exports = (app) => {
         app.get('/showaccount',
             NewAccountController.show)
 
+        app.get('/autofill',
+            NewAccountController.autofill)
+
         app.get('/viewtrans',
             isrootAuthenticated,
             TransacHisController.index)
@@ -50,7 +57,6 @@ module.exports = (app) => {
             TransacHisController.post)
 
         app.post('/transaction',
-            isAuthenticated,
             TransactionController.post)
             
         app.get('/transactionreport',
@@ -110,6 +116,9 @@ module.exports = (app) => {
 
         app.delete('/removequeue',
             WaitingController.removeq)
+
+        app.delete('/exitqueue',
+            WaitingController.exitqueue)
 
         app.post('/sendtext',
             WaitingController.sendtext)

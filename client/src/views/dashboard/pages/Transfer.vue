@@ -32,6 +32,19 @@
                   md="4"
                 >
                   <v-select
+                    v-model="transfer.accnumber"
+                    class="purple-input"
+                    :items="account"
+                    :rules="[required]"
+                    label="Account Number"
+                    required
+                  />
+                </v-col>
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <v-select
                     v-model="transfer.trantype"
                     class="purple-input"
                     :rules="[required]"
@@ -43,27 +56,13 @@
 
                 <v-col
                   cols="12"
-                  md="4"
+                  md="6"
                 >
                   <v-text-field
                     v-model="transfer.firstn"
                     class="purple-input"
-                    :rules="nameRules"
+                    readonly
                     label="First Name"
-                    required
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    v-model="transfer.lastn"
-                    class="purple-input"
-                    :rules="nameRules"
-                    label="Last Name"
-                    required
                   />
                 </v-col>
 
@@ -71,13 +70,11 @@
                   cols="12"
                   md="6"
                 >
-                  <v-select
-                    v-model="transfer.accnumber"
+                  <v-text-field
+                    v-model="transfer.lastn"
                     class="purple-input"
-                    :items="account"
-                    :rules="[required]"
-                    label="Account Number"
-                    required
+                    readonly
+                    label="Last Name"
                   />
                 </v-col>
 
@@ -89,7 +86,7 @@
                     v-model="transfer.recipn"
                     class="purple-input"
                     :rules="[required]"
-                    label="Recipient"
+                    label="Recipient ACCT Number"
                     required
                   />
                 </v-col>
@@ -167,6 +164,18 @@
       ...mapState([
         'isUserLoggedIn',
       ]),
+    },
+    watch: {
+      'transfer.accnumber': {
+        handler: async function (after, before) {
+          console.log('changed', after, before)
+          const selaccnumber = after
+          console.log(selaccnumber)
+          console.log(this.transfer)
+          this.transfer = (await AccountService.autofill({ accnumber: selaccnumber })).data
+          console.log('return', this.transfer)
+        },
+      },
     },
     async mounted () {
       try {

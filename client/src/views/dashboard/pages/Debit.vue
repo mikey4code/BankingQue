@@ -29,7 +29,20 @@
               <v-row>
                 <v-col
                   cols="12"
-                  md="4"
+                  md="6"
+                >
+                  <v-select
+                    v-model="debit.accnumber"
+                    class="purple-input"
+                    :items="account"
+                    :rules="[required]"
+                    label="Account Number"
+                    required
+                  />
+                </v-col>
+                <v-col
+                  cols="12"
+                  md="6"
                 >
                   <v-select
                     v-model="debit.trantype"
@@ -43,7 +56,7 @@
 
                 <v-col
                   cols="12"
-                  md="4"
+                  md="6"
                 >
                   <v-text-field
                     v-model="debit.firstn"
@@ -56,14 +69,12 @@
 
                 <v-col
                   cols="12"
-                  md="4"
+                  md="6"
                 >
                   <v-text-field
                     v-model="debit.lastn"
                     class="purple-input"
-                    :rules="nameRules"
                     label="Last Name"
-                    required
                   />
                 </v-col>
 
@@ -74,9 +85,7 @@
                   <v-text-field
                     v-model="debit.address"
                     class="purple-input"
-                    :rules="[required]"
                     label="Address"
-                    required
                   />
                 </v-col>
 
@@ -87,9 +96,7 @@
                   <v-text-field
                     v-model="debit.phone"
                     class="purple-input"
-                    :rules="numberRules"
                     label="Phone Number"
-                    required
                   />
                 </v-col>
 
@@ -103,19 +110,6 @@
                   />
                 </v-col>
 
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-select
-                    v-model="debit.accnumber"
-                    class="purple-input"
-                    :items="account"
-                    :rules="[required]"
-                    label="Account Number"
-                    required
-                  />
-                </v-col>
                 <v-col
                   cols="12"
                   class="text-right"
@@ -146,7 +140,7 @@
   export default {
     data () {
       return {
-        items: ['Debit'],
+        items: ['Debit Card'],
         account: [],
         debit: {
           trantype: null,
@@ -180,6 +174,18 @@
       ...mapState([
         'isUserLoggedIn',
       ]),
+    },
+    watch: {
+      'debit.accnumber': {
+        handler: async function (after, before) {
+          console.log('changed', after, before)
+          const selaccnumber = after
+          console.log(selaccnumber)
+          console.log(this.debit)
+          this.debit = (await AccountService.autofill({ accnumber: selaccnumber })).data
+          console.log('return', this.debit)
+        },
+      },
     },
     async mounted () {
       try {

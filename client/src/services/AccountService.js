@@ -18,6 +18,11 @@ export default {
       params: param,
     })
   },
+  autofill (param) {
+    return Api().get('autofill', {
+      params: param,
+    })
+  },
   // takes accountId
   showacc (accountId) {
     return Api().get(`useracc/${accountId}`)
@@ -26,7 +31,12 @@ export default {
     return Api().post('newaccount', newaccount)
   },
    // takes accountId
-   put (account) {
+  put (account) {
     return Api().put(`useracc/${account.id}`, account)
+  },
+  useramount (param) {
+    return Api().put('useramount', {
+      params: param,
+    })
   },
 }

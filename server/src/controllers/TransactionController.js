@@ -16,8 +16,6 @@ module.exports = {
   },
   async show (req, res) {
     try {
-      const reqnumber = req.query.accnumber
-      console.log('what is req ', reqnumber)
       const account = await Transaction.findOne({
         order:[
           ['id', 'DESC']
@@ -51,7 +49,9 @@ module.exports = {
   },
   async post (req, res) {
         try {
+          console.log('req body', req.body)
           const transaction = await Transaction.create(req.body)
+          console.log('sever', transaction)
           res.send(transaction)
         } catch (err) {
           res.status(500).send({

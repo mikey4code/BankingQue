@@ -5,7 +5,13 @@ module.exports = (sequelize, DataTypes) => {
     lastn: DataTypes.STRING,
     phone: DataTypes.STRING,
     accnumber: DataTypes.INTEGER,
+    amount: DataTypes.INTEGER
   })
+  
+  Waiting.associate = function (models) {
 
+    Waiting.belongsTo(models.User)
+    
+  }
   return Waiting
 }

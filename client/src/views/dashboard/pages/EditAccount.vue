@@ -35,6 +35,7 @@
                     v-model="account.trantype"
                     class="purple-input"
                     :rules="[required]"
+                    readonly
                     label="Transaction Type"
                     :items="items"
                     required
@@ -94,36 +95,14 @@
                   cols="12"
                   md="4"
                 >
-                  <v-menu
+                  <v-text-field
                     v-model="account.dob"
                     class="purple-input"
+                    readonly
+                    label="Number"
                     :rules="[required]"
                     required
-                    :close-on-content-click="false"
-                    :nudge-left="40"
-                    transition="scale-transition"
-                    offset-y
-                    max-width="295px"
-                    min-width="295px"
-                  >
-                    <template v-slot:activator="{ on }">
-                      <v-text-field
-                        label="DOB"
-                        readonly
-                        :value="fromDateDisp"
-                        :rules="dobRules"
-                        v-on="on"
-                      />
-                    </template>
-                    <v-date-picker
-                      v-model="fromDateVal"
-                      locale="en-in"
-                      no-title
-                      :min="minDate"
-                      @input="account.dob = null"
-                    />
-                  </v-menu>
-
+                  />
                 </v-col>
 
                 <v-col

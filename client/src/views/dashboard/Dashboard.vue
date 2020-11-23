@@ -105,6 +105,19 @@
               </v-slide-group>
             </v-sheet>
           </v-col>
+          <v-col
+            cols="12"
+            class="text-right"
+          >
+            <v-btn
+              v-if="$store.state.isUserLoggedIn"
+              color="success"
+              class="mr-0"
+              @click="optout"
+            >
+              Exit Queue
+            </v-btn>
+          </v-col>
         </base-material-card>
       </v-col>
 
@@ -220,6 +233,16 @@
       },
       navigateTo (route) {
         this.$router.push(route)
+      },
+      async optout () {
+        try {
+          const del = await WaitingService.removeq({
+            UserId: this.$store.state.user.id,
+          })
+          console.log('hello', del)
+        } catch (err) {
+          console.log(err)
+        }
       },
     },
   }
