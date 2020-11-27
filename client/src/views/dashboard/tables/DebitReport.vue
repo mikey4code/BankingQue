@@ -76,6 +76,10 @@
             value: 'lastn',
           },
           {
+            text: 'License #',
+            value: 'license',
+          },
+          {
             text: 'Phone #',
             value: 'phone',
           },

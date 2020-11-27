@@ -113,9 +113,11 @@
           this.useracc = (await AccountService.useramount({
             accnumber: text.accnumber,
             amount: text.amount,
+            trantype: text.trantype,
           })).data
           const del = await WaitingService.removeq()
           console.log('hello', del)
+          location.reload()
         } catch (err) {
           console.log(err)
         }

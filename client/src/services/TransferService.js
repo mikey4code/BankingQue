@@ -16,4 +16,9 @@ export default {
   post (transfer) {
     return Api().post('transfer', transfer)
   },
+  maketransfer (param) {
+    return Api().put('maketransfer', {
+      params: param,
+    })
+  },
 }

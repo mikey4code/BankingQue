@@ -102,6 +102,45 @@
                   md="6"
                 >
                   <v-text-field
+                    v-model="credit.city"
+                    class="purple-input"
+                    readonly
+                    label="City"
+                    required
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <v-text-field
+                    v-model="credit.state"
+                    class="purple-input"
+                    readonly
+                    label="State"
+                    required
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="2"
+                >
+                  <v-text-field
+                    v-model="credit.zip"
+                    class="purple-input"
+                    readonly
+                    label="Zip"
+                    required
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
                     v-model="credit.phone"
                     class="purple-input"
                     readonly
@@ -177,6 +216,9 @@
           firstn: null,
           lastn: null,
           address: null,
+          city: null,
+          state: null,
+          zip: null,
           phone: null,
           license: null,
           income: null,
@@ -261,6 +303,9 @@
             firstn: this.credit.firstn,
             lastn: this.credit.lastn,
             address: this.credit.address,
+            city: this.credit.city,
+            state: this.credit.state,
+            zip: this.credit.zip,
             phone: this.credit.phone,
             license: this.credit.license,
             income: this.credit.income,

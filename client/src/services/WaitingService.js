@@ -15,7 +15,9 @@ export default {
     return Api().post('sendtext')
   },
   exitqueue (param) {
-    console.log('paramsss ', param)
-    return Api().delete('exitqueue', param)
+    console.log('send to ser', param)
+    return Api().delete('exitqueue', {
+      params: param,
+    })
   },
 }

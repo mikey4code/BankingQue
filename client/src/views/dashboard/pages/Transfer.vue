@@ -137,6 +137,7 @@
       return {
         items: ['Transfer'],
         account: [],
+        temp: {},
         transfer: {
           trantype: null,
           firstn: null,
@@ -201,7 +202,22 @@
       async create () {
         try {
           this.accountdata = (await AccountService.show({ accnumber: this.transfer.accnumber })).data
-          await TransferService.post(this.transfer)
+          this.temp = {
+            trantype: this.transfer.trantype,
+            firstn: this.transfer.firstn,
+            lastn: this.transfer.lastn,
+            recipn: this.transfer.recipn,
+            amount: this.transfer.amount,
+            accnumber: this.transfer.accnumber,
+          }
+          console.log('this.transfer', this.transfer)
+          await TransferService.post(this.temp)
+          const make = await TransferService.maketransfer({
+            accnumber: this.transfer.accnumber,
+            recipn: this.transfer.recipn,
+            amount: this.transfer.amount,
+          })
+          console.log('make', make)
         } catch (error) {
           this.error = error.response.data.error
         }

@@ -56,6 +56,9 @@
                         Address: {{ account.address }}
                       </p>
                       <p class="font-weight-black">
+                        {{ account.city }} , {{ account.state }} {{ account.zip }}
+                      </p>
+                      <p class="font-weight-black">
                         DOB: {{ account.dob }}
                       </p>
                     </v-list-item-title>
@@ -361,7 +364,7 @@
 
         // Show transfer of account by account Number
         this.transfer = (await TransferService.showtransfer(this.account.accnumber)).data
-        console.log('this', this.transfer)
+        console.log('this tranfer', this.transfer)
 
         // Show transfer of account by account Number
         this.credit = (await CreditService.showcredit(this.account.accnumber)).data

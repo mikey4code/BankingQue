@@ -96,12 +96,16 @@
             value: 'address',
           },
           {
-            text: 'Phone #',
-            value: 'phone',
+            text: 'City',
+            value: 'city',
           },
           {
-            text: 'DOB',
-            value: 'dob',
+            text: 'State',
+            value: 'state',
+          },
+          {
+            text: 'Zip',
+            value: 'zip',
           },
           {
             text: 'Amount',

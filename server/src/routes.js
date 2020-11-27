@@ -101,6 +101,9 @@ module.exports = (app) => {
         app.get('/showtransfer',
             TransferController.showtransfer)
 
+        app.put('/maketransfer',
+            TransferController.maketransfer)
+
         app.get('/recenttransfer',
             TransferController.show)
 

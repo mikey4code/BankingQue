@@ -128,7 +128,7 @@ module.exports = {
         }
       },
 
-      // UPDATE ACCOUNT 
+      // UPDATE ACCOUNT AMOUNT
       async useramount (req, res) {
         try {
           const param = req.body.params
@@ -139,7 +139,12 @@ module.exports = {
             }
           })
           console.log('the acct to update', account)
-          account.amount += param.amount
+          console.log('the acct to update trantype', account.trantype)
+          if (param.trantype === "Deposit") {
+            account.amount += param.amount
+          } else {
+            account.amount -= param.amount
+          }
           await account.save()
           console.log('updated acct', account)
           res.send(req.body)

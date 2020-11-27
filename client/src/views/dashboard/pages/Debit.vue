@@ -61,6 +61,7 @@
                   <v-text-field
                     v-model="debit.firstn"
                     class="purple-input"
+                    readonly
                     :rules="nameRules"
                     label="First Name"
                     required
@@ -74,6 +75,7 @@
                   <v-text-field
                     v-model="debit.lastn"
                     class="purple-input"
+                    readonly
                     label="Last Name"
                   />
                 </v-col>
@@ -85,7 +87,47 @@
                   <v-text-field
                     v-model="debit.address"
                     class="purple-input"
+                    readonly
                     label="Address"
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="debit.city"
+                    class="purple-input"
+                    readonly
+                    label="City"
+                    required
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <v-text-field
+                    v-model="debit.state"
+                    class="purple-input"
+                    readonly
+                    label="State"
+                    required
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="2"
+                >
+                  <v-text-field
+                    v-model="debit.zip"
+                    class="purple-input"
+                    readonly
+                    label="Zip"
+                    required
                   />
                 </v-col>
 
@@ -96,11 +138,15 @@
                   <v-text-field
                     v-model="debit.phone"
                     class="purple-input"
+                    readonly
                     label="Phone Number"
                   />
                 </v-col>
 
-                <v-col cols="12">
+                <v-col
+                  cols="12"
+                  md="4"
+                >
                   <v-text-field
                     v-model="debit.license"
                     class="purple-input"
@@ -147,6 +193,9 @@
           firstn: null,
           lastn: null,
           address: null,
+          city: null,
+          state: null,
+          zip: null,
           phone: null,
           license: null,
           accnumber: null,

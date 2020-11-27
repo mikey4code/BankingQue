@@ -4,55 +4,227 @@
     fluid
     tag="section"
   >
+    <v-banner
+      v-if="!$store.state.isUserLoggedIn"
+    >
+      <v-card
+        class="mx-auto"
+      >
+        <v-img
+          class="white--text align-end"
+          height="300px"
+          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+        >
+          <v-card-title
+            class="justify-center"
+          >Banking Queue System</v-card-title>
+        </v-img>
+      </v-card>
+    </v-banner>
+
     <v-row>
       <v-col
         v-if="!$store.state.isUserLoggedIn"
         cols="12"
+        md="6"
       >
-        <base-material-card
-          color="green"
-          class="px-5 py-3"
+        <v-card
+          class="ml-auto py-1"
+          max-width="400"
         >
-          <template v-slot:heading>
-            <div class="display-2 font-weight-light">
-              GET STARTED
-            </div>
+          <v-img
+            class="white--text align-end"
+            height="200px"
+            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+          >
+            <v-card-title>Checking & Saving</v-card-title>
+          </v-img>
 
-            <div class="subtitle-1 font-weight-light">
-              Login or Register to access more feather !
-            </div>
-          </template>
-          <v-card-text>
-            <v-container
-              class="pa-0"
-              fluid
-            >
-              <v-row
-                align="center"
-              >
-                hello welcome to banking queue
-                click here login
-                <v-btn
-                  elevation="5"
-                  rounded
-                  x-large
-                  to="/login"
-                >LOGIN</v-btn>
-                dont have have an account ?
-                then click here to get started
-                <v-btn
-                  elevation="5"
-                  rounded
-                  x-large
-                  to="/register"
-                >REGISTER</v-btn>
-              </v-row>
-            </v-container>
+          <v-card-subtitle class="pb-0">
+            Number 10
+          </v-card-subtitle>
+
+          <v-card-text class="text--primary">
+            <div>Whitehaven Beach</div>
+
+            <div>Whitsunday Island, Whitsunday Islands</div>
           </v-card-text>
-        </base-material-card>
+
+          <div class="text-center my-2">
+            <v-btn
+              rounded
+              color="primary"
+              dark
+              to="/login"
+            >
+              Get staterd
+            </v-btn>
+          </div>
+        </v-card>
       </v-col>
 
       <v-col
+        v-if="!$store.state.isUserLoggedIn"
+        cols="12"
+        md="6"
+      >
+        <v-card
+          class="mr-auto py-1"
+          max-width="400"
+        >
+          <v-img
+            class="white--text align-end"
+            height="200px"
+            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+          >
+            <v-card-title>Transaction</v-card-title>
+          </v-img>
+
+          <v-card-subtitle class="pb-0">
+            Number 10
+          </v-card-subtitle>
+
+          <v-card-text class="text--primary">
+            <div>Whitehaven Beach</div>
+
+            <div>Whitsunday Island, Whitsunday Islands</div>
+          </v-card-text>
+
+          <div class="text-center my-2">
+            <v-btn
+              rounded
+              color="primary"
+              dark
+              to="/login"
+            >
+              Get staterd
+            </v-btn>
+          </div>
+        </v-card>
+      </v-col>
+
+      <v-col
+        v-if="!$store.state.isUserLoggedIn"
+        cols="12"
+        md="4"
+      >
+        <v-card
+          class="mx-auto py-1"
+          max-width="400"
+        >
+          <v-img
+            class="white--text align-end"
+            height="200px"
+            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+          >
+            <v-card-title>Credit Card</v-card-title>
+          </v-img>
+
+          <v-card-subtitle class="pb-0">
+            Number 10
+          </v-card-subtitle>
+
+          <v-card-text class="text--primary">
+            <div>Whitehaven Beach</div>
+
+            <div>Whitsunday Island, Whitsunday Islands</div>
+          </v-card-text>
+
+          <div class="text-center my-2">
+            <v-btn
+              rounded
+              color="primary"
+              dark
+              to="/login"
+            >
+              Get staterd
+            </v-btn>
+          </div>
+        </v-card>
+      </v-col>
+
+      <v-col
+        v-if="!$store.state.isUserLoggedIn"
+        cols="12"
+        md="4"
+      >
+        <v-card
+          class="mx-auto py-1"
+          max-width="400"
+        >
+          <v-img
+            class="white--text align-end"
+            height="200px"
+            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+          >
+            <v-card-title>Debit</v-card-title>
+          </v-img>
+
+          <v-card-subtitle class="pb-0">
+            Number 10
+          </v-card-subtitle>
+
+          <v-card-text class="text--primary">
+            <div>Whitehaven Beach</div>
+
+            <div>Whitsunday Island, Whitsunday Islands</div>
+          </v-card-text>
+
+          <div class="text-center my-2">
+            <v-btn
+              rounded
+              color="primary"
+              dark
+              to="/login"
+            >
+              Get staterd
+            </v-btn>
+          </div>
+        </v-card>
+      </v-col>
+
+      <v-col
+        v-if="!$store.state.isUserLoggedIn"
+        cols="12"
+        md="4"
+      >
+        <v-card
+          class="mx-auto py-1"
+          max-width="400"
+        >
+          <v-img
+            class="white--text align-end"
+            height="200px"
+            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+          >
+            <v-card-title>Transfer</v-card-title>
+          </v-img>
+
+          <v-card-subtitle class="pb-0">
+            Number 10
+          </v-card-subtitle>
+
+          <v-card-text class="text--primary">
+            <div>Whitehaven Beach</div>
+
+            <div>Whitsunday Island, Whitsunday Islands</div>
+          </v-card-text>
+
+          <div class="text-center my-2">
+            <v-btn
+              rounded
+              color="primary"
+              dark
+              to="/login"
+            >
+              Get staterd
+            </v-btn>
+          </div>
+        </v-card>
+      </v-col>
+
+      <v-col
+        v-if="$store.state.isUserLoggedIn"
         cols="12"
       >
         <base-material-card
@@ -124,6 +296,7 @@
       <div class="py-3" />
 
       <v-col
+        v-if="$store.state.isUserLoggedIn"
         cols="12"
       >
         <base-material-card
@@ -199,6 +372,7 @@
   import { mapState } from 'vuex'
   import WaitingService from '@/services/WaitingService'
   import AccountService from '@/services/AccountService'
+
   export default {
     name: 'DashboardDashboard',
 
@@ -236,10 +410,11 @@
       },
       async optout () {
         try {
-          const del = await WaitingService.removeq({
+          const del = await WaitingService.exitqueue({
             UserId: this.$store.state.user.id,
           })
           console.log('hello', del)
+          location.reload()
         } catch (err) {
           console.log(err)
         }

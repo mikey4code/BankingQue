@@ -43,6 +43,30 @@
     </v-btn>
 
     <v-btn
+      v-if="!$store.state.isUserLoggedIn"
+      class="ml-2"
+      width="10"
+      text
+      large
+      elevation="2"
+      to="/login"
+    >
+      Login
+    </v-btn>
+
+    <v-btn
+      v-if="!$store.state.isUserLoggedIn"
+      class="ml-2"
+      width="10"
+      text
+      large
+      elevation="2"
+      to="/register"
+    >
+      Register
+    </v-btn>
+
+    <v-btn
       v-if="$store.state.isUserLoggedIn"
       class="ml-2"
       width="10"
@@ -88,16 +112,6 @@
       },
     },
 
-    data: () => ({
-      notifications: [
-        'Mike John Responded to your email',
-        'You have 5 new tasks',
-        'You\'re now friends with Andrew',
-        'Another Notification',
-        'Another one',
-      ],
-    }),
-
     computed: {
       ...mapState([
         'isUserLoggedIn',
@@ -113,7 +127,7 @@
         this.$store.dispatch('setToken', null)
         this.$store.dispatch('setUser', null)
         this.$router.push({
-          name: 'Login',
+          name: 'Dashboard',
         })
       },
     },

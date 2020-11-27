@@ -67,12 +67,53 @@
                   />
                 </v-col>
 
-                <v-col cols="12">
+                <v-col
+                  cols="12"
+                  md="6"
+                >
                   <v-text-field
                     v-model="account.address"
                     class="purple-input"
                     label="Address"
+                    required
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="account.city"
+                    class="purple-input"
+                    label="City"
+                    required
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <v-select
+                    v-model="account.state"
+                    class="purple-input"
                     :rules="[required]"
+                    label="State"
+                    :items="state"
+                    required
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="2"
+                >
+                  <v-text-field
+                    v-model="account.zip"
+                    class="purple-input"
+                    label="Zip"
+                    :rules="nameRules"
                     required
                   />
                 </v-col>
@@ -158,11 +199,15 @@
         fromDateVal: null,
         minDate: '1920-01-06',
         items: ['Checking', 'Saving'],
+        state: ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Federated States of Micronesia', 'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'],
         account: {
           trantype: null,
           firstn: null,
           lastn: null,
           address: null,
+          city: null,
+          state: null,
+          zip: null,
           phone: null,
           dob: false,
         },

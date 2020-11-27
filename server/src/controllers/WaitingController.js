@@ -72,10 +72,10 @@ module.exports = {
   },
   async exitqueue (req, res) {
     try {
-      console.log('in here', req)
+      console.log('in here', req.query.UserId)
       const account = await Waiting.findOne({
         where: {
-          UserId: req.body
+          UserId: req.query.UserId
         }
       })
       await Waiting.destroy({
@@ -83,6 +83,7 @@ module.exports = {
           id: account.id
         }
       });
+      console.log('res', res)
       res.send(account)
     } catch (err) {
       res.status(500).send({

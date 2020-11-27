@@ -10,8 +10,8 @@
       min-width="100"
       style="position: fixed; top: 115px; right: -35px; border-radius: 8px;"
     >
-      <v-icon large>
-        mdi-settings
+      <v-icon>
+        mdi-cog
       </v-icon>
     </v-card>
 
