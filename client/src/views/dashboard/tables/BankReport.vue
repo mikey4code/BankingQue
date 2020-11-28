@@ -83,10 +83,6 @@
             text: 'Phone #',
             value: 'phone',
           },
-          {
-            text: 'DOB',
-            value: 'dob',
-          },
         ],
         transac: [],
         error: null,

@@ -29,7 +29,7 @@
         md="6"
       >
         <v-card
-          class="ml-auto py-1"
+          class="ml-auto py-1 primary"
           max-width="400"
         >
           <v-img
@@ -53,11 +53,11 @@
           <div class="text-center my-2">
             <v-btn
               rounded
-              color="primary"
+              color="secondary"
               dark
               to="/login"
             >
-              Get staterd
+              Get started
             </v-btn>
           </div>
         </v-card>
@@ -69,7 +69,7 @@
         md="6"
       >
         <v-card
-          class="mr-auto py-1"
+          class="mr-auto py-1 primary"
           max-width="400"
         >
           <v-img
@@ -93,11 +93,11 @@
           <div class="text-center my-2">
             <v-btn
               rounded
-              color="primary"
+              color="secondary"
               dark
               to="/login"
             >
-              Get staterd
+              Get started
             </v-btn>
           </div>
         </v-card>
@@ -109,7 +109,7 @@
         md="4"
       >
         <v-card
-          class="mx-auto py-1"
+          class="mx-auto py-1 primary"
           max-width="400"
         >
           <v-img
@@ -133,11 +133,11 @@
           <div class="text-center my-2">
             <v-btn
               rounded
-              color="primary"
+              color="secondary"
               dark
               to="/login"
             >
-              Get staterd
+              Get started
             </v-btn>
           </div>
         </v-card>
@@ -149,7 +149,7 @@
         md="4"
       >
         <v-card
-          class="mx-auto py-1"
+          class="mx-auto py-1 primary"
           max-width="400"
         >
           <v-img
@@ -173,11 +173,11 @@
           <div class="text-center my-2">
             <v-btn
               rounded
-              color="primary"
+              color="secondary"
               dark
               to="/login"
             >
-              Get staterd
+              Get started
             </v-btn>
           </div>
         </v-card>
@@ -189,7 +189,7 @@
         md="4"
       >
         <v-card
-          class="mx-auto py-1"
+          class="mx-auto py-1 primary"
           max-width="400"
         >
           <v-img
@@ -213,11 +213,11 @@
           <div class="text-center my-2">
             <v-btn
               rounded
-              color="primary"
+              color="secondary"
               dark
               to="/login"
             >
-              Get staterd
+              Get started
             </v-btn>
           </div>
         </v-card>
@@ -228,7 +228,7 @@
         cols="12"
       >
         <base-material-card
-          color="success"
+          color="primary"
           icon="mdi-clipboard-plus"
           title="Waiting Queue"
           class="px-5 py-3"
@@ -283,7 +283,7 @@
           >
             <v-btn
               v-if="$store.state.isUserLoggedIn"
-              color="success"
+              color="blue"
               class="mr-0"
               @click="optout"
             >
@@ -300,7 +300,7 @@
         cols="12"
       >
         <base-material-card
-          color="success"
+          color="primary"
           icon="mdi-clipboard-plus"
           title="View Account"
           class="px-5 py-3"

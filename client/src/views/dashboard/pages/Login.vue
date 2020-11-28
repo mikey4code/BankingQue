@@ -9,7 +9,7 @@
         cols="12"
         md="8"
       >
-        <base-material-card>
+        <base-material-card color="primary">
           <template v-slot:heading>
             <div class="display-2 font-weight-light">
               Login
@@ -43,9 +43,11 @@
                   <v-text-field
                     v-model="password"
                     class="purple-input"
+                    :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="show ? 'text' : 'password'"
                     label="Password"
                     :required="passRules"
-                    type="password"
+                    @click:append="show = !show"
                   />
                 </v-col>
                 <br>
@@ -60,7 +62,7 @@
                 >
                   <v-btn
                     :disabled="!valid"
-                    color="success"
+                    color="primary"
                     class="mr-0"
                     @click="validate"
                   >
@@ -81,6 +83,7 @@
   export default {
     data () {
       return {
+        show: false,
         email: '',
         password: '',
         error: null,

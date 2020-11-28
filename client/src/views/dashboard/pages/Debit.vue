@@ -9,7 +9,7 @@
         cols="12"
         md="8"
       >
-        <base-material-card>
+        <base-material-card color="primary">
           <template v-slot:heading>
             <div class="display-2 font-weight-light">
               Edit Profile
@@ -162,7 +162,7 @@
                 >
                   <v-btn
                     :disabled="!valid"
-                    color="success"
+                    color="primary"
                     class="mr-0"
                     @click="validate"
                   >
