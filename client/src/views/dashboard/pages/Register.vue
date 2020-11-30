@@ -70,10 +70,10 @@
                       class="purple-input"
                       label="Confirm Password"
                       :rules="[confirmPasswordRules,passwordConfirmationRule]"
-                      :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-                      :type="show ? 'text' : 'password'"
+                      :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                      :type="show1 ? 'text' : 'password'"
                       hint="Your password match!"
-                      @click:append="show = !show"
+                      @click:append="show1 = !show1"
                     />
                   </v-col>
                 </v-col>
@@ -106,6 +106,7 @@
     data () {
       return {
         show: false,
+        show1: false,
         email: '',
         password: '',
         confirmPassword: '',

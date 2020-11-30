@@ -15,7 +15,7 @@
           height="250px"
           src="@/assets/waiting.jpg"
         >
-          <v-card-title class="justify-center">
+          <v-card-title class="banner justify-center ma-15">
             Banking Queue System
           </v-card-title>
           <v-card-title class="justify-center">
@@ -424,9 +424,13 @@
 </script>
 <style>
   .trantype {
-    font-size:1.5em
+    font-size:1.5em;
   }
   .position {
-    font-size:4em
+    font-size:4em;
+  }
+  .banner {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size:3.5em;
   }
 </style>
