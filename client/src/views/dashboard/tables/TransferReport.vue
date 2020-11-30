@@ -95,7 +95,17 @@
           title: 'My Awesome CSV',
           useTextFile: false,
           useBom: true,
-          headers: ['Column 1', 'Column 2', 'Column 3', 'Column 4', 'Column 5'],
+          headers: [
+            'ID',
+            'Transaction Type',
+            'First Name',
+            'Last Name',
+            'Phone Number',
+            'Account Number',
+            'Amount',
+            'Created At',
+            'Updated At',
+          ],
         },
       }
     },
@@ -108,7 +118,6 @@
     async mounted () {
       try {
         this.transfer = (await TransferService.index()).data
-        console.log('first account ', this.transfer)
       } catch (error) {
         this.error = error.response.data.error
       }
@@ -116,6 +125,7 @@
     methods: {
       async download () {
         const csvExporter = new ExportToCsv(this.options)
+        console.log(this.transfer)
         csvExporter.generateCsv(this.transfer)
       },
     },

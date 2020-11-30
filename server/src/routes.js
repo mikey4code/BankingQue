@@ -1,6 +1,6 @@
 
 const AuthenticationController = require('./controllers/AuthenticationController')
-const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
+//const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
 const NewAccountController = require('./controllers/NewAccountController')
 const TransacHisController = require('./controllers/TransacHisController')
 const TransactionController = require('./controllers/TransactionController')
@@ -14,7 +14,7 @@ const isrootAuthenticated = require('./policies/isrootAuthenticated')
 
 module.exports = (app) => {
     app.post('/register',
-        AuthenticationControllerPolicy.register,
+        // AuthenticationControllerPolicy.register,
         AuthenticationController.register)
     
         app.post('/login',

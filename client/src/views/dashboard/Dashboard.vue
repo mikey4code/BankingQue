@@ -11,13 +11,15 @@
         class="mx-auto"
       >
         <v-img
-          class="white--text align-end"
-          height="300px"
-          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+          class="--text-align-mid"
+          height="250px"
+          src="@/assets/waiting.jpg"
         >
-          <v-card-title
-            class="justify-center"
-          >Banking Queue System</v-card-title>
+          <v-card-title class="justify-center">
+            Banking Queue System
+          </v-card-title>
+          <v-card-title class="justify-center">
+            This a vertual waiting queue where you can make appointment while you wait in you car.</v-card-title>
         </v-img>
       </v-card>
     </v-banner>
@@ -35,19 +37,17 @@
           <v-img
             class="white--text align-end"
             height="200px"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-          >
-            <v-card-title>Checking & Saving</v-card-title>
-          </v-img>
-
-          <v-card-subtitle class="pb-0">
-            Number 10
-          </v-card-subtitle>
+            src="@/assets/acccounts.jpg"
+          />
 
           <v-card-text class="text--primary">
-            <div>Whitehaven Beach</div>
+            <div class="text-center my-2">
+              Accounts
+            </div>
 
-            <div>Whitsunday Island, Whitsunday Islands</div>
+            <div class="text-center my-2">
+              Checking and Savings Accounts
+            </div>
           </v-card-text>
 
           <div class="text-center my-2">
@@ -57,7 +57,7 @@
               dark
               to="/login"
             >
-              Get started
+              Select
             </v-btn>
           </div>
         </v-card>
@@ -75,19 +75,17 @@
           <v-img
             class="white--text align-end"
             height="200px"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-          >
-            <v-card-title>Transaction</v-card-title>
-          </v-img>
-
-          <v-card-subtitle class="pb-0">
-            Number 10
-          </v-card-subtitle>
+            src="@/assets/transcation.png"
+          />
 
           <v-card-text class="text--primary">
-            <div>Whitehaven Beach</div>
+            <div class="text-center my-2">
+              Transcation
+            </div>
 
-            <div>Whitsunday Island, Whitsunday Islands</div>
+            <div class="text-center my-2">
+              Deposit or withdrawal from account
+            </div>
           </v-card-text>
 
           <div class="text-center my-2">
@@ -97,7 +95,7 @@
               dark
               to="/login"
             >
-              Get started
+              Select
             </v-btn>
           </div>
         </v-card>
@@ -115,19 +113,17 @@
           <v-img
             class="white--text align-end"
             height="200px"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-          >
-            <v-card-title>Credit Card</v-card-title>
-          </v-img>
-
-          <v-card-subtitle class="pb-0">
-            Number 10
-          </v-card-subtitle>
+            src="@/assets/credit card.jpg"
+          />
 
           <v-card-text class="text--primary">
-            <div>Whitehaven Beach</div>
+            <div class="text-center my-2">
+              Credit Card
+            </div>
 
-            <div>Whitsunday Island, Whitsunday Islands</div>
+            <div class="text-center my-2">
+              Open a new Credit Card
+            </div>
           </v-card-text>
 
           <div class="text-center my-2">
@@ -137,7 +133,7 @@
               dark
               to="/login"
             >
-              Get started
+              Select
             </v-btn>
           </div>
         </v-card>
@@ -155,19 +151,17 @@
           <v-img
             class="white--text align-end"
             height="200px"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-          >
-            <v-card-title>Debit</v-card-title>
-          </v-img>
-
-          <v-card-subtitle class="pb-0">
-            Number 10
-          </v-card-subtitle>
+            src="@/assets/debit.png"
+          />
 
           <v-card-text class="text--primary">
-            <div>Whitehaven Beach</div>
+            <div class="text-center my-2">
+              Debit Card
+            </div>
 
-            <div>Whitsunday Island, Whitsunday Islands</div>
+            <div class="text-center my-2">
+              Get a new debit card for your account
+            </div>
           </v-card-text>
 
           <div class="text-center my-2">
@@ -177,7 +171,7 @@
               dark
               to="/login"
             >
-              Get started
+              Select
             </v-btn>
           </div>
         </v-card>
@@ -195,19 +189,17 @@
           <v-img
             class="white--text align-end"
             height="200px"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-          >
-            <v-card-title>Transfer</v-card-title>
-          </v-img>
-
-          <v-card-subtitle class="pb-0">
-            Number 10
-          </v-card-subtitle>
+            src="@/assets/transfer.png"
+          />
 
           <v-card-text class="text--primary">
-            <div>Whitehaven Beach</div>
+            <div class="text-center my-2">
+              Transfer
+            </div>
 
-            <div>Whitsunday Island, Whitsunday Islands</div>
+            <div class="text-center my-2">
+              Move money between Accounts
+            </div>
           </v-card-text>
 
           <div class="text-center my-2">
@@ -251,26 +243,35 @@
                   <v-card
                     color="primary"
                     class="ma-4"
-                    height="200"
+                    height="250"
                     width="300"
+                    elevation="4"
                   >
-                    Next in line {{ i + 1 }}
                     <v-row
-                      class="fill-height"
                       align="center"
                       justify="center"
                     >
-                      <v-card-title class="headline">
-                        {{ wait.firstn }}
+                      <v-card-title class="headline pa-6">
+                        Hi {{ wait.firstn }},
                       </v-card-title>
-
-                      <v-card-subtitle>
-                        {{ wait.firstn }}
-                        {{ wait.lastn }}
-                        {{ wait.phone }}
-                        {{ wait.firstn }}
-                        {{ wait.firstn }}
-                      </v-card-subtitle>
+                      <v-card-text class="text-center pt-2">
+                        You have joined the queue for:
+                        <br>
+                        <span
+                          class="trantype text-center font-weight-black"
+                        >
+                          {{ wait.trantype }}
+                        </span>
+                      </v-card-text>
+                      <div>
+                        <v-btn
+                          fab
+                          dark
+                          x-large
+                        >
+                          <span class="position">{{ i + 1 }}</span>
+                        </v-btn>
+                      </div>
                     </v-row>
                   </v-card>
                 </v-slide-item>
@@ -328,7 +329,6 @@
                     <v-card-title>
                       {{ account.trantype }}
                       {{ account.accnumber }}
-                      {{ account.id }}
                     </v-card-title>
                     <br>
                     <v-card-subtitle>
@@ -414,7 +414,7 @@
             UserId: this.$store.state.user.id,
           })
           console.log('hello', del)
-          location.reload()
+          // location.reload()
         } catch (err) {
           console.log(err)
         }
@@ -422,3 +422,11 @@
     },
   }
 </script>
+<style>
+  .trantype {
+    font-size:1.5em
+  }
+  .position {
+    font-size:4em
+  }
+</style>

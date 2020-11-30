@@ -151,17 +151,9 @@
         transactiondata: {},
         error: null,
         valid: true,
-        nameRules: [
-          v => !!v || 'Name is required',
-          v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-        ],
-        numberRules: [
-          v => !!v || 'Phone number is required',
-          v => (v && v.length === 10) || 'Phone number must be equal to 10 digits',
-        ],
         ammountRules: [
           v => !!v || 'Amount is required',
-          v => /^\$?[0-9]+(\.[0-9][0-9])?$/.test(v) || 'Amount must be in dollars',
+          v => (/^\$?[0-9]+(\.[0-9][0-9])?$/).test(v) || 'Amount must be in dollars',
         ],
         required: (values) => !!values || 'Required.',
       }

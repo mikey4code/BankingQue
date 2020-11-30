@@ -85,7 +85,7 @@
                   <v-text-field
                     v-model="transfer.recipn"
                     class="purple-input"
-                    :rules="[required]"
+                    :rules="recipRules"
                     label="Recipient ACCT Number"
                     required
                   />
@@ -150,13 +150,14 @@
         transferdata: {},
         error: null,
         valid: true,
-        nameRules: [
-          v => !!v || 'Name is required',
-          v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-        ],
         ammountRules: [
           v => !!v || 'Amount is required',
           v => /^\$?[0-9]+(\.[0-9][0-9])?$/.test(v) || 'Amount must be in dollars',
+        ],
+        recipRules: [
+          v => !!v || 'Recipient Number Is Required',
+          v => (v.length === 8) || 'Invaild Recipient Number',
+          v => (!isNaN(parseFloat(v)) && v >= 0 && v <= 99999999) || 'Invaild Recipient Number',
         ],
         required: (values) => !!values || 'Required.',
       }

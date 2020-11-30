@@ -4,6 +4,12 @@
     fluid
     tag="section"
   >
+    <v-alert
+      v-if="error"
+      type="error"
+    >
+      <span><h2> ERROR - {{ error }} </h2></span>
+    </v-alert>
     <v-row justify="center">
       <v-col
         cols="12"
@@ -50,12 +56,7 @@
                     @click:append="show = !show"
                   />
                 </v-col>
-                <br>
-                <div
-                  class="danger-alert"
-                  v-html="error"
-                />
-                <br>
+
                 <v-col
                   cols="12"
                   class="text-right"

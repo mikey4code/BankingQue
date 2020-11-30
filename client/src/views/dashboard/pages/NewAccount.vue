@@ -98,10 +98,9 @@
                   <v-select
                     v-model="account.state"
                     class="purple-input"
-                    :rules="[required]"
                     label="State"
                     :items="state"
-                    required
+                    :rules="[required]"
                   />
                 </v-col>
 
@@ -113,7 +112,7 @@
                     v-model="account.zip"
                     class="purple-input"
                     label="Zip"
-                    :rules="nameRules"
+                    :rules="zipRules"
                     required
                   />
                 </v-col>
@@ -125,8 +124,8 @@
                   <v-text-field
                     v-model="account.phone"
                     class="purple-input"
-                    label="Number"
-                    :rules="[required]"
+                    label="Phone Number"
+                    :rules="numberRules"
                     required
                   />
                 </v-col>
@@ -216,14 +215,20 @@
         valid: true,
         nameRules: [
           v => !!v || 'Name is required',
-          v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-        ],
-        emailRules: [
-          v => !!v || 'E-mail is required',
-          v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+          v => !(/^(?=.*[!@#$%^&*])/).test(v) || 'Can\'t use a special character.',
+          v => !(/^(?=.*[0-9])/).test(v) || 'Can\'t use a number.',
         ],
         dobRules: [
           v => !!v || 'Date of Birth required',
+        ],
+        zipRules: [
+          v => !!v || 'Zip is required',
+          v => (v.length === 5) || 'Invaild Zip Code',
+        ],
+        numberRules: [
+          v => !!v || 'Phone Number is required',
+          v => (v.length === 10) || 'Invaild Phone Number',
+          v => (!isNaN(parseFloat(v)) && v >= 0 && v <= 9999999999) || 'Invalid Phone Number.',
         ],
         required: (values) => !!values || 'Required.',
       }

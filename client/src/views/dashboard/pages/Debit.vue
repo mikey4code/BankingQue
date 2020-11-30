@@ -204,17 +204,10 @@
         debitdata: {},
         error: null,
         valid: true,
-        nameRules: [
-          v => !!v || 'Name is required',
-          v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-        ],
-        numberRules: [
-          v => !!v || 'Phone number is required',
-          v => (v && v.length === 10) || 'Phone number must be equal to 10 digits',
-        ],
         licenseRules: [
           v => !!v || 'License number is required',
           v => (v && v.length === 9) || 'License number must be equal to 9 digits',
+          v => (!isNaN(parseFloat(v)) && v >= 0 && v <= 999999999) || 'Invaild License Number',
         ],
         required: (values) => !!values || 'Required.',
       }

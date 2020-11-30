@@ -48,9 +48,9 @@
                   <v-select
                     v-model="credit.trantype"
                     class="purple-input"
-                    :rules="[required]"
                     :items="items"
                     label="Transaction Type"
+                    :rules="[required]"
                     required
                   />
                 </v-col>
@@ -63,7 +63,6 @@
                     v-model="credit.firstn"
                     class="purple-input"
                     readonly
-                    :rules="nameRules"
                     label="First Name"
                     required
                   />
@@ -77,7 +76,6 @@
                     v-model="credit.lastn"
                     class="purple-input"
                     readonly
-                    :rules="nameRules"
                     label="Last Name"
                     required
                   />
@@ -106,7 +104,7 @@
                     class="purple-input"
                     readonly
                     label="City"
-                    required
+                    :rules="[required]"
                   />
                 </v-col>
 
@@ -119,7 +117,7 @@
                     class="purple-input"
                     readonly
                     label="State"
-                    required
+                    :rules="[required]"
                   />
                 </v-col>
 
@@ -132,7 +130,7 @@
                     class="purple-input"
                     readonly
                     label="Zip"
-                    required
+                    :rules="[required]"
                   />
                 </v-col>
 
@@ -144,7 +142,6 @@
                     v-model="credit.phone"
                     class="purple-input"
                     readonly
-                    :rules="numberRules"
                     label="Phone Number"
                     required
                   />
@@ -228,17 +225,10 @@
         creditdata: {},
         error: null,
         valid: true,
-        nameRules: [
-          v => !!v || 'Name is required',
-          v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-        ],
-        numberRules: [
-          v => !!v || 'Phone number is required',
-          v => (v && v.length === 10) || 'Phone number must be equal to 10 digits',
-        ],
         licenseRules: [
           v => !!v || 'License number is required',
           v => (v && v.length === 9) || 'License number must be equal to 9 digits',
+          v => (!isNaN(parseFloat(v)) && v >= 0 && v <= 999999999) || 'Invaild License Number',
         ],
         required: (values) => !!values || 'Required.',
       }

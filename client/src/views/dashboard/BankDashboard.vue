@@ -32,26 +32,49 @@
                   <v-card
                     color="green"
                     class="ma-4"
-                    height="200"
+                    height="250"
                     width="300"
                   >
-                    Next in line {{ i + 1 }}
+                    <v-btn
+                      v-if="$store.state.isUserLoggedIn"
+                      color="red"
+                      fab
+                      x-small
+                      class="ma-1 float-right"
+                      @click="navigateTo({params:{
+                        UserId: wait.UserId
+                      }})"
+                    >
+                      <v-icon>
+                        mdi-minus
+                      </v-icon>
+                    </v-btn>
                     <v-row
                       class="fill-height"
                       align="center"
                       justify="center"
                     >
-                      <v-card-title class="headline">
-                        {{ wait.firstn }}
+                      <v-card-title class="headline ml-7">
+                        {{ wait.firstn }},
                       </v-card-title>
-
-                      <v-card-subtitle>
-                        {{ wait.firstn }}
-                        {{ wait.lastn }}
-                        {{ wait.phone }}
-                        {{ wait.firstn }}
-                        {{ wait.firstn }}
-                      </v-card-subtitle>
+                      <v-card-text class="text-center ml-7">
+                        Have joined for:
+                        <br>
+                        <span
+                          class="trantype text-center font-weight-black"
+                        >
+                          {{ wait.trantype }}
+                        </span>
+                      </v-card-text>
+                      <div class="ml-7">
+                        <v-btn
+                          fab
+                          dark
+                          x-large
+                        >
+                          <span class="position">{{ i + 1 }}</span>
+                        </v-btn>
+                      </div>
                     </v-row>
                   </v-card>
                 </v-slide-item>
@@ -105,6 +128,18 @@
     methods: {
       complete (index) {
         this.list[index] = !this.list[index]
+      },
+      async navigateTo (userId) {
+        try {
+          console.log('route ', userId.params)
+          const del = await WaitingService.exitqueue({
+            UserId: userId.params.UserId,
+          })
+          console.log('hello', del)
+          location.reload()
+        } catch (err) {
+          console.log(err)
+        }
       },
       async nextCus () {
         try {
