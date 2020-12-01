@@ -160,3 +160,15 @@
     },
   }
 </script>
+<style>
+  .trantype {
+    font-size:1.5em;
+  }
+  .position {
+    font-size:4em;
+  }
+  .banner {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size:3.5em;
+  }
+</style>

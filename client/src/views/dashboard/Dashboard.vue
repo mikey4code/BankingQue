@@ -19,7 +19,7 @@
             Banking Queue System
           </v-card-title>
           <v-card-title class="justify-center">
-            This a vertual waiting queue where you can make appointment while you wait in you car.</v-card-title>
+            The Future Of Banking Is Here.</v-card-title>
         </v-img>
       </v-card>
     </v-banner>
@@ -414,7 +414,7 @@
             UserId: this.$store.state.user.id,
           })
           console.log('hello', del)
-          // location.reload()
+          location.reload()
         } catch (err) {
           console.log(err)
         }
