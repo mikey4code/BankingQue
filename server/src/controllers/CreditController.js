@@ -3,9 +3,7 @@ const {Credit} = require('../models')
 module.exports = {
   async index (req, res) {
     try {
-      const credit = await Credit.findAll({
-        limit: 10
-      })
+      const credit = await Credit.findAll()
       console.log('this is credit ', credit)
       res.send(credit)
     } catch (err) {

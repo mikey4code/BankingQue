@@ -4,9 +4,7 @@ module.exports = {
     // RETURN ALL ACCOUNTS
     async index (req, res) {
         try {
-          const account = await Account.findAll({
-            limit: 10
-          })
+          const account = await Account.findAll()
           console.log('this', account)
           res.send(account)
         } catch (err) {

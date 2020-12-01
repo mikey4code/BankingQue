@@ -3,9 +3,7 @@ const {Debit} = require('../models')
 module.exports = {
   async index (req, res) {
     try {
-      const debit = await Debit.findAll({
-        limit: 10
-      })
+      const debit = await Debit.findAll()
       console.log('this', debit)
       res.send(debit)
     } catch (err) {
