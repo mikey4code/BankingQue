@@ -3,9 +3,7 @@ const {Transaction} = require('../models')
 module.exports = {
   async index (req, res) {
     try {
-      const transaction = await Transaction.findAll({
-        limit: 10
-      })
+      const transaction = await Transaction.findAll()
       console.log('this', transaction)
       res.send(transaction)
     } catch (err) {
